@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="summernote-master/dist/summernote.css">
+    <script src="summernote-master/dist/summernote.js"></script>
+</head>
+<body>
+
+<div id="summernote"><p>hello summernote</p></div>
+
+
+<button id="submit">获取值</button>
+<script>
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            height:500,
+            focus:true
+        })
+    });
+    $("#submit").click(function () {
+        alert($('#summernote').summernote('code'));
+    })
+</script>
+</body>
+</html>

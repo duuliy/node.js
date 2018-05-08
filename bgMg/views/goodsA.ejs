@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap Admin</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--<link href='http://fonts.useso.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>-->
+
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+
+
+    <!--<script src="lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>-->
+
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+    <!--<script src="lib/jquery-1.11.1.min.js"></script>-->
+    <script src="lib/jquery-3.2.1.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="summernote-master/dist/summernote.css">
+    <script src="summernote-master/dist/summernote.js"></script>
+
+
+    <!--<script type="text/javascript">-->
+        <!--$(function () {-->
+            <!--$(".knob").knob();-->
+        <!--});-->
+    <!--</script>-->
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+</head>
+<body class=" theme-blue">
+
+<!-- Demo page code -->
+
+<!--<script type="text/javascript">-->
+    <!--$(function() {-->
+        <!--var match = document.cookie.match(new RegExp('color=([^;]+)'));-->
+        <!--if(match) var color = match[1];-->
+        <!--if(color) {-->
+            <!--$('body').removeClass(function (index, css) {-->
+                <!--return (css.match (/\btheme-\S+/g) || []).join(' ')-->
+            <!--})-->
+            <!--$('body').addClass('theme-' + color);-->
+        <!--}-->
+
+        <!--$('[data-popover="true"]').popover({html: true});-->
+
+    <!--});-->
+<!--</script>-->
+<style type="text/css">
+    #line-chart {
+        height:300px;
+        width:800px;
+        margin: 0px auto;
+        margin-top: 1em;
+    }
+    .navbar-default .navbar-brand, .navbar-default .navbar-brand:hover {
+        color: #fff;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function() {
+        var uls = $('.sidebar-nav > ul > *').clone();
+        uls.addClass('visible-xs');
+        $('#main-menu').append(uls.clone());
+    });
+</script>
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+
+<!-- Le fav and touch icons -->
+<link rel="shortcut icon" href="../assets/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+
+
+<%include head.ejs%>
+<%include allmenue.ejs%>
+
+<div class="content">
+    <div class="header">
+
+        <h1 class="page-title">添加商品</h1>
+        <ul class="breadcrumb">
+            <li><a href="#"></a>商城管理</li>
+            <li><a href="/goods">商品管理</a> </li>
+            <li class="active">添加商品</li>
+        </ul>
+
+    </div>
+    <div class="main-content">
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <br>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane active in" id="home">
+                    <!--<form id="tab" action="addGoods.do" method="post">-->
+                        <div class="form-group">
+                            <label>商品名称：</label>
+                            <input type="text" value="<%=list[0].name%>" class="form-control" name="goodName" id="goodName">
+                        </div>
+                        <div class="form-group">
+                            <label>商品描述</label>
+                            <input type="text" value="<%=list[0].info%>" class="form-control" name="goodInfo" id="goodInfo">
+                        </div>
+                        <div class="form-group">
+                            <label>商品价格</label>
+                            <input type="text" value="<%=list[0].price%>" class="form-control" name="goodPrice" id="goodPrice">
+                        </div>
+
+                        <div class="form-group">
+                            <label>库存</label>
+                            <input type="text" value="<%=list[0].repertory%>" class="form-control" name="kucun" id="kucun">
+                        </div>
+
+                        <div class="form-group">
+                            <label>参数</label>
+                            <input type="text" value="<%=list[0].goods_par%>" class="form-control" name="canshu" id="canshu">
+                        </div>
+
+                        <div class="form-group">
+                            <label>类型</label>
+                            <span>&nbsp;&nbsp;&nbsp;</span>
+                            <select name="leixing" id="leixing">
+                                <%if(list[0].type!=""&&list[0].type=="配件"){%>
+                                    <option value="配件"  selected="selected">配件</option>
+                                    <option value="灯具">灯具</option>
+                                <%}else{%>
+                                    <option value="配件">配件</option>
+                                    <option value="灯具" selected>灯具</option>
+                                <%}%>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>场景</label>
+                            <span>&nbsp;&nbsp;&nbsp;</span>
+                            <select name="changjing" id="changjing">
+                                <%for(var k=0;k<changjing.length;k++){%>
+                                    <option value='<%=changjing[k].scene_id%>' class="cj"><%=changjing[k].name%></option>
+                                <%}%>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>品类</label>
+                            <span>&nbsp;&nbsp;&nbsp;</span>
+                            <select name="pinlei" id="pinlei">
+                                <%for(var j=0;j<pinlei.length;j++){%>
+                                <option value='<%=pinlei[j].assort_id%>' class="pl"><%=pinlei[j].assort_name%></option>
+                                <%}%>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <form id="retu" enctype="multipart/form-data">
+                                <label>热图</label>
+                                <input type="file" name="retuimg" id="retuimg">
+                            </form>
+                        </div>
+
+                        <div class="form-group">
+                            <form id="zhutu" enctype="multipart/form-data">
+                                <label>主图集</label>
+                                <input type="file" id="zhutuimg" name="zhutuimg" multiple="multiple">
+                            </form>
+                        </div>
+
+
+
+                        <div id="summernote" name="fuwenben"><p>输入内容...</p></div>
+
+
+                        <button class="btn btn-primary" type="button" onclick="savaGoods()">保存</button>
+
+                    <!--</form>-->
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<script type="text/javascript">
+
+    window.onload=function () {
+        $("#goodName").focus();
+    }
+
+    $("[rel=tooltip]").tooltip();
+    $(function() {
+        $('.demo-cancel-click').click(function(){return false;});
+    });
+
+
+
+
+    //富文本默认值
+    var nodes='<%-list[0].goods_text%>';
+
+    if(nodes!=""){
+        console.log(nodes);
+        $('#summernote').summernote({
+            height: 500,
+            width: 900,
+            focus: true,
+            callbacks: {
+                onImageUpload: function(files) { //the onImageUpload API
+                    sendFiles(files[0]);
+                }
+            }
+        })
+        $('#summernote').summernote('code', nodes);
+    }
+
+
+    //场景判断默认值
+    for(var i=0;i<$(".cj").length;i++){
+        if('<%=list[0].scene%>'==$(".cj").eq(i).attr("value")){
+            $(".cj").eq(i).attr("selected","selected");
+        }
+    }
+
+    //品类默认值
+    for(var i=0;i<$(".pl").length;i++){
+        if('<%=list[0].goods_sort%>'==$(".pl").eq(i).attr("value")){
+            $(".pl").eq(i).attr("selected","selected")
+        }
+    }
+
+
+    //富文本
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            height:500,
+            width:900,
+            focus:true,
+            callbacks: {
+                onImageUpload: function(files) { //the onImageUpload API
+                    sendFiles(files[0]);
+                }
+            }
+
+        })
+    });
+
+    //富文本图片
+    function sendFiles(file) {
+        var formData = new FormData();
+        formData.append("enctype","multipart/form-data");
+        formData.append("file", file);
+        $.ajax({
+            url:"/img.do",
+            data:formData,
+            type:"POST",
+            cache:false,
+            processData:false,
+            contentType:false,
+            success:function (data) {
+                console.log(data);
+               var news=data.split("public\\");
+               var src=news[1].replace("\\","/")
+                $("#summernote").summernote('insertImage', news[1], file.name)
+
+            }
+        })
+    }
+    //保存
+    function savaGoods() {
+        var goodName=$("#goodName").val();
+        var goodInfo=$("#goodInfo").val();
+        var goodPrice=$("#goodPrice").val();
+        var leixing=$("#leixing").val();
+        var changjing=$("#changjing").val();
+        var pinlei=$("#pinlei").val();
+        var kucun=$("#kucun").val();
+        var canshu=$("#canshu").val();
+        var fuwenben=$('#summernote').summernote('code')
+
+        var url=location.href.split("?")[1];
+        if(url==undefined){
+            $.ajax({
+                url:"/addGoods.do",
+                type:"post",
+                data:{
+                    goodName:goodName,goodInfo:goodInfo,goodPrice:goodPrice,leixing:leixing,changjing:changjing,pinlei:pinlei,kucun:kucun,canshu:canshu,fuwenben:fuwenben
+                },
+                success:function (data) {
+                    console.log(data.insertId);
+                    var formdata1=new FormData($("#retu")[0]);
+                    formdata1.append("goodsId",data.insertId)
+                    var formdata2=new FormData($("#zhutu")[0]);
+                    formdata2.append("goodsId",data.insertId)
+                    $.ajax({
+                        url:"/uploadretu",
+                        type:'post',
+                        data: formdata1,
+                        cache:false,
+                        contentType: false,
+                        processData: false,
+                        success:function(data){
+                            console.log("热图上传成功")
+                            $.ajax({
+                                url:"/uploadzhutu",
+                                type:"post",
+                                data:formdata2,
+                                cache:false,
+                                contentType: false,
+                                processData: false,
+                                success:function (data) {
+                                    console.log("主图上传成功")
+                                    location.href="/goods.do"
+                                }
+                            })
+                        },
+                        error:function(){
+                            console.log("与服务器通信发生错误")
+                        }
+                    })
+                }
+            })
+        }else{
+            goodsId=url.split("=")[1];
+            $.ajax({
+                url:"/addGoods.do",
+                type:"post",
+                data:{
+                    goodsId:goodsId,goodName:goodName,goodInfo:goodInfo,goodPrice:goodPrice,leixing:leixing,changjing:changjing,pinlei:pinlei,kucun:kucun,canshu:canshu,fuwenben:fuwenben
+                },
+                success:function (data) {
+
+                    if($("#retuimg").val()!=""){
+                        var formdata1=new FormData($("#retu")[0]);
+                        formdata1.append("goodsId",goodsId)
+                        $.ajax({
+                            url: "/uploadretu",
+                            type: 'post',
+                            data: formdata1,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                console.log("热图上传成功")
+                            }
+                        })
+                    }
+                    if($("#zhutuimg").val()!=""){
+                        var formdata2=new FormData($("#zhutu")[0]);
+                        formdata2.append("goodsId",goodsId)
+                        $.ajax({
+                            url:"/uploadzhutu",
+                            type:"post",
+                            data:formdata2,
+                            cache:false,
+                            contentType: false,
+                            processData: false,
+                            success:function (data) {
+                                console.log("主图上传成功")
+                                location.href="/goods.do"
+                            }
+                        })
+                    }
+                    location.href="/goods.do"
+                }
+            })
+        }
+
+
+    }
+
+
+</script>
+</body>
+
+</html>

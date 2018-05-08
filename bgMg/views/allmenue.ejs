@@ -1,0 +1,36 @@
+<div class="sidebar-nav">
+    <ul>
+        <li><a href="#" data-target=".dashboard-menu" class="nav-header" data-toggle="collapse"><i
+                        class="fa fa-fw fa-dashboard"></i> 人员管理<i class="fa fa-collapse"></i></a></li>
+        <li>
+            <ul class="dashboard-menu nav nav-list collapse">
+                <%if(locals.role==1){%>
+                <li><a href="/users"><span class="fa fa-caret-right"></span> 用户列表</a></li>
+                <li><a href="/allrole"><span class="fa fa-caret-right"></span> 角色管理</a></li>
+                <%}%>
+
+            </ul>
+        </li>
+        <!--<li><a href="users.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> 文章管理</a></li>-->
+
+        <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 字典管理 <i class="fa fa-collapse"></i></a></li>
+        <li>
+            <ul class="accounts-menu nav nav-list collapse">
+                <!--<li><a href="users.html"><span class="fa fa-caret-right"></span> 地址库</a></li>-->
+                <li><a href="/color"><span class="fa fa-caret-right"></span> 产品颜色</a></li>
+                <li ><a href="/actions.do"><span class="fa fa-caret-right"></span> 产品功能</a></li>
+                <li ><a href="/standards.do"><span class="fa fa-caret-right"></span> 产品规格</a></li>
+                <li ><a href="/lampSceneLoad"><span class="fa fa-caret-right"></span> 产品场景</a></li>
+                <li ><a href="/assortment"><span class="fa fa-caret-right"></span> 品类管理</a></li>
+            </ul>
+        </li>
+        <li><a href="#" data-target=".legal-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-legal"></i> 商城管理<i class="fa fa-collapse"></i></a></li>
+        <li><ul class="legal-menu nav nav-list collapse">
+                <li><a href="/UserManage.do"><span class="fa fa-caret-right"></span> 会员管理</a></li>
+                <li><a href="/goods.do"><span class="fa fa-caret-right"></span> 商品管理</a></li>
+                <li ><a href="/order"><span class="fa fa-caret-right"></span> 订单管理</a></li>
+                <li ><a href="/customMade"><span class="fa fa-caret-right"></span> 定制管理</a></li>
+                <li ><a href="/ServiceLoad"><span class="fa fa-caret-right"></span> 售后管理</a></li>
+            </ul></li>
+    </ul>
+</div>

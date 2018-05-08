@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title> 上传多张图片</title>
+    <style type="text/css">
+        .img-div{
+            border: 1px solid #ddd;
+            border-radius: 100%;
+            float: left;
+            line-height: 1;
+            margin-left: 5px;
+            overflow: hidden;
+        }
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+</head>
+<body>
+
+
+<form id="form"  enctype="multipart/form-data">
+    <input type="file" id="xdaTanFileImg"  multiple="multiple"  name="fileAttach" onchange="xmTanUploadImg(this)"/>
+    <label>商品名称</label><input type="text" id="shopname">
+    <button type="button" onclick="createShop()">创建商品文件夹</button>
+    <div class="img-box" id="imgboxid">
+    </div>
+    <div id="xmTanDiv"></div><br/>
+    <div id="errordiv"   style="margin-top:15px;width:100%;text-align:center;">
+        <input id="bt" type="button" onclick="test()" value="提交" />
+    </div>
+</form>
+
+<script type="text/javascript">
+    //选择图片，马上预览
+    function xmTanUploadImg(obj) {
+        var fl=obj.files.length;
+        for(var i=0;i<fl;i++){
+            var file=obj.files[i];
+            var reader = new FileReader();
+
+            //读取文件过程方法
+
+            reader.onloadstart = function (e) {
+                console.log("开始读取....");
+            };
+            reader.onprogress = function (e) {
+                console.log("正在读取中....");
+            };
+            reader.onabort = function (e) {
+                console.log("中断读取....");
+            };
+            reader.onerror = function (e) {
+                console.log("读取异常....");
+            };
+            reader.onload = function (e) {
+                console.log("成功读取....");
+
+                var imgstr='<img style="width:100px;height:100px;" src="'+e.target.result+'"/>';
+                var oimgbox=document.getElementById("imgboxid");
+                var ndiv=document.createElement("div");
+
+                ndiv.innerHTML=imgstr;
+                ndiv.className="img-div";
+                oimgbox.appendChild(ndiv);
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+    }
+    function createShop(){
+        var  shopname=document.getElementById("shopname").value;
+        console.log("end");
+        $.ajax({
+            url:"/createfile",
+            type:"post",
+            data:{shopname:shopname}
+        })
+    }
+    function test(){
+        imgs=$("#xdaTanFileImg")[0];
+        var formdata=new FormData($("#form")[0])
+        $.ajax({url:"/upload",
+            type:'post',
+            data:formdata,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+                console.log("上传成功")
+            },
+            error:function(){
+                console.log("与服务器通信发生错误")
+            }
+
+        })
+    }
+
+</script>
+</body>

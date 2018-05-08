@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap Admin</title>
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" type="text/css" href="/lib/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.css">
+  <script src="/lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+  <script src="/lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(function () {
+      $(".knob").knob();
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/theme.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/premium.css">
+</head>
+<body class=" theme-blue">
+<!-- Demo page code -->
+<script type="text/javascript">
+  $(function () {
+    var match = document.cookie.match(new RegExp('color=([^;]+)'));
+    if (match) var color = match[1];
+    if (color) {
+      $('body').removeClass(function (index, css) {
+        return (css.match(/\btheme-\S+/g) || []).join(' ')
+      })
+      $('body').addClass('theme-' + color);
+    }
+    $('[data-popover="true"]').popover({html: true});
+  });
+</script>
+<style type="text/css">
+  #line-chart {
+    height: 300px;
+    width: 800px;
+    margin: 0px auto;
+    margin-top: 1em;
+  }
+  .change{
+    cursor: pointer;
+  }
+  .navbar-default .navbar-brand, .navbar-default .navbar-brand:hover {
+    color: #fff;
+  }
+</style>
+<script type="text/javascript">
+  $(function () {
+    var uls = $('.sidebar-nav > ul > *').clone();
+    uls.addClass('visible-xs');
+    $('#main-menu').append(uls.clone());
+  });
+</script>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!-- Le fav and touch icons -->
+<link rel="shortcut icon" href="../assets/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+<!--[if lt IE 7 ]>
+<body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]>
+<body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]>
+<body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]>
+<body class="ie ie9 "> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<!--<![endif]-->
+<%include head.ejs%>
+<%include allmenue.ejs%>
+<div class="content">
+  <div class="header">
+    <h1 class="page-title">订单管理</h1>
+    <ul class="breadcrumb">
+      <li><a href="#">商城管理</a> </li>
+      <li class="active">订单管理</li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <div class="btn-toolbar list-toolbar">
+      <div class="btn-group">
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>订单ID</th>
+        <th>用户ID</th>
+        <th>用户手机号</th>
+        <th>地址</th>
+        <th>支付方式</th>
+        <th>配送时间</th>
+        <th>支付状态</th>
+        <th>发货状态</th>
+        <th>订单状态</th>
+        <th>金额</th>
+        <th style="width: 3.5em;"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <%for(var i= 0;i<list.length;i++){%>
+      <tr>
+        <td><%=list[i].order_id%></td>
+        <td><%=list[i].user_id%></td>
+        <td><%=list[i].phone%></td>
+        <td><%=list[i].state+list[i].city+list[i].district+list[i].address%></td>
+        <%if(list[i].pay_type==0){list[i].pay_type="支付宝"}else if(list[i].pay_type==1){list[i].pay_type="微信"}else{list[i].pay_type="银联"}%>
+        <td><%=list[i].pay_type%></td>
+        <%if(list[i].delivery_time==0){list[i].delivery_time="不限时间"}else if(list[i].delivery_time==1){list[i].delivery_time="工作日"}else{list[i].delivery_time="节假日"}%>
+        <td><%=list[i].delivery_time%></td>
+        <%if(list[i].is_pay==0){list[i].is_pay="未支付"}else{list[i].is_pay="已支付"}%>
+        <td><%=list[i].is_pay%></td>
+        <%if(list[i].is_send==0){list[i].is_send="未发货"}else{list[i].is_send="已发货"}%>
+        <%if(list[i].is_order==0){%>
+          <td><span><%=list[i].is_send%></span>
+            <a class="change"><i class="fa fa-pencil"></i></a>
+          </td>
+        <%}else{%>
+        <td><span><%=list[i].is_send%></span></td>
+        <%}%>
+        <%if(list[i].is_order==0){list[i].is_order="未完成"}else{list[i].is_order="已完成"}%>
+        <td><%=list[i].is_order%></td>
+        <td><%=list[i].money%></td>
+      </tr>
+      <%}%>
+      </tbody>
+    </table>
+    <ul class="pagination">
+      <%if(pathUrl>1){%>
+      <li><a href="<%=pathUrl-1%>">&laquo;</a></li>
+      <%}else{%>
+      <li><a href="<%=pathUrl%>">&laquo;</a></li>
+      <%}%>
+      <%for(var j= 1;j<totalPage+1;j++){%>
+      <li><a href="<%=j%>"><%=j%></a></li>
+      <%}%>
+      <%if(pathUrl<totalPage){%>
+      <li><a href="<%=pathUrl+1%>">&raquo;</a></li>
+      <%}else{%>
+      <li><a href="<%=pathUrl%>">&raquo;</a></li>
+      <%}%>
+    </ul>
+  </div>
+</div>
+<script src="/lib/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+  $("[rel=tooltip]").tooltip();
+  $(function () {
+    $('.demo-cancel-click').click(function () {
+      return false;
+    });
+  });
+  $(".change").click(function () {
+    var order_id=$(this).parent().parent().children().eq(0).text();
+    var is_send=$(this).parent().eq(0).text().trim();
+    var send=$(this).prev();
+    if(is_send=="未发货"){
+      is_send=0
+    }else{
+      is_send=1
+    }
+    $.ajax({
+      type:"get",
+      url:"/changeOrder.do",
+      data:{
+        order_id:order_id,
+        is_send:is_send
+      },
+      success: function (data) {
+        if(is_send==1){
+          send.html("未发货");
+        }else{
+          send.html("已发货")
+        }
+      }
+    });
+  })
+</script>
+</body>
+</html>
