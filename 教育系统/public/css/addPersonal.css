@@ -1,0 +1,33 @@
+*{
+    color: #fff;
+    background: none;
+}
+body{
+    background: transparent!important;
+}
+input{
+    color: black;
+    background: transparent!important;
+    border: 1px solid white;
+    width: 110px;
+    height: 26px;
+    margin-left: 2em!important;
+}
+.form-group{
+    margin-left: 2em;
+    text-align: left!important;
+    margin-top: 3em;
+}
+select option{
+    background-color: transparent!important;
+    color: black;
+}
+.conserve{
+    margin-top: 3em;
+}
+.conserve #baocun,.conserve #new{
+    width: 110px;
+    height: 38px;
+    border: 1px solid white;
+    margin-right: 2em;
+}

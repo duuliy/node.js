@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/addPersonal.css" rel="stylesheet">
+    <link type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <span>人员基本信息</span>
+    </div>
+    <form class="form-inline">
+        <div class="form-group">
+            <label>id:　　　</label><input type="text" id="id"><br>
+        </div>
+        <div class="form-group">
+            <label>员工姓名:</label><input type="text" id="staName"><br>
+        </div>
+        <div class="form-group">
+            <label>部门:　　　　</label>
+            <select id="bm">
+            </select>　　　
+        </div>
+        <div class="form-group">
+            <label>账号id:</label><input type="text" id="zhang_h"><br>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>联系电话:</label><input type="text" id="phone"><br>
+        </div>
+        <div class="form-group">
+            <label>qq:　　　</label><input type="text" id="QQ"><br>
+
+        </div>
+        <div class="form-group">
+
+            <label>企业邮箱:</label><input type="text" id="email"><br>
+        </div>
+        <div class="form-group">
+            <label>岗位角色:　</label>
+            <select id="jiaose">
+            </select><br>
+        </div>
+    </form>
+</div>
+<div class="container text-center conserve">
+    <button type="button" id="baocun">修改</button>
+    <button type="button" id="new">添加</button>
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script type="text/javascript">
+
+    /*获取传过来的值*/
+    var id = $.query.get("id");
+    var bm = $.query.get("bm");
+    var people_xm = $.query.get("xm");
+    var zhang_h = $.query.get("zh");
+    var phone = $.query.get("phone");
+    var qq = $.query.get("qq");
+    var email = $.query.get("email");
+    var jiaose = $.query.get("jiaose");
+    console.log(jiaose);
+    /*岗位角色显示*/
+
+    /*自动录入值*/
+    $("#id").val(id);
+    $("#bm").find("option:contains(bm)").attr("selected", true);//部门
+    $("#staName").val(people_xm);
+    $("#zhang_h").val(zhang_h);
+    $("#phone").val(phone);
+    $("#QQ").val(qq);
+    $("#email").val(email);
+    $("#jiaose").find("option:contains(jiaose)").attr("selected", true);//岗位角色
+
+
+    /*点击修改*/
+
+    $("#baocun").click(function () {
+        var ids = $("#id").val();
+        var bms = $("#bm").val();
+        var xms = $("#staName").val();
+        var zhs = $("#zhang_h").val();
+        var phones = $("#phone").val();
+        var qqs = $("#QQ").val();
+        var emails = $("#email").val();
+        var jiaoses = $("#jiaose").val();
+
+        var requset=new XMLHttpRequest();
+        requset.open("get","xgpeople.do?peopleNo="+ids+"&&depName="+bms+"&&peopleName="+xms+"&&peopleAcount="+zhs
+            +"&&peoplePhone="+phones+"&&peopleQQ="+qqs+"&&peopleEmail="+emails+"&&roleName="+jiaoses,
+            true);
+        requset.send(null);
+        window.location.href = "perManager.html";
+    });
+
+////    });
+    /*单击添加*/
+    $("#new").click(function () {
+        var ids = $("#id").val();
+        var bms = $("#bm").val();
+        var xms = $("#staName").val();
+        var zhs = $("#zhang_h").val();
+        var phones = $("#phone").val();
+        var qqs = $("#QQ").val();
+        var emails = $("#email").val();
+        var jiaoses = $("#jiaose").val();
+
+        var requset=new XMLHttpRequest();
+        requset.open("get","addpeople.do?peopleNo="+ids+"&&depName="+bms+"&&peopleName="+xms+"&&peopleAcount="+zhs
+            +"&&peoplePhone="+phones+"&&peopleQQ="+qqs+"&&peopleEmail="+emails+"&&roleName="+jiaoses,
+            true);
+        requset.send(null);
+        window.location.href = "perManager.html";
+    })
+</script>
+</body>
+</html>

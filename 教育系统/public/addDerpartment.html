@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="css/addDerpartment.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <span>部门基本信息</span>
+    </div>
+    <form class="form-inline">
+        <div class="form-group">
+            <label>No:　　　</label><input type="text" id="id"><br>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>部门名称:</label><input type="text" id="staName"><br>
+        </div>
+        <br>
+        <div class="form-group">
+            <button type="button" id="tianjia">添加主管</button>
+            <div class="add_zhuguan">
+                <br><span>主管一</span><select id="zhuguan"></select><br>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>备注:　　</label><input type="text" id="beizhu"><br>
+        </div>
+    </form>
+</div>
+<div class="container text-left conserve">
+    <button type="button" id="baocun">保存</button>
+    <button type="button" id="Conserve">新增</button>
+    <button type="button" id="Cancel">取消</button>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script type="text/javascript">
+    var depArr = window.top.depArr;
+    var peopleArr = window.top.peopleArr;
+    /*获取传过来的值*/
+    var id = $.query.get("id");
+    var bm = $.query.get("bm");
+    var zhuguan = $.query.get("zhuguan");
+    var beizhu = $.query.get("bz");
+
+    /*自动录入值*/
+    $("#id").val(id);
+    $("#staName").val(bm);
+    $("#zhuguan").val(zhuguan);
+    $("#beizhu").val(beizhu);
+
+    //初始化主管名
+    $(function () {
+        zhuguanName();
+    });
+    //获取主管一的数据
+    function zhuguanName(){
+        var str = "";
+        for(var i in peopleArr){
+            str+= '<option>'+peopleArr[i].peopleName+","+'</option>';
+        }
+        $("#zhuguan").html(str);
+    }
+    //通过添加主管按钮添加主管二的数据
+    $("#tianjia").click(function () {
+        var str="";
+        var index=$(".add_zhuguan").find("select").size();
+        if(index<2){
+            str='<div><br>' + '<span>主管二</span><select class="selec2">' +
+                '</select>&nbsp;<button type="button" class="shanchu">删除</button><br/>' + '</div>';
+            $(".add_zhuguan").append(str);
+        }
+        for(var i in peopleArr) {
+            str += '<option>' + peopleArr[i].peopleName + '</option>';
+        }
+        $(".selec2").html(str);
+    });
+
+    //删除主管
+    $(document).on('click','.shanchu', function () {
+        $(this).parent().remove();
+    });
+
+     //单击修改
+    $("#baocun").click(function () {
+        var ids = $("#id").val();
+        var zhuguans = $("#zhuguan").val()+$(".selec2").val();
+        var bms = $("#staName").val();
+        var beizhus = $("#beizhu").val();
+        var requset=new XMLHttpRequest();
+        requset.open("get","xgdep.do?depNo="+ids+"&&depName="+bms+"&&roleDes="+zhuguans+"&&depBz="+beizhus,
+            true);
+        requset.send(null);
+
+
+        window.location.href = "DerpManager.html"
+    });
+    /*单击保存*/
+    $("#Conserve").click(function () {
+        var ids = $("#id").val();
+        var zhuguans = $("#zhuguan").val()+$(".selec2").val();
+        var bms = $("#staName").val();
+        var beizhus = $("#beizhu").val();
+        var requset=new XMLHttpRequest();
+        requset.open("get","adddep.do?depNo="+ids+"&&depName="+bms+"&&roleDes="+zhuguans+"&&depBz="+beizhus,
+            true);
+        requset.send(null);
+        window.location.href = "DerpManager.html";
+
+    })
+    /*单击取消*/
+    $("#Cancel").click(function () {
+        window.location.href = "DerpManager.html";
+    })
+</script>
+</body>
+</html>

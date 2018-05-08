@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/course.css">
+</head>
+<body>
+<section class="couMan container">
+    <div class=" row">
+        <div></div>
+        <div id="table">
+            <button type="button" class="addCourseBtn">新增课程</button>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="allChoise"/></th>
+                    <th>ID号</th>
+                    <th>名称</th>
+                    <th>阶段</th>
+                    <th>总天数</th>
+                    <th>日期</th>
+                    <th>类型</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button type="button" class="delBtn">删除</button>
+            <div style="clear: both"></div>
+        </div>
+        <div class="Flip text-center">
+            <button id="Prevbtn" onclick="prevPage()">上一页</button>
+            <div id="numberBlock"></div>
+            <button id="Nextbtn" onclick="nextPage()">下一页</button>
+            <div>总共<span id="totalpage"></span>页</div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript">
+
+
+    var currentPage = 1;
+    var pageTotal = 0;
+    /*默认显示的数据*/
+    window.onload=function(){
+        getAllStudent(); //xhr
+        getPageTotal(); //xhr ->
+    };
+
+    function getAllStudent() {
+        myAjax("get","/seachcourse.do","currentPage="+currentPage,Data,false)
+    }
+
+    function Data(){
+        var data = JSON.parse(xhr.responseText);
+        $("tbody").html("");
+        for (var i = 0; i < data.length; i++) {
+            // console.log(data.length)
+            var str='<tr>'+
+                '<td><input type="checkbox" class="items"/></td>'+
+                '<td class="ct">'+data[i].courseNo+'</td>'+
+                '<td class="ct">'+data[i].courseName+'</td>'+
+                '<td class="ct">'+data[i].stageName+'</td>'+
+                '<td class="ct">'+data[i].courseDay+'</td>'+
+                '<td class="ct">'+data[i].courseDate+'</td>'+
+                '<td class="ct">'+data[i].courseBei+'</td>'+
+                '<td class="moDi"><a href="courseNewly.html?id='+data[i].courseNo+'" class="ope">修改</a><a class="Del" href="#">删除</a></td>'+
+                '</tr>'
+            $("tbody").append(str);
+//            $(".gangwei").append(strs)
+        }
+    }
+
+    function nextPage(){
+        var totalpage = document.getElementById("totalpage");
+        currentPage++ //让当前页页面+1  //5
+        if(currentPage>pageTotal){
+            alert("这是最后一页");
+            currentPage=pageTotal;
+        }else{
+            getAllStudent();
+            // $("#tfoot").html("");
+            totalpage.innerHTML = currentPage+"/"+pageTotal;
+        }
+    }
+
+    function prevPage(){
+        var totalpage = document.getElementById("totalpage");
+        currentPage--;
+        if(currentPage<=0){
+            currentPage=1;
+        }else{
+            getAllStudent();
+            // $("#tfoot").html("");
+            totalpage.innerHTML = currentPage+"/"+pageTotal;
+        }
+    }
+
+    /*1.总页数
+     * -- 每页显示多少条
+     * -- 总共有多少条数据*/
+    /*2.每页显示对应的数据
+     * -- 当前在第几页*/
+    function getPageTotal(){
+        var totalpage = document.getElementById("totalpage");
+        var numberBlock = document.getElementById("numberBlock");
+        myAjax("get","/getPageTotal2.do","",function(){
+            // console.log(xhr.responseText);
+            var data = JSON.parse(xhr.responseText);
+            pageTotal = data;
+            totalpage.innerHTML = currentPage+"/"+data;
+//            console.log(data[0].totalcount)
+            //生成页码
+            for(var i=1;i<=data;i++){
+                numberBlock.innerHTML += "<a class='btnn' href='javascript:'>"+i+"</a>"
+            }
+        },false)
+    }
+
+    $(document).on("click",".btnn",function(){
+        var gg= $(this).html();
+        var currentPage=gg;
+        myAjax("get","/seachcourse.do","currentPage="+currentPage,Data,false)
+    });
+
+    //点击修改
+    var operate=$(".ope");
+    operate.each(function () {
+        //单击修改获取修改数据的值
+        $(document).on("click",".ope",function () {
+            var id=$(this).parent().parent().children(":eq(1)").text();
+            var name=$(this).parent().parent().children(":eq(2)").text();
+            var num=$(this).parent().parent().children(":eq(3)").text();
+            var day=$(this).parent().parent().children(":eq(4)").text();
+            var date=$(this).parent().parent().children(":eq(5)").text();
+            var bei=$(this).parent().parent().children(":eq(6)").text();
+            console.log(id);
+            console.log(name);
+            console.log(num);
+            console.log(day);
+            console.log(date);
+            console.log(bei);
+            window.location.href="courseNewly.html?id="+id+"&name="+name+"&num="+num+"&day="+day+
+                    "&date="+date+"&bei="+bei;
+        })
+    });
+
+
+    //点击新增跳转
+    $(".addCourseBtn").click(function () {
+        window.location.href="courseNewly.html"
+    });
+    //点击删除
+    $(document).on("click",".Del",function (){
+        if (confirm("确认删除吗？")){
+            $(this).parent().parent().remove();
+            var id=$(this).parent().parent().children(":eq(1)").text();
+            var request = new XMLHttpRequest();
+            request.open("get", "deletecourse.do?id=" + id, true);
+            request.send(null);
+        }
+    });
+    //全选
+    $("#allChoise").click(function () {
+        if ($(this).prop("checked")){
+            $(".items").prop("checked",true);
+            $(".items").attr("checked",true);
+        }else {
+            $(".items").prop("checked",false);
+            $(".items").attr(("checked"),false)
+        }
+    });
+    $(".items").click(function () {
+        if ($(this).prop("checked")){
+            $(this).prop("checked",true);
+            $(this).attr("checked",true);
+            if ($(".items[checked]").length==$(".items").length){
+                $("#allChoise").prop("checked",true);
+            }
+        }else {
+            $(this).prop("checked",false);
+            $(this).attr("checked",false);
+            $("#allChoise").prop("checked",false)
+        }
+    });
+    //删除选中
+        $(".delBtn").click(function () {
+            if(($(".items[checked]").length==0)){
+                alert("请选择需要删除的项");
+                return false;
+            }
+            if (confirm("确认要删除吗？")){
+                $(".items").each(function () {
+                    if (($(this).attr("checked"))){
+                        $(this).parent().parent().remove();
+                        var id=$(this).parent().siblings(":eq(0)").text();  //获取ID值
+                        for(var i=0;i<courseArr.length;i++){
+                            if(id==courseArr[i].courseNo){
+                                courseArr.splice(i,1);
+                            }
+                        }
+                    }
+                })
+            }
+        });
+
+
+
+
+</script>
+</body>
+</html>

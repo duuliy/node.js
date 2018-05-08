@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: transparent;
+}
+.stuMen{
+    color: white;
+    padding-top: 3vw;
+}
+.inpStu{
+    overflow: hidden;
+    float: left;
+    font-size: 1vw;
+    padding: 2vw;
+    margin-bottom: 3vw;
+}
+.inpStu input{
+    border: 1px solid white;
+    background: none;
+    outline: none;
+    width: 83px;
+    height: 25px;
+    padding: 5px;
+}
+.inpStu>div{
+    float: left;
+    margin-right: 2vw;
+}
+.inpStu>#search{
+    float: right;
+    margin-right: 0;
+}
+.inpStu>div#search button{
+    border: 1px solid white;
+    background: none;
+    padding: 2px 30px;
+    width: 114.8px;
+    height:29px;
+}
+
+#addStudetnbtn{
+    border: 1px solid white;
+    float: right;
+    padding: .5vw 3.5vw;
+    margin-top: 1.5vw;
+    cursor: pointer;
+}
+#stuTab{
+    margin-top: 5em;
+}
+#DelAll {
+    width: 8vw;
+    display: inline-block;
+    border: 1px solid white;
+    text-align: center;
+    padding: .5vw;
+    margin-bottom: 2vw;
+    cursor: pointer;
+
+}
+.Flip button{
+    border: 1px solid white;
+    background: none;
+    border-radius: 3px;
+    padding: 0 .5vw;
+}
+button{
+    outline: none;
+}
+/*设置表单内容中的样式*/
+.table{
+    font-size: 14px;!important;
+}
+table{
+    margin: 0 auto;
+}.table tr{
+     background: rgba(0,0,0,0.4)!important;
+ }
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td
+{
+    border-bottom: 2px solid #432c51;
+}
+table tr th{
+    border-top: 0!important;
+}
+table tr td{
+    border-top: 0!important;
+}
+table tr:last-child{
+    border-bottom: 0!important;
+}
+table tr{
+    height: 43px;
+}
+@media (min-width: 992px){
+    .container {
+        width: 1100px;
+    }
+}

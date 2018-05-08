@@ -1,0 +1,56 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background: transparent;
+    color: white;
+}
+.stuMeg{
+    border: 1px solid white;
+    padding: .5vw 1vw;
+    width:12vw;
+    margin: 3vw 0;
+    text-align: center;
+}
+select{
+    background: transparent;
+    width: 114.8px;
+    height:22px;
+    color: white;
+}
+select option{
+    color: black;
+}
+.myMain{
+    overflow: hidden;
+}
+.inpStuNam{
+    float: left;
+    margin-right: 2vw;
+    margin-bottom: 2vw;
+}
+.inpStuNam input{
+    border: 1px solid white;
+    background: none;
+    padding: 0 .5vw;
+    outline: none;
+    width: 10vw;
+}
+.inpStuNam>span{
+    float: left;
+}
+.inpStuNam textarea{
+    background: none;
+    border: 1px solid white;
+    width: 75vw;
+    height: 10vw;
+    outline: none;
+}
+#Conserve,#new{
+    border: 1px solid white;
+    background: none;
+    border-radius: 3px;
+    padding:.3vw 1.5vw;
+    outline: none;
+}

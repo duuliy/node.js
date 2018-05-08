@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!--enctype 如何对数据进行编码
+application/x-www-form-urlencoded 对所有的字符进行转码
+multipart/form-data 不对字符进行转码，涉及到文件上传，必须使用该值
+file input框必须设置name属性-->
+<form action="/uploadFile.do" method="post" enctype="multipart/form-data">
+    <!--后台获取文件，都是通过name属性去找文件-->
+    <input type="file" name="myfile" multiple>
+    <button>上传文件</button>
+</form>
+<table>
+1
+</table>
+<!--<a href="" download="">下载</a>-->
+</body>
+<script src="js/jquery.js"></script>
+<script>
+    $.ajax({
+        type:"POST",  //提交类型
+        url:"/downimg.do",
+        success:function(files){
+            console.log(files.length)
+            for(var i=0;i<files.length;i++){
+                var str='<tr>'+
+                    '<td class="ct"><a href="" download='+files[i]+'>下载'+files[i]+'</a></td>' +
+                    '</tr>';
+                $("table").append(str)
+            }
+        }
+    })
+</script>
+</html>

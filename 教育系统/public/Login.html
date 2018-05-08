@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+          content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates">
+
+    <link href="css/login.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+
+<h1>duuliy</h1>
+<div class="login-form">
+    <div class="close"></div>
+    <div class="head-info">
+        <label class="lbl-1"></label>
+        <label class="lbl-2"></label>
+        <label class="lbl-3"></label>
+    </div>
+    <div class="clear"></div>
+    <form action="/newlogin.do" method="post">
+        <input type="text" class="text" placeholder="Username"  name="username"
+               onfocus="if(this.placeholder=='Username'){this.placeholder = ''}"
+               onblur="if (this.placeholder == '') {this.placeholder ='Username';}">
+        <div class="key"><input type="password" placeholder="*****" name="password"
+                                onfocus="if(this.placeholder=='*****'){this.placeholder = ''}"
+                                onblur="if (this.placeholder == '') {this.placeholder = '*****'}" class="pwd"></div>
+        <div class="signin"><input type="submit" value="Login"></div>
+    </form>
+
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script type="text/javascript" src="js/database.js"></script>
+<script type="text/javascript">
+    $(".lbl-3").click(function () {
+        $("input[type='submit']").css("background-color", "#f1c85f")
+    });
+    $(".lbl-2").click(function () {
+        $("input[type='submit']").css("background-color", "#ea569a")
+    });
+    $(".lbl-1").click(function () {
+        $("input[type='submit']").css("background-color", "#6756ea")
+    });
+    $(".text").bind("input propertychange",function () {
+        var reg = /[a-zA-Z]$/;
+        var c_use = $(".text").val();
+        if(reg.test(c_use)){
+            $(".text").css("border-bottom","2px solid green");
+            return true;
+        }else{
+            $(".text").css("border-bottom","2px solid red")
+        }
+    });
+    $(".pwd").bind("input propertychange",function () {
+        var reg = /^[0-9a-zA-Z_#]{6,16}$/;
+        var c_pwd = $(".pwd").val();
+        if(reg.test(c_pwd)){
+            $(".pwd").css("border-bottom","2px solid green");
+            return true;
+        }else{
+            $(".pwd").css("border-bottom","2px solid red")
+        }
+    });
+
+
+
+
+//    $(".signin").click(function () {
+//        var username = $(".text").val();
+//        var pwds=$(".pwd").val();
+//        var count=0;//计数跳出循环
+//        for(var i=0;i<userArr.length;i++){
+//             $.each(userArr[i],function () {
+//                 if(username==''){
+//                     $(".text").css("border-bottom","2px solid red");
+//                 }
+//                 if(pwds==''){
+//                     $(".pwd").css("border-bottom","2px solid red");
+//                     return false;
+//                 }
+//                 if(username==userArr[i].username&&pwds==userArr[i].pwd){
+//                     /*获取时间*/
+//                     var data=new Date();
+//                     var year=data.getFullYear();
+//                     var month=data.getMonth();
+//                     var day=data.getDate();
+//                     var hours=data.getHours();
+//                     var minute=data.getMinutes();
+//                     var seconds=data.getSeconds();
+//                     window.location.href = "index.html?username=" + username+"&year="+year+
+//                     "&month="+month+"&day="+day+"&hours="+hours+"&minute="+minute+"&seconds="+seconds;
+//                 }else if(pwds!=userArr[i].pwd&&username==userArr[i].username){
+//                     $(".pwd").css("border-bottom","2px solid red");
+//                     return false;
+//                 }else{
+//                     count++;
+//                     return false;
+//                 }
+//             });
+//            if(count==userArr.length){
+//                 alert("没有此账号");
+//                return false;
+//            }
+//
+//        }
+//       /* if(username!=''||pwds==''){
+//            $(".text").css("border-bottom","2px solid red");
+//            $(".pwd").css("border-bottom","2px solid red");
+//            return false
+//        }else{
+//        window.location.href = "index.html?username=" + username
+//        }*/
+//    })
+</script>
+</body>
+</html>

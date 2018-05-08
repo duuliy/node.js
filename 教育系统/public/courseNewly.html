@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/course.css">
+</head>
+<body>
+<section class="container newlyCourse">
+    <div class="row">
+        <div id="course">
+            <form class="form-inline topCourse" id="myform" >
+                <div class="form-group">
+                    <label>课程名称：</label>
+                    <input type="text" class="form-control" name="courseName2" id="courseName">
+                </div>
+                <div class="form-group leftCourse">
+                    <label>课程类别：</label>
+                    <select id="courseLei" name="courseLei2">
+                        <option>质素课</option>
+                        <option>专业课</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="newStageBtn">新增阶段</button>
+            </form>
+
+
+        </div>
+        <div class="center-block" id="newlyDivBtn">
+            <button class="btn btn-default" id="baoCun" onclick="submitAjax()">保存</button>
+            <button class="btn btn-default" id="tJia" onclick="submitAjax()">添加</button>
+            <button class="btn btn-default" id="quXiao">取消</button>
+        </div>
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script type="text/javascript">
+//    var courseArr=window.top.courseArr;
+//    var jieDuanArr=window.top.jieDuanArr;
+//    var stageArr=window.top.stageArr;
+//获取传过来的值
+
+var id=$.query.get("id");
+var name=$.query.get("name");
+var num=$.query.get("num");
+var day=$.query.get("day");
+var date=$.query.get("date");
+var bei=$.query.get("bei");
+    //点击新增阶段
+    $(document).on("click","#newStageBtn",function () {
+        var stageAdd='<div class="form center-block newlyStage">'+
+            '<form class="form-inline">'+
+            '<div class="stageMen">'+
+            '<div class="form-group">'+
+            '<label for="exampleInputName2">阶段名称：</label>'+
+            '<input type="text" class="form-control" name="stageName2" id="stageName">'+
+            '</div>'+
+            '</form>'+
+            '<button type="button" class="newLy" id="subBtn">&#xe6fe;</button>'+
+            '<button type="button" id="newStageContBtn" class="newlyCont newLy">&#xe6b9;</button>'+
+            '</div>';
+        $(this).parent().parent().append(stageAdd);
+        num++;
+    });
+    //点击新增内容
+    $(document).on("click","#newStageContBtn",function () {
+        var stageCont='<div class="stageNewly">'+
+            '<form class="form-inline padding">'+
+            '<div class="form-group">'+
+            '<label>阶段内容：</label>'+
+            '<input type="text" class="form-control" name="stageCont2" id="stageCont">'+
+            '</div>'+
+            '<div class="form-group leftAllDay">'+
+            '<label>总天数：</label>'+
+            '<input type="text" class="form-control" name="allDay2" id="allDay">'+
+            '</div>'+
+            '<button type="button" class="newLy" id="subBtn">&#xe6fe;</button>'+
+            '</form>'+
+            '</div>';
+        $(this).parent().append(stageCont);
+    });
+
+    function submitAjax(){
+        $.ajax({
+            type:"POST",  //提交类型
+            url:"addcourse.do", //提交地址
+            data:$("#myform").serialize(),  //输出序列化表单值的结果
+            success:function(data){  //当 AJAX 请求成功完成时，触发提示框
+                console.log(data)
+            }
+        })
+        window.location.href = "course.html"
+    }
+//点击修改添加阶段
+
+    for (var i=0;i<jieDuanArr.length;i++){
+        //阶段循环
+        var jieDuanName=jieDuanArr[i].stageName;  //阶段名称
+                  //阶段天数
+
+        if (id!=jieDuanArr[i].courseNo) {
+            continue;
+        }else{
+           // if (id==jieDuanArr[i].courseNo){
+                var jieDuanAdd='<div class="form center-block newlyStage">'+
+                        '<form class="form-inline">'+
+                            '<div class="stageMen">'+
+                                '<div class="form-group">'+
+                                    '<label for="exampleInputName2">阶段名称：</label>'+
+                                    '<input type="text" class="form-control stageName" value="'+jieDuanName+'">'+
+                                '</div>'+
+                    '<button type="button" class="newLy" id="subBtnS">&#xe6fe;</button>'+
+                    '<button type="button" id="newStageContBtn" class="newlyCont newLy">&#xe6b9;</button>'+
+                            '</div>'+
+                        '</form>'+
+                    '</div>';
+                $("#course").append(jieDuanAdd);
+            }
+
+        //点击修改添加阶段内容
+
+        for(var v=0;v<stageArr.length;v++){
+                //阶段内容
+            var stageName=stageArr[v].name;
+            var stageDay=stageArr[v].day;
+            if (id==stageArr[v].courseNo&&stageArr[v].courseNo==jieDuanArr[i].courseNo&&jieDuanArr[i].stageName==stageArr[v].stageName){
+                var stageCont='<div class="stageNewly ">'+
+                    '<form class="form-inline ">'+
+                    '<div class="form-group ">'+
+                    '<label>阶段内容：</label>'+
+                    '<input type="text" value="'+stageName+ '" class="form-control stageCont">'+
+                    '</div>'+
+                    '<div class="form-group leftAllDay">'+
+                    '<label>总天数：</label>'+
+                    '<input type="text" value="'+stageDay+ '" class="form-control allDay">'+
+                    '</div>'+
+                    '<button type="button" class="newLy" id="subBtn">&#xe6fe;</button>'+
+                    '</form>'+
+                    '</div>';
+                $(".newlyStage").last().append(stageCont);
+            }
+        }
+
+    }
+    /*删除阶段*/
+    $(document).on("click","#subBtnS",function () {
+        $(this).parent().parent().parent().remove();
+        num--;
+    });
+    /*删除阶段内容*/
+    $(document).on("click","#subBtn",function () {
+        $(this).parent().parent().remove();
+    });
+//自动录入值
+//$("#courseName").val(name);   //课程名称
+//$("#courseLei").val(bei);      //课程类别
+//
+//$("#stageDay").val(day);      //阶段天数
+//for (var s=0;s<stageArr.length;s++){
+//    $("#stageCont").val(stageArr[s].name);    //内容名称
+//    $("#allDay").val(stageArr[s].day);       //内容总天数
+//}
+//单机保存修改页面
+//    $("#baoCun").click(function () {
+//        var xg_no=id;
+//        var name=$("#courseName").val();
+//        var nums=num;
+//        var days=day;
+//        var dates = new Date(+new Date()+8*3600*1000).toISOString().split(/T/g,1);
+//        var bei=$("#courseLei").val();
+//        for(var i=0;i<courseArr.length;i++){
+//            $.each(courseArr[i],function (e) {
+//                if(xg_no==courseArr[i][e]){
+//                courseArr[i].courseNo=xg_no;
+//                courseArr[i].courseName=name;
+//                courseArr[i].courseNum=nums;
+//                courseArr[i].courseDay=days;
+//                courseArr[i].courseDate=dates;
+//                courseArr[i].courseBei=bei;
+//                }
+//            });
+//            window.location.href="course.html";
+//        }
+//    })
+
+
+    window.onload=getcourse;
+    function getcourse(){
+        var xhr;
+        if(window.XMLHttpRequest){
+            xhr = new XMLHttpRequest()
+        }else{
+            xhr = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+//          2.注册回调函数
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4&&xhr.status==200){
+                var data =JSON.parse(xhr.responseText);
+                if(data.length>0){
+                    document.getElementById("courseName").value=data[0].courseName;
+                    document.getElementById("courseLei")[0].value=data[0].stageName;
+                    document.getElementById("stageName").value=data[0].stageName;
+                    document.getElementById("allDay").value=data[0].courseDay
+
+                }
+
+            }
+        }
+        xhr.open("get","/getCourse.do"+location.search);
+        xhr.send(null)
+    }
+
+
+    //点击添加获取值
+    $("#tJia").click(function () {
+        var myDate=new Date();
+        var arrAddCourse={
+            "courseNo":5,
+            "courseName":$("#courseName").val(),
+            "courseNum":num,
+            "courseDay":$("#allDay").val(),
+            "courseDate":myDate.toLocaleDateString(),
+            "courseBei":$("#courseLei").val()
+        };
+        var arrAdd={
+            "courseNo":1,
+            "stageName":$("#stageName").val(),
+            "name":$("#stageCont").val(),
+            "day":$("leftDay>p>span").val()
+        };
+        for(var i=0;i<courseArr.length;i++){
+            if ($("#courseName").val()==courseArr[i].courseName){
+                alert("该课程已经存在，请重新输入")
+                return;
+            }
+        }
+        courseArr.push(arrAddCourse);
+        stageArr.push(arrAdd);
+        window.location.href="course.html";
+    });
+    //点击取消
+    $(document).on("click","#quXiao",function () {
+        window.location.href="course.html";
+    });
+</script>
+</body>
+</html>

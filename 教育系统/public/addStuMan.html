@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/addStuMan.css">
+</head>
+<body>
+<section class="container stuMen">
+    <div class="row">
+        <form action="" id="myform" method="post">
+            <div class="myMain">
+                <div class="stuMeg">学生基本信息</div>
+                <div class="inpStuNam">
+                    <label>班级：　　</label>
+                    <select class="bj" name="bj2">
+                    </select>
+                </div>
+                <div class="inpStuNam">
+                    <label>学号：　　</label>
+                    <input type="text" id="inpStuNo" name="inpStuNo2" value="">
+                </div>
+                <div class="inpStuNam">
+                    <label>学生姓名：</label>
+                    <input type="text" id="inpStuNam" name="inpStuNam2" value="">
+                </div>
+                <div class="inpStuNam">
+                    <label for="">联系电话：</label>
+                    <input type="text" id="inpStuNum" name="inpStuNum2">
+                </div>
+                <div class="inpStuNam">
+                    <label for="">毕业时间：</label>
+                    <input type="text" id="inpStuTime" name="inpStuTime2">
+                </div>
+                <div class="inpStuNam">
+                    <label for="">学历：　　</label>
+                    <input type="text" id="inpStuEdu" name="inpStuEdu2">
+                </div>
+                <div class="inpStuNam">
+                    <label for="">毕业学校：</label>
+                    <input type="text" id="inpStuSch" name="inpStuSch2">
+                </div>
+                <div class="inpStuNam">
+                    <label for="">紧急联系人电话：</label>
+                    <input type="text" id="inpConNum" name="inpConNum2">
+                </div>
+                <div class="inpStuNam">
+                    <label for="">添加人：</label>　
+                    <input type="text" id="stuAddPer" name="stuAddPer2">
+                </div>
+                <div class="inpStuNam">
+                    <label for="">添加时间：</label>
+                    <input type="text" id="stuAddTime" name="stuAddTime2">
+                </div>
+
+                <div class="inpStuNam">
+                    <span>备注：</span>
+                    <textarea id="stuRem" name="stuRem2"></textarea>
+                </div>
+                <div class="clearfix"></div>
+                <div class="text-center">
+                    <button id="Conserve"><a href="stuMan.html">保存</a></button>
+                    <button id="new"><a href="stuMan.html">新增</a></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<script src="js/jquery.js"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="js/ajax.js"></script>
+<script src="js/jquery.params.js"></script>
+
+<script>
+    /**
+     * 获取点击修改后传过来的值
+     */
+    var classNo = $.query.get("classNo");
+    var No = $.query.get("No");
+    var Name = $.query.get("Name");
+    var Phone = $.query.get("Phone");
+    var gradTime = $.query.get("gradTime");
+    var edu = $.query.get("edu");
+    var gradSchool = $.query.get("gradSchool");
+    var conNum = $.query.get("conNum");
+    var fiPre = $.query.get("fiPre");
+    var fiTime = $.query.get("fiTime");
+    /*班级*/
+    /**
+     * 把获取过来的值显示在详细信息中
+     */
+    $(".bj").val(classNo);
+    $("#inpStuNo").val(No);
+    $("#inpStuNam").val(Name);
+    $("#inpStuNum").val(Phone);
+    $("#inpStuTime").val(gradTime);
+    $("#inpStuEdu").val(edu);
+    $("#inpStuSch").val(gradSchool);
+    $("#inpConNum").val(conNum);
+    $("#stuAddPer").val(fiPre);
+    $("#stuAddTime").val(fiTime);
+
+    window.onload=getcourse;
+    function getcourse(){
+        var xhr;
+        if(window.XMLHttpRequest){
+            xhr = new XMLHttpRequest()
+        }else{
+            xhr = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+//          2.注册回调函数
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4&&xhr.status==200){
+                var data =JSON.parse(xhr.responseText);
+                if(data.length>0){
+                    document.getElementsByClassName("bj")[0].value=data[0].classNo;
+                    document.getElementById("inpStuNo").value=data[0].courseName;
+                    document.getElementById("inpStuNam").value=data[0].stageName;
+                    document.getElementById("inpStuNum").value=data[0].courseDay;
+                    document.getElementById("inpStuTime").value=data[0].courseName;
+                    document.getElementById("inpStuEdu").value=data[0].stageName;
+                    document.getElementById("inpStuSch").value=data[0].courseDay;
+                    document.getElementById("inpConNum").value=data[0].stageName;
+                    document.getElementById("stuAddPer").value=data[0].courseDay;
+                    document.getElementById("stuAddTime").value=data[0].stageName;
+                }
+
+            }
+        }
+        xhr.open("get","/getstu.do"+location.search);
+        xhr.send(null)
+    }
+
+    /**
+     * 点击保存将修改后的信息重返列表页
+     */
+    /**
+     *单击新增将新增学生信息添加到学生列表
+     */
+    function submitAjax(){
+        $.ajax({
+            type:"POST",  //提交类型
+            url:"addstu.do", //提交地址
+            data:$("#myform").serialize(),  //输出序列化表单值的结果
+            success:function(data){  //当 AJAX 请求成功完成时，触发提示框
+                console.log(data)
+            }
+        })
+//        window.location.href ="stuMan.html";
+    }
+
+
+
+</script>
+
+</body>
+</html>

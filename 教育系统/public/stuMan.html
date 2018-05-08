@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/stuMen.css">
+</head>
+<body>
+<section class="container stuMen">
+    <div class="row">
+        <div>
+            <div class="inpStu">
+                <div class="inpStuNan">
+                    <label>学生编号：</label>
+                    <input type="text" class="num">
+                </div>
+                <div class="inpStuNO">
+                    <label>学生姓名：</label>
+                    <input type="text" class="name">
+                </div>
+                <div id="search">
+                    <button>查询</button>
+                </div>
+
+            </div>
+            <div id="addStudetnbtn">
+                新增学生
+            </div>
+        </div>
+        <div id="stuTab">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="allChoice"></th>
+                    <th>班级</th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>联系电话</th>
+                    <th>毕业时间</th>
+                    <th>学历</th>
+                    <th>毕业学校</th>
+                    <th>紧急联系人电话</th>
+                    <th>添加人</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+        </div>
+        <div class="container text-right">
+        <span id="DelAll" >
+            删除
+        </span>
+        </div>
+        <div class="Flip text-center">
+            <button id="Prevbtn2" onclick="prevPage()">上一页</button>
+            <div id="numberBlock"></div>
+            <button id="Nextbtn" onclick="nextPage()">下一页</button>
+            <div>总共<span id="totalpage"></span>页</div>
+
+        </div>
+    </div>
+</section>
+<script src="js/jquery.js"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="js/ajax.js"></script>
+<script src="js/jquery.params.js"></script>
+<script>
+    var currentPage = 1;
+    var pageTotal = 0;
+    /*默认显示的数据*/
+    window.onload=function(){
+        getAllclass(); //xhr
+        getPageTotal(); //xhr ->
+    };
+
+    function getAllclass() {
+        myAjax("post","/seachclass.do","currentPage="+currentPage,Data,false)
+    }
+//显示
+    function Data(){
+        var data = JSON.parse(xhr.responseText);
+        $("#tbody").html("");
+        for (var i = 0; i < data.length; i++) {
+            // console.log(data.length)
+            var str='<tr>'+
+                '<td><input type="checkbox" class="items"/></td>'+
+                '<td class="ct">'+data[i].classNo+'</td>' +
+                '<td class="ct">'+data[i].s_No+'</td>' +
+                '<td class="ct">'+data[i].s_name+'</td>' +
+                '<td class="ct">'+data[i].phone+'</td>' +
+                '<td class="ct">'+data[i].gradTime+'</td>' +
+                '<td class="ct">'+data[i].edu +'</td>' +
+                '<td class="ct">'+data[i].gradSchool+'</td>' +
+                '<td class="ct">'+data[i].conNum+'</td>' +
+                '<td class="ct">'+data[i].fiPre+'</td>' +
+                '<td class="ct">'+data[i].fiTime+'</td>' +
+                '<td class="moDi"><a href="addStuMan.html?id='+data[i].s_No+'" class="ope">修改</a><a class="Del" href="#">删除</a></td>'+
+                '</tr>'
+            $("#tbody").append(str);
+        }
+    }
+//下一页
+    function nextPage(){
+        var totalpage = document.getElementById("totalpage");
+        currentPage++ //让当前页页面+1  //5
+        if(currentPage>pageTotal){
+            alert("这是最后一页");
+            currentPage=pageTotal;
+        }else{
+            getAllclass();
+            // $("#tfoot").html("");
+            totalpage.innerHTML = currentPage+"/"+pageTotal;
+        }
+    }
+//上一页
+    function prevPage(){
+        var totalpage = document.getElementById("totalpage");
+        currentPage--;
+        if(currentPage<=0){
+            currentPage=1;
+        }else{
+            getAllclass();
+            // $("#tfoot").html("");
+            totalpage.innerHTML = currentPage+"/"+pageTotal;
+        }
+    }
+    //分页
+    function getPageTotal(){
+        var totalpage = document.getElementById("totalpage");
+        var numberBlock = document.getElementById("numberBlock");
+        myAjax("get","/getPageTotal3.do","",function(){
+            // console.log(xhr.responseText);
+            var data = JSON.parse(xhr.responseText);
+            pageTotal = data;
+            totalpage.innerHTML = currentPage+"/"+data;
+//            console.log(data[0].totalcount)
+            //生成页码
+            for(var i=1;i<=data;i++){
+                numberBlock.innerHTML += "<a class='btnn' href='javascript:'>"+i+"</a>"
+            }
+        },false)
+    }
+    //点击跳页
+
+    $(document).on("click",".btnn",function(){
+        var gg= $(this).html();
+        var currentPage=gg;
+        myAjax("post","/seachclass.do","currentPage="+currentPage,Data,false)
+    });
+
+    /**
+     * 查询学生信息
+     */
+    $("#search>button").click(function () {
+        var s_No = $(".num").val();     //获取查询信息框输入的值
+        var stuname = $(".name").val();
+        var request = new XMLHttpRequest();
+        myAjax("post","/getclass.do","s_No="+s_No+"&stuname"+stuname+"",Data,false);
+//            myAjax("post","/seachclass.do","currentPage="+currentPage,Data2,false);
+    });
+    //??有问题问题在control里面
+function Data2() {
+    console.log(1)
+},
+    //点击删除
+    $(document).on("click", ".Del", function () {
+        if (confirm("确认删除吗？")) {
+            $(this).parent().parent().remove();
+            var Nso = $(this).parent().parent().children(":eq(2)").text();
+            var request = new XMLHttpRequest();
+            request.open("get", "deletestu.do?id=" + Nso, true);
+            request.send(null);
+        }
+    });
+    /**
+     *选中对应的学生  全选和多选
+     */
+    $("#allChoice").click(function () {
+        if($(this).prop("checked")){
+            $(".Choice").prop("checked",true);
+            $(".Choice").attr("checked",true);
+        }else {
+            $(".Choice").prop("checked",false);
+            $(".Choice").attr("checked",false);
+        }
+    });
+    $(document).on("click",".Choice",function () {
+        if($(this).prop("checked")){
+            $(this).prop("checked",true);
+            $(this).attr("checked",true);
+            if($(".Choice[checked]").length==$(".Choice").length){
+                $("#allChoice").prop("checked",true);
+            }
+        }else {
+            $(this).prop("checked",false);
+            $(this).attr("checked",false);
+            $("#allChoice").prop("checked",false);
+        }
+    });
+    /**
+     *删除选中的学生数据
+     */
+    $("#DelAll").click(function () {
+        if (($(".Choice[checked]").length == 0)) {
+            alert("请选择要删除的项");
+            return false;
+        }
+        if (confirm("确认要删除吗？")) {
+            $(".Choice").each(function () {
+                if (($(this).attr("checked"))) {
+                    $(this).parent().parent().remove();
+                    var No=$(this).parent().siblings(":eq(1)").text();
+//                    console.log(No)
+                    for(var i=0;i<studentArr.length;i++){
+                        if(No==studentArr[i].No){
+                            studentArr.splice(i,1);
+                        }
+                    }
+                }
+            })
+        }
+    });
+
+    /**
+     * 点击修改，获取修改数据的值
+     */
+    var Operate = $(".Ope");
+    Operate.each(function () {
+        $(document).on("click", ".Ope", function () {
+            var classNo = $(this).parent().parent().children(":eq(1)").text();
+            var No = $(this).parent().parent().children(":eq(2)").text();
+            var Name = $(this).parent().parent().children(":eq(3)").text();
+            var Phone = $(this).parent().parent().children(":eq(4)").text();
+            var gradTime = $(this).parent().parent().children(":eq(5)").text();
+            var edu = $(this).parent().parent().children(":eq(6)").text();
+            var gradSchool = $(this).parent().parent().children(":eq(7)").text();
+            var conNum = $(this).parent().parent().children(":eq(8)").text();
+            var fiPre = $(this).parent().parent().children(":eq(9)").text();
+            var fiTime = $(this).parent().parent().children(":eq(10)").text();
+            window.location.href = "addStuMan.html?classNo=" + classNo + "&No=" + No + "&Name=" + Name +
+                "&Phone=" + Phone + "&gradTime=" + gradTime + "&edu=" + edu +
+                "&gradSchool=" + gradSchool + "&conNum=" + conNum + "&fiPre=" + fiPre + "&fiTime=" + fiTime;
+        })
+    });
+
+
+    /**
+     * 单击新增学生跳转到新增页面
+     */
+    $("#addStudetnbtn").click(function () {
+        window.location.href = "addStuMan.html"
+    })
+
+
+</script>
+
+</body>
+</html>

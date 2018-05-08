@@ -1,0 +1,220 @@
+@font-face {
+    font-family: myfont;
+    src: url("../bootstrap-3.3.7-dist/dist/fonts/download/font_lxdasn77u27hw7b9/iconfont.woff");
+}
+.couMan{
+    width: 100%;
+    padding: 3vw 10.3vw;
+    color: #fff;
+    font-size: 1vw;
+}
+body{
+    background: transparent;
+}
+.couMan table tr th,td{
+    text-align: center;
+}
+.couMan table tr{
+    margin: 1px;
+}
+.couMan table tr th{
+    border: none;
+}
+
+/*表格*/
+.couMan .delBtn{
+    width: 8vw;
+    padding: .5vw;
+    border-radius: 0;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 3vw;
+    float: right;
+}
+.table{
+    font-size: 14px!important;
+}
+table{
+    margin: 0 auto;
+}
+.table tr{
+    background: rgba(0,0,0,0.4)!important;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td
+{
+    border-bottom: 2px solid #432c51;
+}
+table tr th{
+    border-top: 0!important;
+}
+table tr td{
+    border-top: 0!important;
+}
+table tr:last-child{
+    border-bottom: 0!important;
+}
+table tr{
+    height: 43px;
+}
+/*新增按钮*/
+.addCourseBtn{
+    float: right;
+    width: 128px;
+    height: 29.47px;
+    font-size: 14px;
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    margin-bottom: 4%;
+}
+.Flip button{
+    border: 1px solid white;
+    background: none;
+    border-radius: 3px;
+    padding: 0 .5vw;
+}
+.ope{
+    margin-right: 3%;
+}
+.ope:hover,.Del:hover{
+    text-decoration: none;
+}
+/*删除按钮*/
+.Del{
+    font-family: myfont;
+    font-weight: 900;
+}
+/*修改按钮*/
+.moDi>a{
+    font-family: myfont;
+    text-align: right;
+    color: white;
+}
+
+
+/*新增页面*/
+.form-control{
+    background: transparent!important;
+    border-radius: 0;
+    border: 1px solid #fff;
+}
+.newlyCourse{
+    width: 100%;
+    padding: 5vw 10.13vw;
+}
+
+.newlyStage{
+    width: 80%;
+}
+.form{
+    background-color: rgba(255,255,255,.1);
+}
+form{
+    width: 100%;
+    padding: 3vw 3vw;
+    color: white;
+    font-size: 1vw;
+    font-weight: 200;
+}
+.form-group>input{
+    border: 1px solid white;
+    width: 15vw;
+    display: inline;
+    color: white;
+}
+#day{
+    background-color: transparent;
+    border: 1px solid white;
+    width: 3vw;
+    height: 2.5vw;
+}
+.padding{
+    /*width: 80%;*/
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+}
+.form-group>label{
+    color: white;
+    display: inline;
+}
+.stageNewly{
+    padding: 0 2vw;
+    /*margin: -2vw 0;*/
+}
+.topCourse>button{
+    background-color: transparent;
+    border-radius: 0;
+    color: white;
+    width: 25%;
+    margin-left: 5.2vw;
+
+}
+.leftCourse{
+    margin-left: 6vw;
+}
+.leftDay{
+    margin-left: 15vw;
+}
+
+
+/*新增按钮*/
+.newLy{
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    width: 4%;
+    float: right;
+    font-family: myfont;
+    font-weight: 900;
+    padding: .3vw;
+    float: right;
+    margin-right: .5vw;
+}
+/*删除按钮*/
+.stageNewly>button{
+    float: right;
+    font-family: myfont;
+    font-weight: 900;
+    padding: .3vw;
+}
+/*保存按钮组*/
+#baoCun,#quXiao{
+    width:30%;
+    border: 1px solid white;
+    padding: .3vw;
+    background-color: transparent;
+    color: white;
+}
+#tJia{
+    width: 30%;
+    border: 1px solid white;
+    padding: .3vw;
+    background-color: transparent;
+    color: white;
+}
+#newlyDivBtn{
+    width: 28%;
+    margin-top: 2vw;
+}
+/*课程类别*/
+#courseLei{
+    color: white;
+    width: 14vw;
+    background-color: transparent;
+    border: 1px solid white;
+    height: 2.6vw;
+}
+#courseLei>option{
+    background-color: transparent;
+    color: black;
+}
+.leftAllDay{
+    margin-left: 2vw;
+}
+.row{
+    margin-left: -11%!important;
+    margin-right: -11%!important;
+}

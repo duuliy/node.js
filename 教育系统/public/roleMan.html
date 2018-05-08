@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--设置编码-->
+    <meta charset="UTF-8">
+    <!--为移动设备添加viewport-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <!--使用IE最新版本和Chrome-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>角色管理</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/roleMan.css">
+</head>
+<body>
+<section class="roleManager container">
+    <div class="background">
+        <div class="roleNo">
+            <label for="perNo">人员编号：</label>
+            <input type="text" id="perNo" maxlength="15">
+            <label for="perName" class="jiaosem">角色名称：</label>
+            <input type="text" id="perName" maxlength="15">
+            <button class="Search">搜索</button>
+        </div>
+        <button type="submit" class="addRolebtn"><a href="roleManchild.html" class="jump">新增角色</a></button>
+        <table class="table">
+            <thead>
+            <tr id="th">
+                <th>No.</th>
+                <th>角色名称</th>
+                <th>角色描述</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+        <div class="Flip text-center">
+            <button id="Prevbtn">上一页</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>...</button>
+            <button id="Nextbtn">下一页</button>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/roleMan.js"></script>
+</body>
+</html>

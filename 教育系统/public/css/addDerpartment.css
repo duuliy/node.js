@@ -1,0 +1,73 @@
+html { height: 100%; }
+
+*,
+*:after,
+*:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+    background: transparent;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
+    color: white;
+    font-family: "微软雅黑";
+    font-size: 1vw;
+}
+.row{
+    margin-top: 5%;
+}
+input{
+    color: white;
+    background: transparent!important;
+    border: 1px solid white;
+    width: 150px;
+    height: 30px;
+    margin-left: 2em!important;
+}
+#beizhu{
+    width: 550px;
+    height: 120px;
+}
+.form-group{
+    margin-left: 2em;
+    text-align: left!important;
+    margin-top: 3em;
+}
+select option{
+    background-color: transparent!important;
+    color: black;
+}
+.conserve{
+    margin-top: 3em;
+    margin-left: 10em;
+}
+.conserve #Conserve,.conserve #Cancel,.conserve #baocun{
+    width: 100px;
+    height: 30px;
+    border: 0px solid white;
+    margin-right: 2em;
+    background: rgba(255,255,255,0.1)!important;
+}
+select{
+    background: transparent;
+    margin-left: 30px;
+    width: 150px;
+}
+#tianjia{
+    background: none;
+    width: 60px;
+    height: 30px;
+    border: 1px solid white;
+}
+.shanchu{
+  width: 80px;
+    height:25px;
+    border: 0 solid white;
+    margin-right: 2em;
+    background: rgba(255,255,255,0.1)!important;
+}

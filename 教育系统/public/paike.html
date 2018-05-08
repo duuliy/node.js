@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>paike</title>
+<link type="text/css" rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+<link type="text/css" rel="stylesheet" href="css/paike.css">
+    <link type="text/css" rel="stylesheet" href="css/tanchukuang.css">
+</head>
+<body>
+<div class="container">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">部门&nbsp;&nbsp;
+            <select name="derList" id="derList" onchange="chaxun(this)">
+                <option value="0">全部</option>
+                <option value="1">web前端</option>
+                <option value="2">人事</option>
+                <option value="3">UI</option>
+                <option value="4">JAVA</option>
+            </select>
+        </label>
+        <label class="col-sm-2 control-label">员工&nbsp;&nbsp;
+            <select name="staList" id="staList" onchange="chaxun1(this)">
+                <option value="0">全部</option>
+                <option value="1">邹杰</option>
+                <option value="2">林毅娜</option>
+                <option value="3">曾娜</option>
+                <option value="4">杨阳</option>
+            </select>
+        </label>
+        <label class="col-sm-2 control-label">班级&nbsp;&nbsp;
+            <select name="claList" id="claList" onchange="chaxun2(this)">
+                <option value="0">全部</option>
+                <option value="1">140</option>
+                <option value="2">135</option>
+                <option value="3">132</option>
+                <option value="4">137</option>
+            </select>
+        </label>
+        <div class="col-sm-2">
+            <button type="submit" id="Leading-out">
+                <img src="images/xiazai.png">
+                <p>导出课时表</p>
+            </button>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" id="Leading-in">
+                <img src="images/xiazai.png">
+                <p>导出报备表</p>
+            </button>
+        </div>
+    </div>
+    <div class="custom-calendar-wrap custom-calendar-full">
+        <div class="custom-header clearfix">
+            <h2>日历</h2>
+            <h3 class="custom-month-year">
+                <span id="custom-month" class="custom-month">9月</span>
+                <span id="custom-year" class="custom-year">2017</span>
+                <nav>
+                    <span id="custom-prev" class="custom-prev"></span>
+                    <span id="custom-next" class="custom-next"></span>
+                    <span id="custom-current" class="custom-current" title="Got to current date"></span>
+                </nav>
+            </h3>
+        </div>
+        <div id="calendar" class="fc-calendar-container">
+            <div class="fc-calendar fc-five-rows">
+                <div class="fc-head">
+                    <div>星期一</div>
+                    <div>星期二</div>
+                    <div>星期三</div>
+                    <div>星期四</div>
+                    <div>星期五</div>
+                    <div>星期六</div>
+                    <div>星期日</div>
+                </div>
+                <div class="fc-body">
+                    <div class="fc-row">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div><span class="fc-date">1</span><span class="fc-weekday">Fri</span></div>
+                        <div><span class="fc-date">2</span><span class="fc-weekday">Sat</span></div>
+                        <div><span class="fc-date">3</span><span class="fc-weekday">Sun</span></div>
+                    </div>
+                    <div class="fc-row">
+                        <div><span class="fc-date">4</span><span class="fc-weekday">Mon</span></div>
+                        <div><span class="fc-date">5</span><span class="fc-weekday">Tue</span></div>
+                        <div><span class="fc-date">6</span><span class="fc-weekday">Wed</span></div>
+                        <div><span class="fc-date">7</span><span class="fc-weekday">Thu</span></div>
+                        <div><span class="fc-date">8</span><span class="fc-weekday">Fri</span></div>
+                        <div><span class="fc-date">9</span><span class="fc-weekday">Sat</span></div>
+                        <div><span class="fc-date">10</span><span class="fc-weekday">Sun</span></div>
+                    </div>
+                    <div class="fc-row">
+                        <div><span class="fc-date">11</span><span class="fc-weekday">Mon</span></div>
+                        <div><span class="fc-date">12</span><span class="fc-weekday">Tue</span></div>
+                        <div><span class="fc-date">13</span><span class="fc-weekday">Wed</span></div>
+                        <div><span class="fc-date">14</span><span class="fc-weekday">Thu</span></div>
+                        <div><span class="fc-date">15</span><span class="fc-weekday">Fri</span></div>
+                        <div><span class="fc-date">16</span><span class="fc-weekday">Sat</span></div>
+                        <div><span class="fc-date">17</span><span class="fc-weekday">Sun</span></div>
+                    </div>
+                    <div class="fc-row">
+                        <div><span class="fc-date">18</span><span class="fc-weekday">Mon</span></div>
+                        <div><span class="fc-date">19</span><span class="fc-weekday">Tue</span></div>
+                        <div><span class="fc-date">20</span><span class="fc-weekday">Wed</span></div>
+                        <div><span class="fc-date">21</span><span class="fc-weekday">Thu</span></div>
+                        <div><span class="fc-date">22</span><span class="fc-weekday">Fri</span></div>
+                        <div><span class="fc-date">23</span><span class="fc-weekday">Sat</span></div>
+                        <div><span class="fc-date">24</span><span class="fc-weekday">Sun</span></div>
+                    </div>
+                    <div class="fc-row">
+                        <div><span class="fc-date">25</span><span class="fc-weekday">Mon</span></div>
+                        <div><span class="fc-date">26</span><span class="fc-weekday">Tue</span></div>
+                        <div><span class="fc-date">27</span><span class="fc-weekday">Wed</span></div>
+                        <div class="fc-today "><span class="fc-date">28</span><span class="fc-weekday">Thu</span></div>
+                        <div><span class="fc-date">29</span><span class="fc-weekday">Fri</span></div>
+                        <div><span class="fc-date">30</span><span class="fc-weekday">Sat</span></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /container -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/paike.js"></script>
+<script type="text/javascript" src="js/tanchukuang.js"></script>
+</body>
+</html>

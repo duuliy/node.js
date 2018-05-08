@@ -1,0 +1,174 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background: transparent;
+    color:white;
+    font-size:1vw;
+    min-width: 334px;
+}
+/*班级管理内容*/
+section{
+    width: 100%;
+}
+.content{
+    width: 100%;
+}
+
+.select{
+    width: 75%;
+    margin-top: 45px;
+    margin-bottom: 2em;
+    padding: 25px 0;
+    float: left;
+}
+label{
+    margin-right: 10px;
+}
+label:first-child{
+    margin-left: 2%;
+}
+input{
+    border: 1px solid white;
+    background: none;
+    outline: none;
+    width: 10vw;
+    padding: 5px;
+}
+span:nth-child(1){
+    margin-left: 2%;
+}
+.claNo,.claName,.proMan,.claTea{
+    width: 83px;
+    height: 25px;
+    background-color: rgba(0,0,0,0);
+    margin-right: 2%;
+    border-color:white;
+}
+.Search{
+    border: 1px solid white;
+   padding: 5px 40px;
+    background-color:rgba(0,0,0,0) ;
+    margin-left: 2%;
+}
+.addClassbtn{
+    padding: .5vw 3.5vw;
+    border: 1px solid white;
+    color: white;
+    top: 75px;
+    position: relative;
+    margin-left:12%;
+    font-size: 14px;
+    text-decoration: none;
+}
+.addClassbtn:hover,.addClassbtn:visited,.addClassbtn:active,.addClassbtn:link{
+    text-decoration: none;
+    color: white;
+}
+.addClassbtn img{
+    margin-right: 1%;
+}
+@media screen and (max-width: 960px){
+    .claTea{
+        margin-left: 12px;
+    }
+    .Search{
+        margin-left: 100px;
+        margin-top: 20px;
+    }
+    .select{
+        float: none;
+    }
+    .addClassbtn{
+       margin-top: 30px;
+    }
+}
+@media screen and (max-width: 1056px){
+    .claTea{
+        margin-left: 12px;
+    }
+    .Search{
+        margin-left: 100px;
+        margin-top: 20px;
+    }
+    .select{
+        float: none;
+        margin: auto;
+    }
+    .addClassbtn{
+       position: static;
+        padding: .6vw 3.5vw;
+        margin: auto;
+        top: 50px;
+        margin-left: 40%;
+        margin-top: 30px;
+        display: inline-block;
+    }
+}
+@media screen and (max-width: 1145px) and (min-width: 960px){
+    .claTea{
+        margin-left: 12px;
+    }
+    .Search{
+        margin-left: 230px;
+        margin-top: 20px;
+    }
+
+}
+@media screen and (max-width: 414px){
+    .claNo,.claName,.proMan,.claTea{
+        width: 70%;
+    }
+    .select{
+        margin: auto;
+    }
+    .Search{
+        margin-left: 50px;
+        margin-top: 20px;
+    }
+    .addClassbtn{
+        position: static;
+        margin: auto;
+        top: 50px;
+        margin-left: 30%;
+        margin-top: 30px;
+        display: inline-block;
+    }
+}
+.table{
+    font-size: 14px;!important;
+}
+table{
+    margin: 0 auto;
+}.table tr{
+     background: rgba(0,0,0,0.4)!important;
+ }
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td
+{
+    border-bottom: 2px solid #432c51;
+}
+table tr th{
+    border-top: 0!important;
+}
+table tr td{
+    border-top: 0!important;
+}
+table tr:last-child{
+    border-bottom: 0!important;
+}
+table tr{
+    height: 43px;
+}
+.Ope{
+    background-color: rgba(0,0,0,0);
+    width: 50px;
+    height: 30px;
+    border:0;
+}
+@media (min-width: 992px) {
+    .container {
+        width: 100%;
+    }
+}

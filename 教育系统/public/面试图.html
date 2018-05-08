@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //    var a=0||1,
+    //    b=0&&1,
+    //c=1||2,
+    //d=1&&0;
+    //    console.log("a"+a+"b"+b+"c"+c+"d"+d)
+
+
+    //    var g=setInterval(function () {
+    //        console.log("123")
+    //    },500)
+
+    //    console.log(g)
+
+    //    var a=1234.56789
+    //    var b,c
+    //    var d=a.toString().split(".")
+    //    var b=Number(d[0]) ;
+    //    var c=Number(d[1]) ;
+    //console.log("b"+b+"c"+c)
+
+    //map():返回一个新的Array，每个元素为调用func的结果
+    //
+    //filter():返回一个符合func条件的元素数组
+    //
+    //some():返回一个boolean，判断是否有元素是否符合func条件
+    //
+    //every():返回一个boolean，判断每个元素是否符合func条件
+    //
+    //forEach():没有返回值，只是针对每个元素调用func
+
+
+    //        let a= [1,2,3,4,5,6,7,8,9];
+    //        let b=[];
+    //        let c=[];
+    //        for(let i=0;i<a.length;i++){
+    //            if(a[i]%2==0){
+    //                b.push(a[i])
+    //            }else {
+    //                c.push(a[i])
+    //            }
+    //        }
+    //        console.log(c.concat(b));
+
+
+//    var arr=[1,2,3,3,4,4,5,6];
+//    arr.prototype.ccc=function () {
+//        for(var i=0;i<this.length-1;i++){
+//            for(var j=i+1;j<this.length;j++){
+//                if(this[j]==this[i]){
+//                    this.splice(j,1);
+//                    i--
+//                }
+//                if(this[i]>this[j]){
+//
+//                }
+//            }
+//        }
+//    }
+
+
+    Array.prototype.unique3 = function(){
+        var res = [];
+        var json = [];
+
+        for(var i = 0; i < this.length; i++){
+            if(!json[this[i]]){
+                res.push(this[i]);
+                json[this[i]] = 1;
+            }
+        }
+        return res;
+    }
+
+    var arr = [112,112,34,'你好',112,112,34,'你好','str','str1'];
+    console.log(arr.unique3());
+
+
+
+    //    var arr2=[1,2,3,3,4,4,5,6];
+//    console.log(new Set(arr2))
+
+
+
+
+
+</script>
+</body>
+</html>

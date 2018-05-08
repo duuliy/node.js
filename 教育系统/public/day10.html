@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+手机号: <input type="text" id="phone">
+<button onclick="sendCode();">发送验证码</button>
+<span id="sendMsg"></span>
+<br>
+输入验证码: <input type="text" id="code">
+<button onclick="verifyCode();">验证</button>
+<span id="verifyMsg"></span>
+
+
+<h1>发送邮件</h1>
+<form action="sendMail.do" method="post">
+    收件人: <input type="text" name="receiver">
+    邮件内容: <textarea name="mailContent" id="" cols="30" rows="10"></textarea>
+    <button>发送邮件</button>
+</form>
+<script src="js/jquery.js"></script>
+<script>
+    function sendCode(){
+        $.ajax({
+            url:"/sendCode.do",
+            type:"POST",
+            data:{
+                phone:$("#phone").val()
+            },
+            success:function(data){
+                $("#sendMsg").html(data)
+            }
+        })
+    }
+
+    function verifyCode(){
+        $.ajax({
+            url:"/verifyCode.do",
+            type:"POST",
+            data:{
+                phone:$("#phone").val(),
+                code:$("#code").val()
+            },
+            success:function(data){
+                $("#verifyMsg").html(data);
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

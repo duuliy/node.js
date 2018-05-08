@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        body{
+            background: linear-gradient(135deg, #cebe29 0%,#9b1f50 33%,#2989d8 71%,#89b4ff 91%) no-repeat;
+        }
+        /*头部css*/
+        .close:hover{
+            cursor: pointer;
+        }
+        header{
+            width: 100%;
+            height: 60px;
+            background: rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgb(121,121,121);
+        }
+        .header-left{
+            width: 200px;
+            height: 100%;
+            border-bottom:1px solid rgb(187,131,56);
+            border-right: 1px solid rgb(187,131,56);
+            float: left;
+            text-align: center;
+        }
+        /*.header-left img{
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }*/
+        .header-left span{
+            font-size: 2rem;
+            position: relative;
+            top:10%;
+        }
+        .header-ct{
+            width: 45%;
+            position: absolute;
+            right: 3%;
+            top:-1%;
+            font-size: 12px;
+        }
+        .header-ct span{
+            display: inline-block;
+            margin-left: 10%;
+            margin-top: 5%;
+        }
+        .header-ct span.time{
+            margin-left: 3%;
+        }
+        .header-right{
+            height: 100%;
+            overflow: hidden;
+        }
+        /*底部具体内容*/
+        .main{
+            width: 100%;
+            height: 600px;
+            background: rgba(0,0,0,0.3);
+        }
+        /*左边菜单*/
+        .left{
+            width: 200px;
+            height: 100%;
+            float: left;
+            text-align: center;
+            line-height: 30px;
+        }
+        .left img{
+            width: 100px;
+            height:100px;
+            border-radius: 50%;
+            margin-top: 1em;
+        }
+        .left p{
+            margin-bottom: 2em;
+        }
+        .left ul{
+            font-size: 14px;
+            color: #fff;
+        }
+        .left ul li:hover{
+            cursor: pointer;
+            background: rgba(0,0,0,0.4);
+        }
+        .nav-two{
+            display: none;
+        }
+        .nav-two li{
+            font-size: 0.2em;
+            background: rgba(0,0,0,0.7);
+        }
+        /*右边框架部分*/
+        .right{
+            height: 100%;
+            border-left:1px solid rgb(121,121,121);
+            overflow: hidden;
+        }
+        #frame1{
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="">
+<!--首页头部-->
+<header>
+    <!--左边logo-->
+    <div class="header-left">
+        <!--<img alt="logo图片" src="images/logo.svg">-->
+        <span>GXA</span>
+    </div>
+    <!--右边登录信息-->
+    <div class="header-right">
+        <div class="header-ct">
+           <span>登录时间：<label class="date">2017/9/30</label></span><span class="time">08:00:05</span><span id="username">管理员</span><span class="close">退出</span>
+        </div>
+    </div>
+</header>
+<div class="main">
+    <div class="left">
+         <img alt="头像" src="images/admin.jpg" id="myimg" onclick="sendimg()" class="imguser">
+         <p class="adminName">Administrator</p>
+        <ul class="nav-first">
+            <li class="class-manage">班级管理</li>
+            <li class="stu-manage">学生管理</li>
+            <li class="crs-manage">课程管理</li>
+            <li class="pcrs-manage">排课管理</li>
+            <li class="jc-manage">基础管理</li>
+        </ul>
+        <ul class="nav-two">
+            <li class="perManager">人员管理</li>
+            <li class="bm-manage">部门管理</li>
+            <li class="js-manage">角色管理</li>
+            <li class="rl-manage">日历管理</li>
+        </ul>
+    </div>
+    <div class="right">
+        <iframe src="classGl.ejs" id="frame1"></iframe>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/database.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script typeof="text/javascript" src="js/index.js"></script>
+<script>
+    $.ajax({
+        url:"/getImage.do",
+        success:function(data){
+//            console.log(data)
+            $("#myimg")[0].src=data[0].u_imgsrc;
+        }
+    })
+
+    $.ajax({
+        url:"/getUsername.do",
+        success:function(data){
+//            console.log(data)
+            $("#username").html(data)
+        }
+    })
+    
+    function sendimg() {
+        console.log("123")
+        window.location.href="fileupload.html";
+    }
+</script>
+</body>
+</html>

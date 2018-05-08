@@ -1,0 +1,80 @@
+body{
+    background: transparent;
+}
+.roleManchild{
+    width: 100%;
+    font-size: 1vw;
+    font-family: "微软雅黑";
+    -webkit-background-size:100% 100%;
+    background-size:100% 100%;
+    padding: 3vw 10.3vw;
+    color: #fff;
+}
+.roleManager{
+    width:100%;
+}
+h2,.h3{
+    font-size: 16px;
+    font-weight: 400;
+}
+.h3{
+    display: inline-block;
+    margin:30px 30px 0 0;
+}
+.h4{
+    display: inline-block;
+    margin:30px 30px 0 0;
+}
+.roleNo{
+    width: 255px;
+    height: 40px;
+    border: 1px solid #fff;
+    background:none;
+}
+.put{
+    width: 255px;
+    height: 40px;
+    border: 1px solid #fff;
+    background:none;
+}
+.describle{
+    font-size: 16px;
+    font-weight: 400;
+    margin:30px 30px 0 0;
+
+}
+#der{
+    background:none;
+    vertical-align: middle;
+    outline: none;
+    resize: none;
+    border: 1px solid white;
+}
+.remark{
+    font-size: 16px;
+    font-weight: 400;
+    margin:30px 30px 0 0;
+}
+#ders{
+    background:none;
+    vertical-align: middle;
+    outline: none;
+    resize: none;
+    border: 1px solid white;
+
+}
+.roleBtn,.roleadd{
+    margin-top: 30px;
+    width: 100px;
+    height: 40px;
+    background:none;
+    border:1px solid #fff;
+    border-radius: 5px;
+    outline: none;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+    border:0;
+}
+input{
+    outline: none;
+}

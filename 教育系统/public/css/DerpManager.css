@@ -1,0 +1,112 @@
+
+html { height: 100%; }
+
+*,
+*:after,
+*:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+    background: transparent;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
+    color: white;
+    font-family: "微软雅黑";
+    font-size: 1vw;
+}
+table{
+    margin: 0 auto;
+}
+.table tr{
+    background: rgba(0,0,0,0.4)!important;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td
+{
+    border-bottom: 2px solid #432c51;
+}
+table tr th{
+    border-top: 0!important;
+}
+table tr td{
+    border-top: 0!important;
+}
+table tr:last-child{
+    border-bottom: 0!important;
+}
+table tr{
+    height: 43px;
+}
+.row{
+    margin-top: 6%;
+}
+.table-responsive{
+    margin-top: 30px;
+}
+.form-control{
+    background: transparent;
+    color: white;
+}
+.Flip button{
+    border: 1px solid white;
+    background: none;
+    border-radius: 3px;
+    padding: 0 .5vw;
+    text-align: center;
+}
+button{
+    background: transparent;
+    border: 0px solid white;
+}
+#Dels{
+    border: 1px solid white;
+    width: 100px;
+    height: 32px;
+    margin-top: 1em;
+    margin-bottom: 2vw;
+}
+#choice{
+    margin-left: -15px;
+}
+.container-fluid nav ul li a{
+    background: rgba(255,255,255,0.1)!important;
+    border: 0px solid;
+    color: white;
+}
+#addDerpartmentbtn{
+    border: 1px solid white;
+    width: 138px;
+    height: 29.47px;
+    margin-right: 12px;
+}
+form{
+    margin-left: 12px;
+}
+#search{
+    border: 1px solid white;
+    width:114.8px;
+    height: 29px;
+    margin-left: 10px;
+}
+@media (min-width: 992px) {
+
+    .container {
+        width: 970px;
+    }
+}
+.form-control{
+    width: 83px!important;
+    height: 25px !important;
+    border:1px solid white;
+    border-radius: 0!important;
+}
+@media (min-width: 992px){
+    .container {
+        width: 100%;
+    }
+}
+

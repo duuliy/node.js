@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Title</title>
+    <link type="text/css" href="css/perManager.css" rel="stylesheet">
+    <link type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row search-top">
+        <form class="form-inline">
+                <label class="control-label">员工姓名：</label>
+                <input type="text" class="form-control name">
+                <label>联系电话：</label>
+                <input type="text" class="form-control phone">
+                <label>QQ:</label>
+                <input type="text" class="form-control line">
+                <label>岗位角色：</label>
+                <select class="gangwei">
+                </select>
+            <button type="button" id="search" class="search">查询</button>
+            <button type="button" id="new_people" class="text-center navbar-right ">新增人员</button>
+        </form>
+    </div>
+</div>
+<table class="table table-hover table-responsive" id="data">
+    <tbody id="tbody">
+    <tr>
+        <th><input type="checkbox" class="allcheck"></th>
+        <th>人员id</th>
+        <th>部门</th>
+        <th>员工姓名</th>
+        <th>账号id</th>
+        <th>联系电话</th>
+        <th>QQ</th>
+        <th>企业邮箱</th>
+        <th>岗位角色</th>
+        <th>操作</th>
+    </tr>
+    </tbody>
+    <tfoot id="tfoot">
+    </tfoot>
+
+
+</table>
+<!--删除选中人员-->
+<div class="container-fluid">
+  <button type="button" id="Dels" class="navbar-right">删除</button>
+</div>
+<div class="Flip text-center">
+    <button id="Prevbtn" onclick="prevPage()">上一页</button>
+    <div id="numberBlock"></div>
+    <button id="Nextbtn" onclick="nextPage()">下一页</button>
+
+    <div>总共<span id="totalpage"></span>页</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/personManage.js"></script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="css/classXz.css" type="text/css">
+</head>
+<body>
+<section>
+    <div class="content">
+        <h1 class="h1">班级基本信息</h1>
+        <!--班级基本信息-->
+        <div class="form">
+            <form class="form-inline">
+                <label>班级编号</label>
+                <input type="text" class="claNo">
+                <label>班级名称</label>
+                <input type="text" class="claName">
+                <label>班级状态</label>
+                <select name="claZt" class="claZt">
+                    <option value="未开班" class="option">未开班</option>
+                    <option value="预科" class="option">预科</option>
+                    <option value="就业" class="option">就业</option>
+                    <option value="在读" class="option">在读</option>
+                    <option value="停课" class="option">停课</option>
+                    <option value="结业" class="option">结业</option>
+                </select>
+                <label>开班日期</label>
+                <input type="text" class="claData" placeholder="年/月/日">
+                <label>QQ群号</label>
+                <input type="number" class="qqPhone">
+                <label>教室</label>
+                <input type="text" class="claMate">
+                <label>备注</label>
+                <textarea rows="7" cols="92" style="vertical-align:top" class="beizhu"></textarea>
+            </form>
+        </div>
+        <!--班级详细信息-->
+        <h1 class="h1">班级详细信息</h1>
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav1" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">学生情况</a></li>
+                <li role="presentation"><a href="#" aria-controls="profile" role="tab" data-toggle="tab">班级情况</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content peopleNum">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <span><b>总人数:</b></span>
+                    <span class="classStuAll"></span></br>
+                    <span>男生:</span>
+                    <span class="classStumale"></span>
+                    <span>本科:</span>
+                    <span class="classStuUs"></span>
+                    <span>女生:</span>
+                    <span class="classStuFamale"></span>
+                    <span>专科:</span>
+                    <span class="classStuColl"></span>
+                    <span>高中及以下:</span>
+                    <span class="classStuHigh">0人</span>
+                </div>
+            </div>
+        </div>
+      <!--//班级课程设置-->
+        <div class="classCourse">
+            <h1 class="kcsz">班级课程设置</h1>
+            <div class="bjkcsz">
+                    <div class="tab-content tab-content-0">
+                            <select  id="xzkc" class="classCourseSel">
+                                <!--选择课程-->
+                                <option  class="option">--选择课程--</option>
+                            </select>
+                            <lable>开始日期</lable>
+                            <input type="text" class="classCourseTime" placeholder="年/月/日">
+                            <a href="#" class="Del">x</a>
+                                <!-- Nav tabs -->
+                             <ul class="nav nav-tabs nav3" role="tablist">
+                                <li role="presentation" class="active"><a href="#10" aria-controls="home" role="tab" data-toggle="tab">一阶段</a></li>
+                                <li role="presentation"><a href="#11" aria-controls="home" role="tab" data-toggle="tab">二阶段</a></li>
+                                <li role="presentation" ><a href="#12" aria-controls="home" role="tab" data-toggle="tab">三阶段</a></li>
+                                <li role="presentation"><a href="#13" aria-controls="home" role="tab" data-toggle="tab">四阶段</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content tab-content-1">
+                                <div role="tabpanel" class="tab-pane active" id="10">
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="11">
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="12">
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="13">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="addClass">新增课程</button>
+        <button class="save">保存</button>
+    </div>
+    </section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript">
+   var courseArr=window.top.courseArr;
+    var studentArr=window.top.studentArr;
+    var classArr=window.top.classArr;
+    var classCourseArr=window.top.classCourseArr;
+    //人数
+    var all=0;
+    var nan=0;
+    var nv=0;
+    var ben=0;
+    var zhuan=0;
+    //获取传值
+    var bhs =$.query.get("claNo");
+    var name=$.query.get("name");
+    var classMate=$.query.get("classMate");
+    var startData=$.query.get("startData");
+    var pelNum=$.query.get("pelNum");
+    var xmjl=$.query.get("xmjl");
+    var bzr=$.query.get("bzr");
+    var jieduan=$.query.get("jieduan");
+    var beizhu=$.query.get("beizhu");
+    $(".claNo").val(bhs);
+    $(".claName").val(name);
+    $(".claMate").val(classMate);
+    $(".claData").val(startData);
+    $(".peopleNum").val(pelNum);
+    $(".classTeaSel1").val(bzr);
+    $(".beizhu").val(beizhu);
+
+    //新增课程
+    var ids=9;
+    $(".addClass").click(function () {
+        ids=ids+4;
+        var str='<div class="tab-content tab-content-0">'+
+            '<div role="tabpanel" class="tab-pane active" id="1">'+
+            '<select  id="xzkc" class="classCourseSel">'+
+            <!--选择课程-->
+            '<option  class="option">--选择课程--</option>'+
+            '</select>'+
+            '<lable>开始日期</lable>'+
+            '<input type="text" class="classCourseTime" placeholder="年/月/日">'+
+            '<a href="#" class="Del">x</a>'+
+            <!-- Nav tabs -->
+            '<ul class="nav nav-tabs nav3" role="tablist">'+
+            '<li role="presentation" class="active"><a href="#'+(ids+1)+'" aria-controls="home" role="tab" data-toggle="tab">一阶段</a></li>'+
+            '<li role="presentation"><a href="#'+(ids+2)+'" aria-controls="home" role="tab" data-toggle="tab">二阶段</a></li>'+
+            '<li role="presentation" ><a href="#'+(ids+3)+'" aria-controls="home" role="tab" data-toggle="tab">三阶段</a></li>'+
+            '<li role="presentation"><a href="#'+(ids+4)+'" aria-controls="home" role="tab" data-toggle="tab">四阶段</a></li>'+
+            '</ul>'+
+            <!-- Tab panes -->
+            '<div class="tab-content tab-content-1">'+
+            '<div role="tabpanel" class="tab-pane active" id='+(ids+1)+'>'+
+            '</div>'+
+            '<div role="tabpanel" class="tab-pane" id='+(ids+2)+'>'+
+            '</div>'+
+            '<div role="tabpanel" class="tab-pane" id='+(ids+3)+'>'+
+            '</div>'+
+            '<div role="tabpanel" class="tab-pane" id='+(ids+4)+'>'+
+            '<div>'+
+            '</div>';
+        $(".bjkcsz").append(str);
+        for(var i=ids+1;i<ids+5;i++){
+            num++;
+            var str1= '<lable>授课人</lable>'+
+                '<select name="xzkc"  class="classTeaSel classTeaSel'+num+'">'+
+                '<option  class="option">--选择授课人或者班主任--</option>'+
+                '<option class="option">邹杰</option>'+
+                '<option class="option">王芳</option>'+
+                '<option class="option">杨阳</option>'+
+                '<option class="option">林毅娜</option>'+
+                '<option class="option">唐钰伟</option>'+
+                '</select>'+
+                '<select class="classTchRptT classTchRptT'+num+'">'+
+                '<option  class="option">--重复周期--</option>'+
+                '<option class="option">每天</option>'+
+                '<option class="option">星期一</option>'+
+                '<option class="option">星期二</option>'+
+                '<option class="option">星期三</option>'+
+                '<option class="option">星期四</option>'+
+                '<option class="option">星期五</option>'+
+                '</select>';
+            $("#"+i).append(str1)
+        }
+    });
+    //添加阶段内容
+    var num=0;
+    for(i=0;i<$(".classCourse").find(".tab-pane").length;i++){
+        num++;
+        var str= '<lable>授课人</lable>'+
+            '<select name="xzkc"  class="classTeaSel classTeaSel'+num+'">'+
+            '<option  class="option">--选择授课人或者班主任--</option>'+
+            '<option class="option">邹杰</option>'+
+            '<option class="option">王芳</option>'+
+            '<option class="option">杨阳</option>'+
+            '<option class="option">林毅娜</option>'+
+            '<option class="option">唐钰伟</option>'+
+            '</select>'+
+            '<select class="classTchRptT classTchRptT'+num+'">'+
+            '<option  class="option">--重复周期--</option>'+
+            '<option class="option">每天</option>'+
+            '<option class="option">星期一</option>'+
+            '<option class="option">星期二</option>'+
+            '<option class="option">星期三</option>'+
+            '<option class="option">星期四</option>'+
+            '<option class="option">星期五</option>'+
+            '</select>';
+        $(".classCourse").find(".tab-pane")[i].innerHTML=str
+    }
+
+    //添加课程
+    for(i=0;i<courseArr.length;i++){
+        str='<option class="option">'+courseArr[i].courseName+'</option>';
+        $(".classCourseSel").append(str);
+    }
+    //计算班级人数
+
+        for(j=0;j<studentArr.length;j++){
+            if(studentArr[j].classNo==$(".claNo").val()){
+                all++;
+            }
+            if(studentArr[j].sex=="男"&&studentArr[j].classNo==$(".claNo").val()){
+                nan++;
+            }
+            if(studentArr[j].sex=="女"&&studentArr[j].classNo==$(".claNo").val()){
+                nv++;
+            }
+            if(studentArr[j].edu=="本科"&&studentArr[j].classNo==$(".claNo").val()){
+                ben++;
+            }
+            if(studentArr[j].edu=="专科"&&studentArr[j].classNo==$(".claNo").val()){
+                zhuan++
+
+        }
+    }
+    $(".classStuAll").append(all+"人");
+    $(".classStumale").append(nan+"人");
+    $(".classStuFamale").append(nv+"人");
+    $(".classStuUs").append(ben+"人");
+    $(".classStuColl").append(zhuan+"人");
+    //对页面赋值
+    for(var i=0;i<classArr.length;i++){
+        if($(".claNo").val()==classArr[i].classNo){
+            $(".qqPhone").val(classArr[i].classQQ);
+            var classZt=classArr[i].classZt;
+            $(".claZt").val(classZt);
+            $(".classCourseSel").val(classCourseArr[0][i].courseName);
+            $(".classCourseTime").val(classCourseArr[0][i].classCourseTime);
+            $(".classTeaSel1").val(classCourseArr[0][i].peopleName);
+            $(".classTeaSel2").val(classCourseArr[1][i].peopleName);
+            $(".classTeaSel3").val(classCourseArr[2][i].peopleName);
+            $(".classTeaSel4").val(classCourseArr[3][i].peopleName);
+            $(".classTchRptT1").val(classCourseArr[0][i].classRepeat);
+            $(".classTchRptT2").val(classCourseArr[1][i].classRepeat);
+            $(".classTchRptT3").val(classCourseArr[2][i].classRepeat);
+            $(".classTchRptT4").val(classCourseArr[3][i].classRepeat);
+        }
+    }
+    //删除课程
+    $(document).on("click",'.Del',
+        function(){
+        $(this).closest(".tab-content-0").remove()
+        });
+//保存
+   $(".save").click(function () {
+       var bhs1=$(".claNo").val();
+       var names=$(".claName").val();
+       var zts=$(".claZt").val();
+       var startdata=$(".claData").val();
+       var qq=$(".qqPhone").val();
+       var claMate=$(".claMate").val();
+       var beizhu=$(".beizhu").val();
+       var courseSel=$(".classCourseSel").val();
+       var ksdata=$(".classCourseTime").val();
+       var classTs1=$(".classTeaSel1").val();
+       var classTs2=$(".classTeaSel2").val();
+       var classTs3=$(".classTeaSel3").val();
+       var classTs4=$(".classTeaSel4").val();
+       var classTchRptT1=$(".classTchRptT1").val();
+       var classTchRptT2=$(".classTchRptT2").val();
+       var classTchRptT3=$(".classTchRptT3").val();
+       var classTchRptT4=$(".classTchRptT4").val();
+       d = new Date();
+       var createTime= d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate();
+       var arraddkc1={"classNo": bhs1, "courseName": courseSel, "classCourseTime": ksdata, "stageName": "一阶段", "peopleName": classTs1, "classRepeat": classTchRptT1};
+       var arraddkc2={"classNo": bhs1, "courseName": courseSel, "classCourseTime": ksdata, "stageName": "二阶段", "peopleName": classTs2, "classRepeat": classTchRptT2};
+       var arraddkc3={"classNo": bhs1, "courseName": courseSel, "classCourseTime": ksdata, "stageName": "三阶段", "peopleName": classTs3, "classRepeat": classTchRptT3};
+       var arraddkc4={"classNo": bhs1, "courseName": courseSel, "classCourseTime": ksdata, "stageName": "四阶段", "peopleName": classTs4, "classRepeat": classTchRptT4};
+
+       var arradd={"classNo": bhs1, "className": names,"classRoom":claMate,"classStartDay": startdata,"classStuAll": 0, "classQQ": qq,"classZt":zts, "classBz":beizhu,"creater":"管理员","createTime":createTime};
+       //判断是否重复以及对修改内容的保存
+       for(var i=0;i<classArr.length;i++){
+           if(bhs1==classArr[i].classNo&&bhs1!=$.query.get("claNo")){
+               alert("已经存在此编号,请重新输入");
+               return;
+           }else if(bhs1==$.query.get("claNo")&&bhs1==classArr[i].classNo){
+               classArr[i]={"classNo": bhs1, "className": names,"classRoom":claMate,"classStartDay": startdata,"classStuAll": 0, "classQQ": qq,"classZt":zts, "classBz":beizhu,"creater":"管理员","createTime":createTime};
+               classCourseArr[0][i]={"classNo": bhs1, "courseName": courseSel, "classCourseTime": ksdata, "stageName": "一阶段", "peopleName": classTs1, "classRepeat": classTchRptT1};
+               classCourseArr[1][i]={"classNo": bhs1, "courseName": courseSel, "classCourseTime": ksdata, "stageName": "二阶段", "peopleName": classTs2, "classRepeat": classTchRptT2};
+               classCourseArr[2][i]={"classNo": bhs1, "courseName": courseSel, "classCourseTime": ksdata, "stageName": "三阶段", "peopleName": classTs3, "classRepeat": classTchRptT3};
+               classCourseArr[2][i]={"classNo": bhs1, "courseName": courseSel, "classCourseTime": ksdata, "stageName": "四阶段", "peopleName": classTs4, "classRepeat": classTchRptT4};
+               window.location.href="classGl.html";
+               return;
+           }
+       }
+    classArr.push(arradd);
+    classCourseArr[0].push(arraddkc1);
+    classCourseArr[1].push(arraddkc2);
+    classCourseArr[2].push(arraddkc3);
+    classCourseArr[3].push(arraddkc4);
+   window.location.href="classGl.html";
+});
+</script>
+</body>
+</html>

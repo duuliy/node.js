@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="css/clsMsg.css" type="text/css">
+</head>
+<body>
+<section class="container">
+    <div class="content">
+        <div class="select">
+                        <form class="form-inline">
+                            <label>班级编号</label>
+                        <input type="text" class="claNo">
+                        <label>班级名称</label>
+                        <input type="text" class="claName">
+                        <label>项目经理</label>
+                        <input type="text" class="proMan">
+                        <label>班主任</label>
+                        <input type="text" class="claTea">
+                            <input type="button" class="Search" value="查询">
+                    </form>
+                 </div>
+        <a href="classXz.html" class="addClassbtn">新增班级</a>
+        <div style="clear: both"></div>
+        <!--表格-->
+        <table class="table">
+            <thead>
+            <tr>
+                <td>编号</td>
+                <td>班级名称</td>
+                <td>教室</td>
+                <td>开班日期</td>
+                <td>学生人数</td>
+                <td>项目经理</td>
+                <td>班主任</td>
+                <td>当前阶段</td>
+                <td>备注</td>
+                <td>创建人</td>
+                <td>创建时间</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+        <tbody>
+        </tbody>
+        </table>
+    </div>
+</section>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.params.js"></script>
+<script type="text/javascript">
+var classArr=window.top.classArr;
+var classCourseArr=window.top.classCourseArr;
+var studentArr=window.top.studentArr;
+//添加默认数据
+for(var i=0;i<classArr.length;i++){
+    var count=0;
+    for(var j=0;j<studentArr.length;j++){
+        if (classArr[i].classNo==studentArr[j].classNo){
+            count++;
+        }
+    }
+   str='<tr>'+
+           '<td class="classDate" >'+classArr[i].classNo+'</td>'+
+           '<td class="classDate">'+classArr[i].className+'</td>'+
+           '<td class="classDate">'+classArr[i].classRoom+'</td>'+
+           '<td class="classDate">'+classArr[i].classStartDay+'</td>'+
+           '<td class="classDate">'+count+'</td>'+
+           '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+           '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+           '<td class="classDate">'+classCourseArr[0][i].stageName+'</td>'+
+           '<td class="classDate">'+classArr[i].classBz+'</td>'+
+           '<td class="classDate">'+classArr[i].creater+'</td>'+
+           '<td class="classDate">'+classArr[i].createTime+'</td>'+
+           '<td class="classDate"><button class="Ope">修改</button></td>'+
+           '</tr>';
+   $("tbody").append(str);
+}
+//查询
+$(".Search").click(function () {
+    var Nos=$(".claNo").val();
+    var Nas=$(".claName").val();
+    var pms=$(".proMan").val();
+    var tea=$(".claTea").val();
+    $("tbody").html("");
+    var count=0;
+for(i=0;i<classArr.length;i++){
+    var count1=0;
+    for(var j=0;j<studentArr.length;j++){
+        if (classArr[i].classNo==studentArr[j].classNo){
+            count1++;
+        }
+    }
+    if(Nas==classArr[i].className&&Nos==""&&pms==""&&tea==""){
+        str='<tr>'+
+            '<td class="classDate">'+classArr[i].classNo+'</td>'+
+            '<td class="classDate">'+classArr[i].className+'</td>'+
+            '<td class="classDate">'+classArr[i].classRoom+'</td>'+
+            '<td class="classDate">'+classArr[i].classStartDay+'</td>'+
+            '<td class="classDate">'+count1+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].stageName+'</td>'+
+            '<td class="classDate">'+classArr[i].classBz+'</td>'+
+            '<td class="classDate">'+classArr[i].creater+'</td>'+
+            '<td class="classDate">'+classArr[i].createTime+'</td>'+
+            '<td class="classDate"><button class="Ope">修改</button></td>'+
+            '</tr>';
+        $("tbody").append(str);
+    }else if(Nos==classArr[i].classNo&&Nas==""&&pms==""&&tea==""){
+        str='<tr>'+
+            '<td class="classDate">'+classArr[i].classNo+'</td>'+
+            '<td class="classDate">'+classArr[i].className+'</td>'+
+            '<td class="classDate">'+classArr[i].classRoom+'</td>'+
+            '<td class="classDate">'+classArr[i].classStartDay+'</td>'+
+            '<td class="classDate">'+count1+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].stageName+'</td>'+
+            '<td class="classDate">'+classArr[i].classBz+'</td>'+
+            '<td class="classDate">'+classArr[i].creater+'</td>'+
+            '<td class="classDate">'+classArr[i].createTime+'</td>'+
+            '<td class="classDate"><button class="Ope">修改</button></td>'+
+            '</tr>';
+        $("tbody").append(str);
+    }else if(pms==classCourseArr[0][i].peopleName&&Nas==""&&Nos==""&&tea==""){
+        str='<tr>'+
+            '<td class="classDate">'+classArr[i].classNo+'</td>'+
+            '<td class="classDate">'+classArr[i].className+'</td>'+
+            '<td class="classDate">'+classArr[i].classRoom+'</td>'+
+            '<td class="classDate">'+classArr[i].classStartDay+'</td>'+
+            '<td class="classDate">'+count1+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].stageName+'</td>'+
+            '<td class="classDate">'+classArr[i].classBz+'</td>'+
+            '<td class="classDate">'+classArr[i].creater+'</td>'+
+            '<td class="classDate">'+classArr[i].createTime+'</td>'+
+            '<td class="classDate"><button class="Ope">修改</button></td>'+
+            '</tr>';
+        $("tbody").append(str);
+    }else if(tea==classCourseArr[0][i].peopleName&&Nas==""&&pms==""&&Nos==""){
+        str='<tr>'+
+            '<td class="classDate">'+classArr[i].classNo+'</td>'+
+            '<td class="classDate">'+classArr[i].className+'</td>'+
+            '<td class="classDate">'+classArr[i].classRoom+'</td>'+
+            '<td class="classDate">'+classArr[i].classStartDay+'</td>'+
+            '<td class="classDate">'+count1+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].stageName+'</td>'+
+            '<td class="classDate">'+classArr[i].classBz+'</td>'+
+            '<td class="classDate">'+classArr[i].creater+'</td>'+
+            '<td class="classDate">'+classArr[i].createTime+'</td>'+
+            '<td class="classDate"><button class="Ope">修改</button></td>'+
+            '</tr>';
+        $("tbody").append(str);
+    }else if(Nas==classArr[i].className&&Nos==classArr[i].classNo){
+        str='<tr>'+
+            '<td class="classDate">'+classArr[i].classNo+'</td>'+
+            '<td class="classDate">'+classArr[i].className+'</td>'+
+            '<td class="classDate">'+classArr[i].classRoom+'</td>'+
+            '<td class="classDate">'+classArr[i].classStartDay+'</td>'+
+            '<td class="classDate">'+count1+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].stageName+'</td>'+
+            '<td class="classDate">'+classArr[i].classBz+'</td>'+
+            '<td class="classDate">'+classArr[i].creater+'</td>'+
+            '<td class="classDate">'+classArr[i].createTime+'</td>'+
+            '<td class="classDate"><button class="Ope">修改</button></td>'+
+            '</tr>';
+        $("tbody").append(str);
+    }else if(Nos==classArr[i].classNo&&Nas==classArr[i].className&&pms==classCourseArr[0][i].peopleName&&tea==classCourseArr[0][1].peopleName){
+        str='<tr>'+
+            '<td class="classDate" align="center">'+classArr[i].classNo+'</td>'+
+            '<td class="classDate">'+classArr[i].className+'</td>'+
+            '<td class="classDate">'+classArr[i].classRoom+'</td>'+
+            '<td class="classDate">'+classArr[i].classStartDay+'</td>'+
+            '<td class="classDate">'+count1+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].peopleName+'</td>'+
+            '<td class="classDate">'+classCourseArr[0][i].stageName+'</td>'+
+            '<td class="classDate">'+classArr[i].classBz+'</td>'+
+            '<td class="classDate">'+classArr[i].creater+'</td>'+
+            '<td class="classDate">'+classArr[i].createTime+'</td>'+
+            '<td class="classDate"><button class="Ope">修改</button></td>'+
+            '</tr>';
+        $("tbody").append(str);
+    }else{
+        count++;
+        if(count==classArr.length){
+        alert("没有找到此班级信息")
+        }
+    }
+}
+});
+    $(document).on("click",".Ope",(function () {
+        var bhs=$(this).parent().parent().children(":eq(0)").text();
+        var name=$(this).parent().parent().children(":eq(1)").text();
+        var classMate=$(this).parent().parent().children(":eq(2)").text();
+        var startData=$(this).parent().parent().children(":eq(3)").text();
+        var pelNun=$(this).parent().parent().children(":eq(4)").text();
+        var xmjl=$(this).parent().parent().children(":eq(5)").text();
+        var bzr=$(this).parent().parent().children(":eq(6)").text();
+        var jieduan=$(this).parent().parent().children(":eq(7)").text();
+        var beizhu=$(this).parent().parent().children(":eq(8)").text();
+        window.location.href="classXz.html?claNo="+bhs+"&name="+name+"&classMate="+classMate+"" +
+            "&startData="+startData+"&pelNum="+pelNun+"&xmjl="+xmjl+"&bzr="+bzr+"" +
+            "&jieduan="+jieduan+"&beizhu="+beizhu;
+    }))
+
+</script>
+</body>
+</html>

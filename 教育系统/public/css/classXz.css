@@ -1,0 +1,321 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    color:white;
+    font-size:1vw;
+    min-width: 334px;
+    background: transparent;
+}
+
+
+/*新增班级*/
+section{
+    width: 100%;
+    background-color: transparent;
+}
+.content{
+    width: 100%;
+}
+
+
+/*班级基本信息*/
+.form{
+    width: 100%;
+    margin-left: 5%;
+}
+.claNo,.claName,.claData,.qqPhone,.claMate,.claZt{
+    width: 137px;
+    height: 25px;
+    background-color: rgba(0,0,0,0);
+    margin-right: 2%;
+    /*border-color:white;*/
+    outline: none;
+    border: 1px solid white;
+    margin-bottom: 30px;
+}
+.qqPhone{
+    margin-left: 0.9%;
+}
+.claMate{
+    margin-left: 3.9%;
+    margin-top:10px;
+}
+textarea{
+    background-color: rgba(0,0,0,0);
+    border: 1px solid white;
+    resize: none;
+    margin-left: 4%;
+    margin-bottom: 30px;
+
+}
+label{
+    margin-right: 2%;
+    margin-top:10px;
+}
+.h1 {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 15px;
+    border: 1px solid white;
+    padding: 10px 20px;
+    margin-left: 4%;
+    margin-bottom:30px;
+    margin-top: 20px;
+}
+
+
+/*媒体查询器*/
+@media screen and (max-width: 1349px) and (min-width: 1190px){
+    .form{
+        width: 65%;
+        margin-left: 5%;
+        margin-top: 10px;
+
+    }
+}
+@media screen  and (max-width: 1190px) and (min-width: 1024px ){
+    .form{
+        width: 60%;
+        margin-left: 5%;
+        margin-top: 10px;
+
+    }
+}
+@media screen  and (max-width: 1114px) and(min-width: 1024px){
+    .form{
+        width: 80%;
+        margin-left: 5%;
+        margin-top: 10px;
+
+    }
+}
+@media screen  and (max-width: 1024px) and (min-width: 990px){
+    .form{
+        width: 50%;
+        margin-left: 5%;
+        margin-top: 10px;
+
+    }
+}
+@media screen  and (max-width: 990px) and (min-width: 800px){
+    .form{
+        width: 60%;
+        margin-left: 5%;
+        margin-top: 10px;
+
+    }
+}
+@media screen  and (max-width: 800px) and (min-width: 700px){
+    .form{
+        width: 65%;
+        margin-left: 5%;
+        margin-top: 10px;
+    }
+
+}
+@media screen  and (max-width: 700px){
+    .form{
+        width: 60%;
+        margin-left: 5%;
+        margin-top:3px;
+    }
+    .h1{margin-top:5px}
+    .claNo,.claName,.claData,.qqPhone,.claMate,.claZt{
+        width: 190px;
+        height: 25px;
+        background-color: rgba(0,0,0,0);
+        margin-right: 2%;
+        border-color:white;
+        margin-top: 3px;
+    }
+    .beizhu{
+        background-color: rgba(0,0,0,0);
+        border: 1px solid white;
+        resize: none;
+        margin-top: 3px;
+        margin-left: 4%;
+        outline: none;
+
+    }
+    label{
+        margin-right: 2%;
+        margin-top: 3px;
+    }
+}
+
+
+/*班级详细信息*/
+.nav{
+    width: 40%;
+    margin-left: 4%;
+}
+.peopleNum{
+    width: 59%;
+    margin-left: 4%;
+    margin-bottom: 30px;
+}
+.nav1 li a{
+    color: white;
+}
+.nav1{
+    border-bottom: none;
+
+}
+.nav1 > li.active > a{
+    color: white;
+    border: 1px solid white;
+    background-color: rgba(0,0,0,0);
+}
+.nav1> li>a:hover{
+    color:#555;
+}
+span:nth-child(1){
+    margin-left: 20px;
+}
+span:nth-child(4),span:nth-child(8),span:nth-last-child(2){
+    margin-left: 5%;
+    margin-top: 10px;
+    display: inline-block;
+}
+span:nth-child(6),span:nth-child(10){
+    margin-left: 5%;
+    margin-top: 10px;
+    display: inline-block;
+}
+.tab-content{
+    border: 1px solid white;
+}
+
+
+/*班级课程设置*/
+.kcsz{
+    display: inline-block;
+    font-weight: 400;
+    font-size: 15px;
+    border: 1px solid white;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+}
+.classCourseSel,.classStaSel{
+    width: 137px;
+    height: 25px;
+    margin-right: 10px;
+    border: 1px solid white;
+    background-color: rgba(0,0,0,0);
+}
+.classTeaSel,.classTchRptT{
+    width: 180px;
+    height: 25px;
+    margin-right: 10px;
+    border: 1px solid white;
+    background-color: rgba(0,0,0,0);
+}
+.classTeaSel option, .classTchRptT option,.claZt option{
+    background: transparent;
+    color: black;
+}
+.nav3 li a:hover{
+    color: black;
+}
+.classCourseTime{
+    margin-left: 10px;
+}
+#xzkc,.classCourseTime,.classTchRptT{
+    background-color: rgba(0,0,0,0);
+}
+select option{
+    color: black;
+}
+.Del{
+    color: white;
+    font-size: 15px;
+    padding: 1px 8px;
+    float: right;
+}
+.classCourse-content{
+    width: 100%;
+    border: 1px solid white;
+}
+
+.content2{
+    margin-left:50px;
+    margin-top: 20px;
+}
+.classCourse{
+    margin-left: 4%;
+    padding: 10px 0;
+}
+.classCourse-content{
+    padding: 10px 0;
+}
+.nav2{
+    margin-left: 0;
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+}
+.nav2 li a{
+    color: white;
+}
+.nav3{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    border-bottom: none;
+
+}
+
+.tab-content-1{
+    margin-left: 4%;
+    border: none;
+}
+.nav3 li a{
+    color: white;
+    padding: 5px;
+}
+.tab-content-0{
+    width:61%;
+    margin-bottom: 30px;
+    padding: 30px 20px;
+}
+@media screen  and (max-width: 600px){
+    .tab-content-0{
+        width: 100%;
+    }
+}
+/*新增课程*/
+.addClass{
+    padding: 5px 20px;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: 1px solid white;
+    margin-left: 54.5%
+}
+/*保存*/
+.save{
+    padding: 5px 40px;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-left: 50%;
+}
+input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    white;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    white;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:   white;
+}
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    white;
+}
+
+#home{
+    padding: 30px 20px;
+}

@@ -1,0 +1,159 @@
+body{
+    background: transparent;
+}
+/*最外层section*/
+.roleManager{
+    width: 100%;
+    font-size: 1vw;
+    font-family: "微软雅黑";
+    background: transparent;
+    -webkit-background-size:100% 100%;
+    background-size:100% 100%;
+    color: #fff;
+    text-align: center;
+}
+
+input{
+    background: transparent;
+}
+/*第二层包裹内容div*/
+.background{
+    width: 100%;
+}
+/*角色编号和角色名称搜索*/
+.roleNo{
+    width:75%;
+    float: left;
+    margin:40px 0;
+    text-align: left;
+}
+.jiaosem{
+    margin-left: 3%;
+}
+/*人员编号输入框*/
+#perNo{
+    width: 83px;
+    height: 29px;
+    background:transparent;
+    border:1px solid white;
+    outline: none;
+    vertical-align: middle;
+}
+/*人员姓名输入框*/
+#perName{
+    width: 83px;
+    height:29px;
+    background: transparent;;
+    border:1px solid white;
+    outline: none;
+    vertical-align: middle;
+}
+.Search{
+    border: 1px solid white;
+    padding: 5px 40px;
+    background-color: rgba(0,0,0,0);
+    margin-left: 2%;
+}
+/*新增角色按钮*/
+.addRolebtn{
+    width: 138px;
+    height: 29.47px;
+    background:none;
+    border:1px solid #fff;
+    float: right;
+    outline: none;
+    line-height: 29.47px;
+    margin:40px 0;
+}
+.jump{
+    width: 100%;
+    height:100%;
+    display: inline-block;
+    color: #fff;
+}
+.jump:hover{
+    color:#fff;
+    text-decoration: none;
+}
+/*设置表单内容中的样式*/
+.table{
+    font-size: 13px;!important;
+}
+table{
+    margin: 0 auto;
+}.table tr{
+     background: rgba(0,0,0,0.4)!important;
+ }
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td
+{
+    border-bottom: 2px solid #432c51;
+}
+table tr th{
+    border-top: 0!important;
+    text-align: center;
+    height: 43px;
+}
+
+table tr td{
+    border-top: 0!important;
+    text-align: center;
+    height: 43px!important;
+}
+table tr:last-child{
+    border-bottom: 0!important;
+}
+table tr{
+    height: 43px!important;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+    padding: 5px;!important;
+}
+.Flip button{
+    border: 1px solid white;
+    background: none;
+    border-radius: 3px;
+    padding: 0 .5vw;
+}
+    /*底部上一页与下一页*/
+.left{
+    width: 320px;
+    height: 30px;
+    float: left;
+    text-align: center;
+    outline: none;
+}
+.Prev{
+    width: 80px;
+    height: 30px;
+    background: none;
+    border:1px solid #fff;
+    outline: none;
+}
+.btn-one{
+    width: 30px;
+    height: 30px;
+    background: none;
+    border:1px solid #fff;
+    outline: none;
+}
+.Next{
+    width: 80px;
+    height: 30px;
+    background: none;
+    border:1px solid #fff;
+    outline: none;
+}
+.revise{
+
+    height: 30px;
+    background:none;
+    border: none;
+    outline: none;
+}
+.del{
+
+    height: 30px;
+    background:none;
+    border:none;
+    outline: none;
+}
