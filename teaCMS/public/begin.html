@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>西江月cms</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- bootstrap -->
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet"/>
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="css/elements.css"/>
+    <link rel="stylesheet" type="text/css" href="css/icons.css"/>
+
+    <!-- libraries -->
+    <link href="css/lib/font-awesome.css" type="text/css" rel="stylesheet"/>
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="css/compiled/tables.css" type="text/css" media="screen"/>
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'/>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<style>
+    .title{
+        margin-top: 50px;
+        margin-left: 50px;
+    }
+    #main{
+        width: 800px;
+        height:400px;
+        margin:50px auto;
+    }
+</style>
+<body>
+<!-- navbar -->
+<!-- 上面导航 -->
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <a class="brand" href="index.html"><img src="img/logo.png"/></a>
+
+        <ul class="nav pull-right">
+            <li class="settings hidden-phone">
+                <a href="" role="button">
+                    <i class="icon-cog"></i>
+                </a>
+            </li>
+            <li class="settings hidden-phone">
+                <a href="login.html" role="button">
+                    <i class="icon-share-alt"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- end navbar -->
+<!-- sidebar -->
+<div id="sidebar-nav">
+    <ul id="dashboard-menu">
+        <li>
+            <a href="person.html">
+                <i class="icon-home"></i>
+                <span>人员管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="role.html">
+                <i class="icon-signal"></i>
+                <span>角色管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="product2.html">
+                <i class="icon-edit"></i>
+                <span>商品管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="user.html">
+                <i class="icon-group"></i>
+                <span>客户管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="orderForm.html">
+                <i class="icon-reorder"></i>
+                <span>订单管理</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-toggle" href="newTea.html">
+                <i class="icon-share-alt"></i>
+                <span>新茶预约</span>
+                <i class="icon-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="newTeaOrder.html">预约订单管理</a></li>
+                <li><a href="newTeaProduct.html">产品管理</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="dropdown-toggle" href="activity.html">
+                <i class="icon-calendar-empty"></i>
+                <span>游园管理</span>
+                <i class="icon-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="activityIntro.html">活动介绍</a></li>
+                <li><a href="activityApply.html">活动申请</a></li>
+            </ul>
+        </li>
+        <li>
+
+            <a href="tea.html">
+                <i class="icon-th-large"></i>
+                <span>茶树管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="pack.html">
+                <i class="icon-picture"></i>
+                <span>包装管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="museum.html">
+                <i class="icon-leaf"></i>
+                <span>博物馆管理</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- end sidebar -->
+<!-- main container -->
+<div class="content">
+    <div class="title">
+        <h2>今年销量统计：</h2>
+    </div>
+    <div id="main"></div>
+</div>
+<!-- end main container -->
+<!-- scripts -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/echarts.min.js"></script>
+<script>
+    // 初始化
+    var myChart = echarts.init(document.getElementById('main'));
+    // 配置信息
+    var option = {
+        //鼠标移入信息
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        //展示工具
+        toolbox: {
+            feature: {
+//                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+//                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        //数据种类
+        legend: {
+            data:['茶具','茶叶','茶食']
+        },
+        //X轴
+        xAxis: [
+            {
+                type: 'category',
+                data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        //y轴
+        yAxis: [
+            {
+                type: 'value',
+                name: '数量',
+                min: 0,
+                max: 250,
+                interval: 50,
+                axisLabel: {
+                    formatter: '{value} 个'
+                }
+            }
+        ],
+        //数据信息，来源于数据库
+        series: [
+            {
+                name:'茶具',
+                type:'bar',
+                data:[2, 9, 14, 15, 19, 25, 21, 8, 7, 5, 3, 2]
+            },
+            {
+                name:'茶叶',
+                type:'bar',
+                data:[5, 10, 18, 50, 36, 140, 200, 180, 56, 36, 12, 4]
+            },
+            {
+                name:'茶食',
+                type:'bar',
+                data:[4, 18, 34, 55, 68, 100, 180, 200, 100, 50, 23, 12]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html class="login-bg">
+<head>
+    <title>Detail Admin - Sign in</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- bootstrap -->
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+
+    <!-- libraries -->
+    <link rel="stylesheet" type="text/css" href="css/lib/font-awesome.css" />
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="css/compiled/signin.css" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<style>
+    #code{
+        width: 120px;
+        height: 30px;
+        margin-left: -10px;
+    }
+    #codeImg{
+        width: 80px;
+        height: 30px;
+    }
+    .changeCode:hover{
+        color: brown;
+        cursor: pointer;
+    }
+    .login-bg{
+        background-image: url("img/bgs/landscape.jpg");
+    }
+</style>
+<body>
+<div class="row-fluid login-wrapper">
+    <a href="index.html">
+        <img class="logo" src="img/logo-white.png" />
+    </a>
+    <div class="span4 box">
+        <div class="content-wrap">
+            <h6>登录</h6>
+            <input class="span12" type="text" placeholder="用户名" name="username" id="username" onblur="findUser()"/>
+            <input class="span12" type="password" placeholder="密码" name="password" id="password"/>
+            <span id="userEx">欢迎使用本系统（西江月）</span>
+            <a href="findPassword.html" class="forgot">忘记密码</a>
+            <input type="text" placeholder="验证码" name="code" id="code" onfocus="reWrite()"/>
+            <canvas id="codeImg" ></canvas>
+            <span class="changeCode">看不清楚,换一张</span><br/>
+            <!--<span id="logMess">输入验证码</span><br/>-->
+            <span class="btn-glow primary login" onclick='checkUser()'>Log in</span>
+
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/login.js"></script>
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>

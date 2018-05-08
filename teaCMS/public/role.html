@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>角色管理</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- bootstrap -->
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+
+    <!-- libraries -->
+    <link href="css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="css/compiled/tables.css" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        .modal.fade{
+            top:-80%;
+        }
+        #roleName{
+            height: 30px;
+        }
+        #btu_1{
+            width: 67px;
+            background-color:#0067cc;
+            color: white;
+            height: 27px;
+            border: none;
+        }
+        select{
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- navbar -->
+<!-- 上面导航 -->
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <a class="brand" href="index.html"><img src="img/logo.png" /></a>
+
+        <ul class="nav pull-right">
+            <li class="settings hidden-phone">
+                <a href="" role="button">
+                    <i class="icon-cog"></i>
+                </a>
+            </li>
+            <li class="settings hidden-phone">
+                <a href="login.html" role="button">
+                    <i class="icon-share-alt"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- end navbar -->
+
+<!-- sidebar -->
+<div id="sidebar-nav">
+    <ul id="dashboard-menu">
+        <li>
+            <a href="person.html">
+                <i class="icon-home"></i>
+                <span>人员管理</span>
+            </a>
+        </li>
+        <li   class="active">
+            <div class="pointer">
+                <div class="arrow"></div>
+                <div class="arrow_border"></div>
+            </div>
+            <a href="role.html">
+                <i class="icon-signal"></i>
+                <span>角色管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="product2.html">
+                <i class="icon-edit"></i>
+                <span>商品管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="user.html">
+                <i class="icon-group"></i>
+                <span>客户管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="orderForm.html">
+                <i class="icon-reorder"></i>
+                <span>订单管理</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-toggle" href="newTea.html">
+                <i class="icon-share-alt"></i>
+                <span>新茶预约</span>
+                <i class="icon-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="newTeaOrder.html">预约订单管理</a></li>
+                <li><a href="newTeaProduct.html">产品管理</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="dropdown-toggle" href="activity.html">
+                <i class="icon-calendar-empty"></i>
+                <span>游园管理</span>
+                <i class="icon-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="activityIntro.html">活动介绍</a></li>
+                <li><a href="activityApply.html">活动申请</a></li>
+            </ul>
+        </li>
+        <li>
+
+            <a href="tea.html">
+                <i class="icon-th-large"></i>
+                <span>茶树管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="pack.html">
+                <i class="icon-leaf"></i>
+                <span>包装管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="museum.html">
+                <i class="icon-picture"></i>
+                <span>博物馆管理</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- end sidebar -->
+
+
+<!-- main container -->
+<div class="content">
+    <div class="container-fluid">
+        <div id="pad-wrapper">
+
+            <!-- products table-->
+            <!-- the script for the toggle all checkboxes from header is located in js/theme.js -->
+            <div class="table-wrapper products-table section">
+                <div class="row-fluid head">
+                    <div class="span12">
+                        <h4>角色管理</h4>
+                    </div>
+                </div>
+
+
+                <div class="row-fluid filter-block" style="position: absolute;top: 85px;right: 170px">
+                    <div class="pull-right">
+                        <select name="roleName" id="roleName">
+                            <option value="0" >角色名称</option>
+                        </select>
+                        <button class="btn btn-lg btn-flat success " onclick="searchRole()"  id="btu_1">查询 </button>
+                    </div>
+                </div>
+                <div class="row-fluid filter-block">
+                    <div class="pull-right">
+                        <a class="btn btn-lg btn-flat success " data-toggle="modal" data-target="#addModal" style="height: 11px"> + 新增</a>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="span3">
+                                <span class="line"></span>角色id
+                            </th>
+                            <th class="span3">
+                                <span class="line"></span>角色名称
+                            </th><th class="span3">
+                                <span class="line"></span>角色权限
+                            </th><th class="span3">
+                                <span class="line"></span>状态
+                            </th><th class="span3">
+                                <span class="line"></span>操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody id="content">
+
+                    </table>
+                </div>
+            </div>
+            <!-- end products table -->
+
+            <div class="pagination">
+                <ul>
+                    <li><a onclick="prevPage()">&#8249;</a>
+                    </li>
+                    <li id="pageFoot"></li>
+                    <li><a onclick="nextPage()">&#8250;</a></li>
+                </ul>
+            </div>
+            <div class="localPage"><span id="localPage"></span></div>
+            <!-- end users table -->
+        </div>
+    </div>
+</div>
+<!-- end main container -->
+
+
+<!-- Modal -->
+<!-- 修改 -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabe1">修改</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="field-box">
+                        <label>角色名称</label>
+                        <input class="span5" type="text" id="role_nameup"/>
+                    </div>
+                    <div class="field-box">
+                        <select name="role_porwer" id="role_porwerup">
+                        </select>
+                    </div>
+                    <br/>
+                    <div class="field-box">
+                        <select name="role_type" id="role_typeup">
+
+                        </select>
+                    </div>
+
+                </form>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateRole()">保存修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 新增 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabe12">新增</h4>
+            </div>
+            <div class="modal-body">
+                <form id="newRole">
+                    <div class="field-box">
+                        <label>角色名称</label>
+                        <input class="span5" type="text" id="role_name"/>
+                    </div>
+                    <div class="field-box">
+                        <select name="role_porwer" id="role_porwer">
+                            <option value="0">管理员权限</option>
+                            <option value="1">超级管理员权限</option>
+                        </select>
+                    </div>
+                    <div class="field-box">
+                    </div>
+                    <div class="field-box">
+                        <select name="role_type" id="role_type">
+                            <option value="0">注销</option>
+                            <option value="1">使用</option>
+                        </select>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"  onclick="nowRole()">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 删除 -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabe123">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                确认删除？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteRole()">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/roleManger.js"></script>
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>

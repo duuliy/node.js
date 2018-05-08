@@ -1,0 +1,501 @@
+<!--create by SDL-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商品管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/bootstrap-wysihtml5.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/uniform.default.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/select2.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/bootstrap.datepicker.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="css/compiled/form-showcase.css" type="text/css" media="screen" />
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        .imagesize{
+            width: 100px;
+            height:100px;
+        }
+        .modal.fade{
+            top:-80%;
+        }
+        select{
+            display: inline-block;
+            height: 30px;
+            margin: 0 5px 20px 0;
+        }
+
+        ul{
+            list-style: none;
+        }
+        .modal-body>form>span{
+            display: inline-block;
+            width: 100px;
+        }
+        h4{
+            margin-bottom: 10px;
+        }
+        .modal-body input{
+            width:55%;
+        }
+        textarea{
+            width: 70%;
+        }
+        #addModal{
+            width: 70%;
+            left: 35%;
+        }
+        .detailInfo{
+            column-count: 2;
+        }
+        .addDetail{
+            padding: 10px;
+            border: 1px solid lavender;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .detailInfoImg{
+            height: 150px;
+        }
+        .myProImg{
+            margin-bottom: 30px;
+        }
+        .myProImg img{
+            width: 200px;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        .detailImgPart1,.detailImgPart2,.detailImgPart0,.detailImgPart3,.detailImgPart4,.detailImgPart5{
+            display: inline-block;
+            width: 240px;
+            margin-left: 20px;
+        }
+        #updateMess>span{
+            width: 90px;
+        }
+        #editModal{
+            width: 70%;
+            left: 35%;
+        }
+        .detailImgFile3,.detailImgFile4,.detailImgFile5{
+            /*width: 10% !important;*/
+        }
+        .editor>div{
+            width: 100%;!important;
+        }
+    </style>
+</head>
+<body>
+<!-- navbar -->
+<!-- 上面导航 -->
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <a class="brand" href="index.html"><img src="img/logo.png" /></a>
+
+        <ul class="nav pull-right">
+            <li class="settings hidden-phone">
+                <a href="" role="button">
+                    <i class="icon-cog"></i>
+                </a>
+            </li>
+            <li class="settings hidden-phone">
+                <a href="login.html" role="button">
+                    <i class="icon-share-alt"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- end navbar -->
+<!-- sidebar -->
+<div id="sidebar-nav">
+    <ul id="dashboard-menu">
+        <li>
+            <a href="person.html">
+                <i class="icon-home"></i>
+                <span>人员管理</span>
+            </a>
+        </li>
+        <li>
+
+            <a href="role.html">
+                <i class="icon-signal"></i>
+                <span>角色管理</span>
+            </a>
+        </li>
+        <li  class="active" >
+            <div class="pointer">
+                <div class="arrow"></div>
+                <div class="arrow_border"></div>
+            </div>
+            <a href="product2.html">
+                <i class="icon-edit"></i>
+                <span>商品管理</span>
+            </a>
+        </li>
+        <li  >
+
+            <a href="user.html">
+                <i class="icon-group"></i>
+                <span>客户管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="orderForm.html">
+                <i class="icon-picture"></i>
+                <span>订单管理</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-toggle" href="newTea.html">
+                <i class="icon-share-alt"></i>
+                <span>新茶预约</span>
+                <i class="icon-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="newTeaOrder.html">预约订单管理</a></li>
+                <li><a href="newTeaProduct.html">产品管理</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="dropdown-toggle" href="activity.html">
+                <i class="icon-calendar-empty"></i>
+                <span>游园管理</span>
+                <i class="icon-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="activityIntro.html">活动介绍</a></li>
+                <li><a href="activityApply.html">活动申请</a></li>
+            </ul>
+        </li>
+        <li>
+
+            <a href="tea.html">
+                <i class="icon-th-large"></i>
+                <span>茶树管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="pack.html">
+                <i class="icon-picture"></i>
+                <span>包装管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="museum.html">
+                <i class="icon-leaf"></i>
+                <span>博物馆管理</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- end sidebar -->
+<!-- main container -->
+<div class="content">
+    <div class="container-fluid">
+        <div id="pad-wrapper">
+
+            <!-- products table-->
+            <!-- the script for the toggle all checkboxes from header is located in js/theme.js -->
+            <div class="table-wrapper products-table section">
+                <div class="row-fluid head">
+                    <div class="span12">
+                        <h4>商品管理</h4>
+                    </div>
+                </div>
+
+                <div class="row-fluid filter-block">
+                    <div class="pull-right">
+                        <select name="productNum" id="productNum">
+                            <option value="0">商品编号</option>
+                        </select>
+                        <select name="productName" id="productName">
+                            <option value="0">商品名称</option>
+                        </select>
+                        <select name="productType" id="productType">
+                            <option value="0">商品种类</option>
+                        </select>
+
+                        <!--<button class="btn btn-lg btn-flat success" onclick="searchProduct()">点击查询</button>-->
+                        <div class="pull-right">
+                            <a class="btn btn-lg btn-flat new-product" id="search" onclick="searchProduct()">搜索</a>
+                            <a class="btn btn-lg btn-flat success new-product" data-toggle="modal" data-target="#addModal"> + 新增</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="span3">
+                                编号
+                            </th>
+                            <th class="span3">
+                                <span class="line"></span>名称
+                            </th>
+                            <th class="span3">
+                                <span class="line"></span>类型
+                            </th>
+                            <th class="span3">
+                                <span class="line"></span>库量
+                            </th>
+                            <th class="span3">
+                                <span class="line"></span>单价
+                            </th>
+                            <th class="span3">
+                                <span class="line"></span>产品状态
+                            </th>
+                            <th class="span3">
+                                <span class="line"></span>操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- row -->
+                        <!-- row -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end products table -->
+            <div class="pagination">
+                <ul>
+                    <li><a onclick="prevPage()">&#8249;</a></li>
+                    <li id="li"></li>
+                    <li class="nextPage"><a onclick="nextPage()">&#8250;</a></li>
+                </ul>
+            </div>
+            <!-- end users table -->
+        </div>
+    </div>
+</div>
+<!-- end main container -->
+<!-- 新增 -->
+<div class="modal fade addModal" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增</h4>
+            </div>
+            <div class="modal-body addModel">
+                <h4>基本信息</h4>
+                <form class="detailInfo">
+                    <span>商品类型：</span><select id="protypename" name="protypename"></select><br/>
+                    <span>商品名称：</span><input type="text" id="proname" name="proname"><br/>
+                    <span>商品库存量：</span><input type="text" id="proamout" name="proamout"><br/>
+                    <span>商品单价：</span><input type="text" id="proprice" name="proprice"><br/>
+                    <span>商品折扣：</span><input type="text" id="prodiscount" name="prodiscount"><br/>
+                    <span>商品规格：</span><input type="text" id="prosize" name="prosize"><br/>
+                    <span>入库时间：</span><input type="date" id="prostoretime" name="prostroetime"><br/>
+                    <span>商品简介：</span>
+                    <input type="text" id="proinfo" name="proinfo"><br/>
+                </form>
+                <h4>商品展示图</h4>
+                <form class="detailImgPart0" name="detailImg0" onsubmit="return false">
+                        <input type="file" name="imgFile" class="detailImgFile0">
+                        <button class="btn btn-lg btn-flat default new-product detailImgUpload0">上传正面图</button>
+                        <br/>
+                        <img src="" alt="这个图片请上传" style="width: 260px;height: 200px;background-color: grey" class="fsimg0"/>
+                        <br/><span class="routes0">*********</span>
+                    </form>
+                <form class="detailImgPart1" name="detailImg1" onsubmit="return false">
+                        <input type="file" name="imgFile" class="detailImgFile1">
+                        <button class="btn btn-lg btn-flat default new-product detailImgUpload1">上传侧面图</button>
+                        <br/>
+                        <img src="" alt="这个图片请上传" style="width: 260px;height: 200px;background-color: grey" class="fsimg1"/>
+                        <br/><span class="routes1">*********</span>
+                    </form>
+                <form class="detailImgPart2" name="detailImg2" onsubmit="return false">
+                        <input type="file" name="imgFile" class="detailImgFile2">
+                        <button class="btn btn-lg btn-flat default new-product detailImgUpload2">上传背面图</button>
+                        <br/>
+                        <img src="" alt="这个图片请上传" style="width: 260px;height: 200px;background-color: grey" class="fsimg2"/>
+                        <br/><span class="routes2">*********</span>
+                    </form>
+
+                <h4>详情图文描述</h4>
+                <!--create by SDL-->
+                <div>
+                    <form class="editor">
+                        <textarea id="addDetailEditor" name="addDetailEditor"></textarea>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="addsure">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 删除 -丢弃->
+<!--<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabe2">生存状态</h4>
+            </div>
+            <div class="modal-body">
+                确认删除？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="deletesure">删除</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- 修改 -->
+<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabe3">修改</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateMess">
+                    <span>商品编号：</span><input type="text" id="proid2"><br/>
+                    <span>商品类型：</span> <input type="text" id="protypeid2"><br/>
+                    <span>商品名称：</span><input type="text" id="proname2"><br/>
+                    <span>商品库存量：</span><input type="text" id="proamout2"><br/>
+                    <span>商品单价：</span><input type="text" id="proprice2"><br/>
+                    <span>商品折扣：</span><input type="text" id="prodiscount2"><br/>
+                    <span>商品规格：</span><input type="text" id="prosize2"><br/>
+                    <span>商品成交量：</span><input type="text" id="prodealamout2"><br/>
+                    <span>浏览次数：</span><input type="text" id="prolookamout2"><br/>
+                    <span>入库时间：</span><input type="text" id="prostoretime2"><br/>
+                    <!--商品简介：<input type="text" id="proinfo2"><br/>-->
+                    <span>商品简介：</span><textarea name="" id="proinfo2" cols="20" rows="8"></textarea><br/>
+                    <span>生存状态（0,1）：</span><input type="text" id="procondition2"><br/>
+                    <p>商品展示图</p>
+                    <div class="myProImg">
+                        <!--这里存在一个bug,第一个form框会被干掉，暂时找了个替死鬼，后期修改，应该是js读取有问题-->
+                        <form class="detailImgPart6" name="detailImg6" onsubmit="return false"></form>
+                        <form class="detailImgPart3" name="detailImg3" onsubmit="return false">
+                            <input type="file" name="imgFile" class="detailImgFile3">
+                            <button class="btn btn-lg btn-flat default new-product detailImgUpload3">更换正面图</button>
+                            <br/>
+                            <img src="" alt="这个图片请上传" style="width: 260px;height: 200px;background-color: grey" class="fsimg3"/>
+                            <br/><span class="routes3">*********</span>
+                        </form>
+                        <form class="detailImgPart4" name="detailImg4" onsubmit="return false">
+                            <input type="file" name="imgFile" class="detailImgFile4">
+                            <button class="btn btn-lg btn-flat default new-product detailImgUpload4">更换侧面图</button>
+                            <br/>
+                            <img src="" alt="这个图片请上传" style="width: 260px;height: 200px;background-color: grey" class="fsimg4"/>
+                            <br/><span class="routes4">*********</span>
+                        </form>
+                        <form class="detailImgPart5" name="detailImg5" onsubmit="return false">
+                            <input type="file" name="imgFile" class="detailImgFile5">
+                            <button class="btn btn-lg btn-flat default new-product detailImgUpload5">更换背面图</button>
+                            <br/>
+                            <img src="" alt="这个图片请上传" style="width: 260px;height: 200px;background-color: grey" class="fsimg5"/>
+                            <br/><span class="routes5">*********</span>
+                        </form>
+                    </div>
+                    <p>商品详情图文</p>
+                    <div class="myProText">
+                        <div>
+                            <form class="editor">
+                                <textarea id="updateDetailEditor" name="updateDetailEditor"></textarea>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="editsure">保存修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新增描述--取消部分-->
+<!--
+<div class="modal fade " id="proModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                产品详情描述 <span>(</span><span class="textidname"></span><span>)</span>
+            </div>
+            <div class="modal-body">
+                <p>上传展示图1</p>
+                <form class="detailImgPart4" name="detailImg4" onsubmit="return false">
+                    <input type="file" name="imgFile" class="detailImgFile4">
+                    <button class="btn btn-lg btn-flat default new-product detailImgUpload4">上传展示图1</button>
+                    <br/>
+                    <img src="" alt="这个图片请上传" style="width: 340px;height: 300px;background-color: grey" class="fsimg4"/>
+                    <br/><span class="routes4">*********</span>
+                </form>
+                <p>上传展示图2</p>
+                <form class="detailImgPart5" name="detailImg5" onsubmit="return false">
+                    <input type="file" name="imgFile" class="detailImgFile5">
+                    <button class="btn btn-lg btn-flat default new-product detailImgUpload5">上传展示图2</button>
+                    <br/>
+                    <img src="" alt="这个图片请上传" style="width: 340px;height: 300px;background-color: grey" class="fsimg5"/>
+                    <br/><span class="routes5">*********</span>
+                </form>
+                <p>详情描述</p>
+                <textarea id="thisdis" cols="30" rows="10"></textarea>
+                <p>详情图片</p>
+                <form class="detailImgPart3" name="detailImg3" onsubmit="return false">
+                    <input type="file" name="imgFile" class="detailImgFile3">
+                    <button class="btn btn-lg btn-flat default new-product detailImgUpload3">上传详情图</button>
+                    <br/>
+                    <img src="" alt="这个图片请上传" style="width: 340px;height: 300px;background-color: grey" class="fsimg3"/>
+                    <br/><span class="routes3">*********</span>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="prosure">保存修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+<!--查看详情-丢弃->
+<!--<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>-->
+
+<script src="js/wysihtml5-0.3.0.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-wysihtml5-0.0.2.js"></script>
+<script src="js/bootstrap.datepicker.js"></script>
+<script src="js/jquery.uniform.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/theme.js"></script>
+<script charset="utf-8" src="kindeditor/kindeditor-all-min.js"></script>
+<script charset="utf-8" src="kindeditor/lang/zh-CN.js"></script>
+<script src="js/product2.js"></script>
+<!-- call this page plugins -->
+</body>
+</html>

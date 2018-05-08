@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detail Admin - Form Showcase</title>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+    <!-- bootstrap -->
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- libraries -->
+    <link href="css/lib/bootstrap-wysihtml5.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/uniform.default.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/select2.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/bootstrap.datepicker.css" type="text/css" rel="stylesheet" />
+    <link href="css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+    
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="css/compiled/form-showcase.css" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<style type="text/css">
+    .imagesize{
+        width: 100px;
+        height:100px;
+    }
+    .modal.fade{
+        top:-80%;
+    }
+    #btu_2{
+        background-color: #4387bf;
+        width: 65px;
+        height: 30px;
+        /*margin-right: 20px*/
+        /*margin-left: 250px;*/
+        border-color: #4387bf;
+        color: white;
+    }
+
+</style>
+<body>
+
+    <!-- navbar -->
+    <!-- 上面导航 -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="brand" href="index.html"><img src="img/logo.png" /></a>
+
+            <ul class="nav pull-right">                
+                <li class="settings hidden-phone">
+                    <a href="" role="button">
+                        <i class="icon-cog"></i>
+                    </a>
+                </li>
+                <li class="settings hidden-phone">
+                    <a href="login.html" role="button">
+                        <i class="icon-share-alt"></i>
+                    </a>
+                </li>
+            </ul>            
+        </div>
+    </div>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+   <div id="sidebar-nav">
+        <ul id="dashboard-menu">
+            <li>   
+                <a href="person.html">
+                    <i class="icon-home"></i>
+                    <span>人员管理</span>
+                </a>
+            </li>            
+            <li>
+
+                <a href="role.html">
+                    <i class="icon-signal"></i>
+                    <span>角色管理</span>
+                </a>
+            </li>
+            <li  class="active" >
+                <div class="pointer">
+                    <div class="arrow"></div>
+                    <div class="arrow_border"></div>
+                </div>
+                <a href="product2.html">
+                    <i class="icon-edit"></i>
+                    <span>商品管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="user.html">
+                    <i class="icon-group"></i>
+                    <span>客户管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="orderForm.html">
+                    <i class="icon-reorder"></i>
+                    <span>订单管理</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="newTea.html">
+                    <i class="icon-share-alt"></i>
+                    <span>新茶预约</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="newTeaOrder.html">预约订单管理</a></li>
+                    <li><a href="newTeaProduct.html">产品管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="activity.html">
+                    <i class="icon-calendar-empty"></i>
+                    <span>游园管理</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="activityIntro.html">活动介绍</a></li>
+                    <li><a href="activityApply.html">活动申请</a></li>
+                </ul>
+            </li>
+            <li>
+               
+                <a href="tea.html">
+                    <i class="icon-th-large"></i>
+                    <span>茶树管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="pack.html">
+                    <i class="icon-picture"></i>
+                    <span>包装管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="museum.html">
+                    <i class="icon-leaf"></i>
+                    <span>博物馆管理</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- end sidebar -->
+
+
+	<!-- main container -->
+        <div class="content">
+        <div class="container-fluid">
+            <div id="pad-wrapper">
+            
+                <!-- products table-->
+                <!-- the script for the toggle all checkboxes from header is located in js/theme.js -->
+                <div class="table-wrapper products-table section">
+                    <div class="row-fluid head">
+                        <div class="span12">
+                            <h4>商品管理</h4>
+                        </div>
+                    </div>
+
+                    <!--<div class="row-fluid filter-block">
+                        <div class="pull-right">
+                            <a class="btn btn-lg btn-flat success new-product" data-toggle="modal" data-target="#editModal"> + 新增</a>
+                        </div>
+                    </div>-->
+                    <div class="row-fluid filter-block">
+                        <span style="margin-left: 230px">
+                            <select name="productNum" id="productNum" style="height: 27px;">
+                              <option value="0">商品编号</option>
+                          </select>
+                            <select name="productName" id="productName " style="height: 27px;">
+                                <option value="0">商品名称</option>
+                            </select>
+                            <select name="productType" id="productType" style="height: 27px;">
+                                <option value="0">商品种类</option>
+                            </select>
+                            <button class="btn btn-lg btn-flat success" onclick="searchProduct()" id="btu_2">查询</button>
+                        </span>
+
+                        <div class="pull-right">
+                            <a class="btn btn-lg btn-flat success new-product" data-toggle="modal" data-target="#addModal"> + 新增</a>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <table class="table table-hover">
+                            <tbody id="content">
+                            </tbody>
+                        </table>
+                    </div>
+
+        </div>
+                   
+                </div>
+                <!-- end products table -->
+            <div class="page row-fluid filter-block"><span id="counP"></span></div>
+            <div class="pagination">
+                <ul>
+                    <li><a onclick="prevPage()">&#8249;</a></li>
+                    <li id="li"></li>
+                    <li><a onclick="nextPage()">&#8250;</a></li>
+                </ul>
+            </div>
+              
+                <!-- end users table -->
+            </div>
+        </div>
+    </div>
+    <!-- end main container -->
+    <!-- scripts for this page -->
+
+    <!-- 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        商品编号：<input type="text" id="proid"><br/>
+                        商品类型编号：<input type="text" id="protypeid"><br/>
+                        <!--商品类型名称：<input type="text" id="protypename"><br/>-->
+                        商品名称：<input type="text" id="proname"><br/>
+                        商品库存量：<input type="text" id="proamout"><br/>
+                        商品单价：<input type="text" id="proprice"><br/>
+                        商品折扣：<input type="text" id="prodiscount"><br/>
+                        商品规格：<input type="text" id="prosize"><br/>
+                        商品成交量：<input type="text" id="prodealamout"><br/>
+                        浏览次数：<input type="text" id="prolookamout"><br/>
+                        入库时间：<input type="text" id="prostoretime"><br/>
+                        商品简介：<input type="text" id="proinfo"><br/>
+                        生存状态（0,1）：<input type="text" id="procondition"><br/>
+                           <!--以上字段为productinfo主表的-->
+                        商品图片：<input type="text" id="proimgurl"><br/>
+                        商品图片状态（0,1）：<input type="text" id="proimgstatus"><br/>
+                        商品图片生存状态（0,1）：<input type="text" id="proimgcondition"><br/>
+                        <!--以上字段为productImg表的-->
+                        商品文字描述内容： <textarea  rows="4" id="protextdiscribe"></textarea><br/>
+                        商品图文生存状态（0,1）：<input type="text" id="protextcondition"><br/>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="addsure">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 删除 -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabe2">生存状态</h4>
+                </div>
+                <div class="modal-body">
+                    确认删除？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="deletesure">删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 修改 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabe3">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        商品编号：<input type="text" id="proid2"><br/>
+                        商品类型编号：<input type="text" id="protypeid2"><br/>
+                        <!--商品类型名称：<input type="text" id="protypename"><br/>-->
+                        商品名称：<input type="text" id="proname2"><br/>
+                        商品库存量：<input type="text" id="proamout2"><br/>
+                        商品单价：<input type="text" id="proprice2"><br/>
+                        商品折扣：<input type="text" id="prodiscount2"><br/>
+                        商品规格：<input type="text" id="prosize2"><br/>
+                        商品成交量：<input type="text" id="prodealamout2"><br/>
+                        浏览次数：<input type="text" id="prolookamout2"><br/>
+                        入库时间：<input type="text" id="prostoretime2"><br/>
+                        商品简介：<input type="text" id="proinfo2"><br/>
+                        生存状态（0,1）：<input type="text" id="procondition2"><br/>
+                        <!--以上字段为productinfo主表的-->
+                        商品图片：<input type="text" id="proimgurl2"><br/>
+                        商品图片状态（0,1）：<input type="text" id="proimgstatus2"><br/>
+                        商品图片生存状态（0,1）：<input type="text" id="proimgcondition2"><br/>
+                        <!--以上字段为productImg表的-->
+                        商品文字描述内容： <textarea  rows="4" id="protextdiscribe2"></textarea><br/>
+                        商品图文生存状态（0,1）：<input type="text" id="protextcondition2"><br/>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="editsure">保存修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/wysihtml5-0.3.0.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-wysihtml5-0.0.2.js"></script>
+    <script src="js/bootstrap.datepicker.js"></script>
+    <script src="js/jquery.uniform.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/theme.js"></script>
+
+    <script type="text/javascript" src="js/product.js">
+
+    </script>
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>
