@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="" name="description" />
+  <meta content="webthemez" name="author" />
+  <title>预约管理</title>
+    <%include css.ejs%>
+  <style>
+    .magin_left {
+      margin-right: 15px;
+    }
+  </style>
+</head>
+<body>
+<%include header.ejs%>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+  <!--标题部分-->
+  <div class="header">
+    <!--标题-->
+    <h1 class="page-header">
+      <!--Tables Page <small>Responsive tables</small>-->
+    </h1>
+    <!--面包屑导航-->
+    <ol class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li class="active">预约管理</li>
+    </ol>
+  </div>
+  <!--主要内容-->
+  <div id="page-inner">
+    <!--写自己的模块-->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form class="form-inline">
+              <div class="form-group magin_left">
+                <label for="exampleInputName2">设计师名字</label>
+                <input type="text" class="form-control" id="exampleInputName2" placeholder="设计师姓名">
+              </div>
+              <div class="form-group magin_left">
+                <label for="exampleInputEmail2">用户名</label>
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="创建人">
+              </div>
+              <button id="search" type="button" class="btn btn-success">查询</button>
+              <!--<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">新增</button>-->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                  <th>全选</th>
+                  <th>序号</th>
+                  <th>设计师名称</th>
+                  <th>是否为临时预约</th>
+                  <th>用户名</th>
+                  <th>预约地址id</th>
+                  <th>临时预约联系人</th>
+                  <th>临时预约电话</th>
+                  <th>省</th>
+                  <th>市</th>
+                  <th>区</th>
+                  <th>详细地址</th>
+                  <th>预约状态</th>
+                  <th>预约时间</th>
+                  <th>创建时间</th>
+                  <th>state</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%for(var i=0;i<data.length;i++){ %>
+                <tr>
+                  <td><input type="checkbox" class="items"/></td>
+                  <td><%=data[i].app_id%></td>
+                  <td><%=data[i].d_id%></td>
+                  <td><%=data[i].istemp%></td>
+                  <td><%=data[i].u_id%></td>
+                  <td><%=data[i].addr_id%></td>
+                  <td><%=data[i].temp_name%></td>
+                  <td><%=data[i].temp_tel%></td>
+                  <td><%=data[i].temp_prop%></td>
+                  <td><%=data[i].temp_city%></td>
+                  <td><%=data[i].temp_dist%></td>
+                  <td><%=data[i].temp_detail%></td>
+                  <td><%=data[i].app_status%></td>
+                  <td><%=data[i].app_time.toLocaleDateString()%></td>
+                  <td><%=data[i].createtime.toLocaleDateString()%></td>
+                  <td id="state<%=data[i].app_id%>"><%=data[i].state%></td>
+                  <td>
+                    <div delid='<%=data[i].app_id%>'>
+                      <button class="btn btn-success Ope" data-toggle="modal" data-target="#myModal2">修改</button>
+                        <%if(data[i].state==1){%>
+                      <button class="btn btn-danger Del">禁用</button>
+                        <%}else{%>
+                      <button class="btn btn-primary Del">开启</button>
+                        <%}%>
+                    </div>
+                  </td>
+                </tr>
+                <%}%>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+        <!--End Advanced Tables -->
+      </div>
+    </div>
+  </div>
+  <!--修改模态框-->
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">修改设计师</h4>
+        </div>
+        <div class="modal-body ">
+          <form id="myform" class="form-block">
+            <div class="form-group">
+              <label for="addInputFile">序号</label>
+              <input type="checkbox" id="addInputnum" value="8"  checked="checked" name="addInputnum2">
+            </div>
+            <div class="form-group magin_left">
+              <label for="addInputName">设计师名称</label>
+              <input type="text" class="form-control" id="addInputName" placeholder="设计师名称" name="addInputName2">
+            </div>
+            <div class="form-group">
+              <label for="addInputFile">预约地址id</label>
+              <input type="text" id="addInputFile" class="form-control" placeholder="预约地址" name="addInputFile2">
+            </div>
+            <div class="form-group">
+              <label for="addInputtime">预约时间</label>
+              <input type="text" id="addInputtime" class="form-control" placeholder="预约时间" name="addInputtime2">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" onclick="submitAjax()" class="btn btn-success sav">保存</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+    <%include footer.ejs%>
+</div>
+<%include js2.ejs%>
+<script src="js/ajax.js"></script>
+<script>
+
+    //点击删除
+    $(document).on("click", ".Del", function () {
+        if ($(this).html()=="禁用") {
+
+                $(this).html("开启").removeClass("btn btn-danger Del")
+                $(this).addClass("btn btn-primary Del")
+
+            var app_id = $(this).parent().parent().parent().children(":eq(0)").text();
+            var state=$(this).parent().parent().parent().children(":eq(15)");
+            state.text(0)
+            var request = new XMLHttpRequest();
+            request.open("get", "deletesone.do?id=" + app_id, true);
+            request.send(null);
+        }else{
+            $(this).html("禁用").removeClass("btn btn-primary Del")
+            $(this).addClass("btn btn-danger Del")
+            var app_id = $(this).parent().parent().parent().children(":eq(0)").text();
+            var state=$(this).parent().parent().parent().children(":eq(15)");
+            state.text(1)
+            var request = new XMLHttpRequest();
+            request.open("get", "deletestwo.do?id=" + app_id, true);
+            request.send(null);
+        }
+    });
+    function Data(){
+        var data = JSON.parse(xhr.responseText);
+        $("tbody").html("");
+        for (var i = 0; i < data.length; i++) {
+            let str2;
+            if(data[i].state==1){
+               str2= '<button class="btn btn-danger Del">禁用</button>'
+            }else{
+               str2= '<button class="btn btn-primary Del">开启</button>'
+            }
+            var str='<tr>'+
+                '<td><input type="checkbox" class="items"/></td>'+
+                '<td class="ct">'+data[i].app_id+'</td>' +
+                '<td class="ct">'+data[i].d_id+'</td>' +
+                '<td class="ct">'+data[i].istemp+'</td>' +
+                '<td class="ct">'+data[i].u_id+'</td>' +
+                '<td class="ct">'+data[i].addr_id+'</td>' +
+                '<td class="ct">'+data[i].temp_name +'</td>' +
+                '<td class="ct">'+data[i].temp_tel+'</td>' +
+                '<td class="ct">'+data[i].temp_prop+'</td>' +
+                '<td class="ct">'+data[i].temp_city+'</td>' +
+                '<td class="ct">'+data[i].temp_dist+'</td>' +
+                '<td class="ct">'+data[i].temp_detail+'</td>' +
+                '<td class="ct">'+data[i].app_status+'</td>' +
+                '<td class="ct">'+ new Date(data[i].app_time).toLocaleDateString()+'</td>' +
+                '<td class="ct">'+ new Date(data[i].createtime).toLocaleDateString()+'</td>' +
+                '<td id="state'+data[i].app_id+'">'+data[i].state+'</td>' +
+                '<td>'+
+                "<div delid="+data[i].app_id+">"+
+                '<button class="btn btn-success Ope" data-toggle="modal" data-target="#myModal2">修改</button>'
+                 +str2+
+                "</div>"+
+                '</td>'+
+                '</tr>'
+            $("tbody").append(str);
+        }
+    }
+
+    //查询
+    $("#search").click(function () {
+        var d_id = $("#exampleInputName2").val();     //获取查询信息框输入的值
+        var u_id = $("#exampleInputEmail2").val();
+        myAjax("post","/searchappoint.do","d_id="+d_id+"&u_id="+u_id+"",Data,true);
+    });
+    //新增无
+
+  //修改
+    $(document).on("click", ".Ope", function () {
+        var app_id = $(this).parent().parent().parent().children(":eq(1)").text();
+        var d_id = $(this).parent().parent().parent().children(":eq(2)").text();
+        var addr_id = $(this).parent().parent().parent().children(":eq(5)").text();
+        var app_time = $(this).parent().parent().parent().children(":eq(13)").text();
+        document.getElementById("addInputnum").value=app_id;
+        document.getElementById("addInputName").value=d_id;
+        document.getElementById("addInputFile").value=addr_id;
+        document.getElementById("addInputtime").value=app_time;
+    })
+    $(document).on("click", ".sav", function () {
+        $.ajax({
+            type: "POST",  //提交类型
+            url: "reviseappoint.do", //提交地址
+            data: $("#myform").serialize(),  //输出序列化表单值的结果
+            success: function (data) {//当 AJAX 请求成功完成时，触发提示框
+                console.log(data);
+            }
+        })
+        $('#myModal2').modal('hide');
+        myAjax("post","/searchappoint.do","",Data,true);
+    })
+
+
+</script>
+</body>
+</html>

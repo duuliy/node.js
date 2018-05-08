@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="" name="description" />
+  <meta content="webthemez" name="author" />
+  <title>设计师管理</title>
+  <%include css.ejs%>
+  <style>
+    .magin_left {
+      margin-right: 15px;
+    }
+    #myModal,#myModal2{
+      margin: 0 0 0 150px ;
+    }
+    #content td{
+      line-height: 51px;
+    }
+    .uploadDesigner>label,.modifyupload>label{
+      display: block;
+    }
+    .uploadDesigner>img,.modifyupload>img{
+      width: 80px;
+      height: 80px;
+      border-radius: 40px;
+      display: inline-block;
+      margin:0 20px;
+      border: 1px solid gainsboro;
+    }
+    .uploadDesigner>input,.modifyupload>input{
+      width: 200px;
+      display: inline-block;
+    }
+    tbody img{
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      border: 1px solid gainsboro;
+    }
+    td{
+      vertical-align: middle;
+    }
+    #addInputFile,#modifyfile{
+      position: absolute;
+      left: 150px;
+      top: 145px;
+    }
+    tfoot{
+      width: 50%;
+      height: 50px;
+    }
+    .page{
+      height: 50px;
+      margin-top: -15px;
+      margin-bottom: 5px;
+      /*margin-left: 500px;*/
+    }
+    li{
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<%include header.ejs%>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper" >
+  <div class="header">
+    <h1 class="page-header">
+      <!--Tables Page <small>Responsive tables</small>-->
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li><a href="#">设计师管理</a></li>
+      <li class="active">设计师</li>
+    </ol>
+
+  </div>
+
+  <div id="page-inner">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="card-title">
+              <button type="button" class="btn btn-success"
+                      data-toggle="modal" data-target="#myModal">新增设计师</button>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form class="form-inline " id="search">
+              <div class="form-group magin_left">
+                <label for="searchName">设计师名称</label>
+                <input type="text" class="form-control" id="searchName" placeholder="Jane Doe">
+              </div>
+              <div class="form-group magin_left">
+                <label for="searchPerson">创建人</label>
+                <input type="text" class="form-control" id="searchPerson" placeholder="jane">
+              </div>
+              <button type="button" class="btn btn-success" onclick="query()">查询</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            设计师表格
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                  <th class="text-center">ID</th>
+                  <th class="text-center">设计师名称</th>
+                  <th class="text-center">设计师图片</th>
+                  <th class="text-center">设计师介绍</th>
+                  <th class="text-center">设计师作品介绍</th>
+                  <th class="text-center">修改时间</th>
+                  <th class="text-center">创建人</th>
+                  <th class="text-center">设计师状态</th>
+                  <th class="text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody id="content">
+                <%if(list.length>0){%>
+                  <%for(var i=0;i<list.length;i++){%>
+                  <tr class="odd gradeX text-center">
+                    <td><%=list[i].d_id%></td>
+                    <td><%=list[i].d_name%></td>
+                    <td><img src=<%=list[i].d_img%> alt=""/></td>
+                    <td><%=list[i].d_case%></td>
+                    <td><%=list[i].d_detail%></td>
+                    <td><%=list[i].createtime.toLocaleDateString()%></td>
+                    <td><%=list[i].a_name%></td>
+                    <%if(list[i].state==0){%>
+                    <td id=designerState<%=list[i].d_id%>>禁用</td>
+                    <%}else{%>
+                    <td id=designerState<%=list[i].d_id%>>启用</td>
+                    <%}%>
+                    <td class="center ">
+                      <%if(list[i].state==0){%>
+                      <button data-id=<%=list[i].d_id%> type="button" class="btn btn-success"
+                              data-toggle="modal" data-target="#myModal2" onclick="getOneList(this)">修改</button>
+                      <button data-id=<%=list[i].d_id%> type="button" class="btn btn-primary"
+                              onclick="deleteDesigner(this)" id=mbutton<%=list[i].d_id%>>启用</button>
+                      <%}else{%>
+                      <button data-id=<%=list[i].d_id%> type="button" class="btn btn-success"
+                              data-toggle="modal" data-target="#myModal2" onclick="getOneList(this)">修改</button>
+                      <button data-id=<%=list[i].d_id%> type="button" class="btn btn-danger"
+                              onclick="deleteDesigner(this)" id=mbutton<%=list[i].d_id%>>禁用</button>
+                      <%}%>
+                    </td>
+                  </tr>
+                  <%}%>
+                <%}else{%>
+                  <tr class="text-center">
+                    <td colspan="9">未查询到设计师数据！</td>
+                  </tr>
+                <%}%>
+                </tbody>
+                <tfoot>
+                  <tr >
+                    <td colspan="12">
+                      <div class="col-sm-12 text-center page">
+                        <ul class="pagination ulBox" id="ulBox">
+                          <li class="paginate_button previous">
+                            <a href="javascript:">上一页</a>
+                          </li>
+                          <!--<li class="paginate_button">-->
+                          <!--<a href="javascript">1</a>-->
+                          <!--</li>-->
+                          <!--<li class="paginate_button">-->
+                          <!--<a href="javascript">2</a>-->
+                          <!--</li>-->
+                          <li class="paginate_button next" id="next">
+                            <a href="javascript:">下一页</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tfoot>
+              </table>
+            </div>
+
+          </div>
+        </div>
+        <!--End Advanced Tables -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <footer><p>Copyright &copy; 2017.Company name All rights reserved.<a target="_blank" href="http://www.cssmoban.com/">项目二组</a></p>
+        </footer>
+      </div>
+    </div>
+    <!-- /. ROW  -->
+  </div>
+</div>
+<!--新增模态框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">新增设计师</h4>
+      </div>
+      <div class="modal-body ">
+
+          <div class="form-group magin_left">
+            <label for="addInputName">设计师名称</label>
+            <input type="text" class="form-control" id="addInputName" placeholder="Jane Doe">
+          </div>
+          <div class="form-group uploadDesigner">
+            <label for="addInputFile">添加设计师图片</label>
+            <img src="" alt="" id="addImg"/>
+            <form  class="form-block" enctype="multipart/form-data" id="myform">
+            <input type="file" name="myfile" id="addInputFile" onchange="xmTanUploadImg(this,'addImg')">
+            </form>
+          </div>
+          <div class="form-group magin_left">
+            <label for="addInputIntroduce">设计师介绍</label>
+            <textarea class="form-control" id="addInputIntroduce" rows="3" placeholder="描述设计师的情况"></textarea>
+          </div>
+          <div class="form-group magin_left">
+            <label for="addInputProduct">设计师作品介绍</label>
+            <textarea class="form-control" id="addInputProduct" rows="3" placeholder="设计师的相关作品情况"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" onclick="addDesigner()" class="btn btn-success">保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--修改模态框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">修改设计师</h4>
+      </div>
+      <div class="modal-body ">
+          <div class="form-group magin_left">
+            <label for="modifyInputName">设计师名称</label>
+            <input type="text" class="form-control" id="modifyInputName" placeholder="Jane Doe">
+          </div>
+          <div class="form-group modifyupload">
+            <label for="modifyInputFile">添加设计师图片</label>
+            <img src="" alt="" id="modifyImg"/>
+            <form id="updateid" class="form-block " enctype="multipart/form-data">
+                <input type="file" name="myfile"  id="modifyfile" onchange="xmTanUploadImg(this,'modifyImg')">
+            </form>
+          </div>
+          <div class="form-group magin_left">
+            <label for="modifyInputIntroduce">设计师介绍</label>
+            <textarea class="form-control" id="modifyInputIntroduce" rows="3" placeholder="描述设计师的情况"></textarea>
+          </div>
+          <div class="form-group magin_left">
+            <label for="modifyInputProduct">设计师作品介绍</label>
+            <textarea class="form-control" id="modifyInputProduct" rows="3" placeholder="设计师的相关作品情况"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" onclick="modifyDesigner()" class="btn btn-success">保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /. PAGE INNER  -->
+
+
+<%include js.ejs%>
+<script src="js/designer.js"></script>
+</body>
+</html>

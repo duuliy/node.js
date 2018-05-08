@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="" name="description" />
+  <meta content="webthemez" name="author" />
+  <title>首页</title>
+  <%include css.ejs%>
+</head>
+<body>
+<%include header.ejs%>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+  <!--标题部分-->
+  <div class="header">
+    <!--标题-->
+    <h1 class="page-header">
+
+    </h1>
+    <!--面包屑导航-->
+    <ol class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li class="active">首页信息</li>
+    </ol>
+  </div>
+
+  <!--主要内容-->
+  <div id="page-inner">
+    <!--写自己的模块-->
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <div class="panel panel-default chartJs">
+          <div class="panel-heading">
+            <div class="card-title">
+              <div class="title"><%=new Date().getFullYear()%>年与<%=new Date().getFullYear()-1%>年月份用户注册比例折线图(深蓝色为<%=new Date().getFullYear()-1%>年)</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <canvas id="line-chart" class="chart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <div class="panel panel-default chartJs">
+          <div class="panel-heading">
+            <div class="card-title">
+              <div class="title"><%=new Date().getFullYear()%>年与<%=new Date().getFullYear()-1%>年月份用户订单比例柱状图(蓝色为<%=new Date().getFullYear()-1%>年)</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <canvas id="bar-chart" class="chart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <div class="panel panel-default chartJs">
+          <div class="panel-heading">
+            <div class="card-title">
+              <div class="title"><%=new Date().getMonth()%>年月份用户预约比例折线图</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <canvas id="yu-chart" class="chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%include footer.ejs%>
+</div>
+<%include js.ejs%>
+<script src="js/chart.min.js"></script>
+<script src="js/chartjs.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,704 @@
+/*创建人：余静婷
+ 创建时间：2017-11-14*/
+var g_id;
+var oldFile;
+
+//全选
+$("#selectAll").on("click",function() {
+    $("tbody tr td input").each(function(i, e) {
+        if(e.checked) {
+            e.checked = false;
+        } else {
+            e.checked = true;
+        }
+    });
+});
+
+//记住优化checkbox，点击tr也能选中checkbox
+// $("tbody tr").on("click",function (e) {
+//     console.log(e.target);
+// });
+
+/*=============商品管理=============*/
+//查询
+$("#search").on("click",function () {
+    $.ajax({
+        url:"/searchGoods.do",
+        data:$("#searchForm").serialize(),
+        dataType:"json",
+        type:"get",
+        success:(data)=>{
+           if(data.result==1) {
+               let str = view.tbodyInfo(data.list);
+               $(".goodsTable tbody").html(str);
+           } else {
+               $(".goodsTable tbody").html("<div style='margin: 10px; width: 200px'>未找到商品信息</div>");
+           }
+        }
+    });
+});
+
+//设置热门
+$(".goodsTable tbody").on("click",".hot",function () {
+    let g_id = $(this).parent().parent().children().eq(1).text();
+    let g_hot;
+    if($(this).hasClass("delHot")) {
+        g_hot = 0;
+    } else {
+        g_hot = 1;
+    }
+
+    $.ajax({
+        url:"/hotGoods.do",
+        data:{"g_id":g_id,"g_hot":g_hot},
+        type:"get",
+        dataType:"json",
+        success:(data)=>{
+            if(data.result==1) {
+                $(this).parent().html(view.hotInfo(g_hot));
+                toastr.success("设置成功");
+            } else {
+                toastr.error("设置失败");
+            }
+        }
+    });
+});
+
+//设置上架、下架
+$(".goodsTable tbody").on("click",".state",function () {
+    let g_id = $(this).parent().parent().children().eq(1).text();
+    let state;
+    if($(this).hasClass("delState")) {
+        state = 0;
+    } else {
+        state = 1;
+    }
+
+    $.ajax({
+        url:"/stateGoods.do",
+        data:{"g_id":g_id,"state":state},
+        type:"get",
+        dataType:"json",
+        success:(data)=>{
+            if(data.result==1) {
+                $(this).parent().html(view.stateInfo(state));
+                toastr.success("设置成功");
+            } else {
+                toastr.error("设置失败");
+            }
+        }
+    });
+});
+
+//新增商品
+$("#addGoods").on("click",function () {
+    addEditor.sync();
+
+    let files = $("#addGoodsForm input[name=g_img]").get(0).files;
+    let formData = new FormData();
+    if(files.length>0) {
+        for(let i=0;i<files.length;i++) {
+            formData.append("files",files[i]);
+        }
+    }
+
+    $.ajax({
+        url:"/addGoods.do",
+        type:"post",
+        data:$("#addGoodsForm").serialize(),
+        dataType:"json",
+        success:(msg)=>{
+            if(msg.result) {
+                $.ajax({
+                    url:"/addGoodsImg.do",
+                    data:formData,
+                    type:"post",
+                    contentType:false,
+                    processData:false,
+                    async:false,
+                    cache:false,
+                    success:(msg)=>{
+                        toastr.success("新增成功");
+                        $("#addGoodsModal").modal("hide");
+                    }
+                });
+            }
+        }
+    })
+});
+
+
+//修改商品
+$(".goodsTable tbody").on("click",".updateGoods",function () {
+    updateEditor.sync();
+
+    oldFile = $(this).parent().parent().children().eq(3).text()
+    g_id = $(this).parent().parent().children().eq(1).text();
+    $.ajax({
+        url:"/searchGoods.do",
+        data:{"g_id":g_id},
+        type:"get",
+        success:(msg)=>{
+            $("#updateGoodsForm input[name=g_name]").val(msg.list[0].g_name);
+            $("#updateGoodsForm input[name=g_model]").val(msg.list[0].g_model);
+            updateEditor.html(msg.list[0].g_detail);
+        }
+    });
+});
+
+$("#updateGoods").on("click",function () {
+    updateEditor.sync();
+
+    let files = $("#updateGoodsForm input[name=g_img]").get(0).files;
+    let formData = new FormData();
+    if(files.length>0) {
+        for(let i=0;i<files.length;i++) {
+            formData.append("files",files[i]);
+        }
+    }
+
+    $.ajax({
+        url:"/updateGoods.do",
+        data:$("#updateGoodsForm").serialize()+"&g_id="+g_id+"&oldFile="+oldFile,
+        type:"post",
+        dataType:"json",
+        success:(msg)=>{
+            if(msg.result) {
+                $.ajax({
+                    url:"/addGoodsImg.do",
+                    data:formData,
+                    type:"post",
+                    contentType:false,
+                    processData:false,
+                    async:false,
+                    cache:false,
+                    success:(msg)=>{
+                        toastr.success("修改成功");
+                        $("#updateGoodsModal").modal("hide");
+                    }
+                });
+            }
+        }
+    })
+});
+
+
+/*============sku管理=============*/
+var g_model;
+var skuClone = {};
+//sku信息展示
+$(".goodsTable tbody").on("click",".skuManage",function () {
+    g_id = $(this).parent().parent().children().eq(1).text();
+    g_model = $(this).parent().parent().children().eq(3).text();
+    // console.log(g_id);
+    $.ajax({
+        url:"/skuInfo.do",
+        data:{"g_id":g_id},
+        type:"get",
+        dataType:"json",
+        success:(data)=>{
+            if(data.result==1) {
+                let str = view.skuInfo(data.list,g_model);
+                $(".skuTable tbody").html(str);
+            }
+        }
+    });
+});
+
+//修改sku信息
+$(".skuTable tbody").on("click",".updateSkuBtn",function () {
+    let skuId = $(this).parent().parent().children().eq(0).text();
+    skuClone[skuId] = $(this).parent().parent().html();
+
+    view.skuUpdateInfo($(this).parent().parent());
+});
+
+//取消修改
+$(".skuTable tbody").on("click",".noBtn",function () {
+    let skuId = $(this).parent().parent().children().eq(0).text();
+    $(this).parent().parent().html(skuClone[skuId]);
+});
+
+//保存修改
+$(".skuTable tbody").on("click",".yesBtn",function () {
+    let data = {}
+    let tr = $(this).parent().parent();
+    let td = tr.children();
+    data.sku_id = td.eq(0).text();
+    data.g_p_id = td.eq(2).children("select").val();
+    data.g_p_id_s = td.eq(3).children("select").val();
+    data.sku_pur = td.eq(4).children("input").val();
+    data.sku_disc = td.eq(5).children("input").val();
+    data.sku_sell = td.eq(6).children("input").val();
+    data.sku_stock = td.eq(7).children("input").val();
+    data.state = td.eq(8).children("select").val();
+
+    $.ajax({
+        url:"/updateSku.do",
+        type:"post",
+        data:data,
+        dataType:"json",
+        success:(data)=>{
+            if(data.result) {
+                let str = view.skuInfo(data.list,g_model);
+                tr.replaceWith(str);
+                toastr.success("修改成功");
+            }
+        }
+    });
+});
+
+//新增sku
+$("#addSkuTr").on("click",function () {
+    view.skuAddInfo(g_model)
+        .then((msg)=>{
+            $(".skuTable tbody").append(msg);
+        })
+});
+
+//取消新增sku
+$(".skuTable tbody").on("click",".addSkuNoBtn",function () {
+    $(this).parent().parent().remove();
+});
+
+//新增sku
+$(".skuTable tbody").on("click",".addSkuYesBtn",function () {
+    let sendMsg = {};
+    let tr = $(this).parent().parent();
+    let td = tr.children();
+    sendMsg.g_id = g_id;
+    sendMsg.g_p_id = td.eq(2).children().val();
+    sendMsg.g_p_id_s = td.eq(3).children().val();
+    sendMsg.sku_pur = td.eq(4).children().val();
+    sendMsg.sku_disc = td.eq(5).children().val();
+    sendMsg.sku_sell = td.eq(6).children().val();
+    sendMsg.sku_stock = td.eq(7).children().val();
+    sendMsg.state = td.eq(8).children().val();
+
+    $.ajax({
+        url:"/addSku.do",
+        type:"post",
+        data:sendMsg,
+        dataType:"json",
+        success:(data)=>{
+            if(data.result) {
+                let str = view.skuInfo(data.list,g_model);
+                tr.replaceWith(str);
+                toastr.success("新增成功");
+            } else {
+                toastr.error("新增失败");
+            }
+        }
+    });
+});
+
+/*============标签管理=============*/
+var tagsClone = {};
+//获取商品标签信息
+$(".goodsTable tbody").on("click",".tagsManage",function () {
+    g_id = $(this).parent().parent().children().eq(1).text();
+    g_model = $(this).parent().parent().children().eq(3).text();
+    $.ajax({
+        url:"/goodsTagsInfo.do",
+        data:{"g_id":g_id},
+        type:"get",
+        dataType:"json",
+        success:(data)=>{
+            if(data.result==1) {
+                let str = view.goodsTagsInfo(data.list,g_model);
+                $(".goodsTagsTable tbody").html(str);
+            }
+        }
+    });
+});
+
+//新增商品标签节点
+$("#addTagsTr").on("click",function () {
+    view.addGoodsTags("",g_model,0,"addTagsYesBtn","addTagsNoBtn")
+        .then((msg)=>{
+            $(".goodsTagsTable tbody").append(msg);
+        });
+});
+
+//取消新增
+$(".goodsTagsTable tbody").on("click",".addTagsNoBtn",function () {
+    $(this).parent().parent().remove();
+});
+
+//新增商品标签
+$(".goodsTagsTable tbody").on("click",".addTagsYesBtn",function () {
+    let t_id = $(this).parent().parent().children().eq(2).children().val();
+    let tr = $(this).parent().parent();
+    $.ajax({
+        url:"addGoodsTags.do",
+        data:{"g_id":g_id,"t_id":t_id},
+        type:"post",
+        dataType:"json",
+        success:(msg)=>{
+            if(msg.result) {
+                tr.remove();
+                let str = view.goodsTagsInfo(msg.list,g_model);
+                $(".goodsTagsTable tbody").append(str);
+                toastr.success("新增成功");
+            } else {
+                toastr.error("新增失败");
+            }
+        }
+    });
+});
+
+//更新商品标签节点
+$(".goodsTagsTable tbody").on("click",".updateTagsBtn",function () {
+    let goodsTagsId = $(this).parent().parent().children().eq(0).text();
+    tagsClone[goodsTagsId] = $(this).parent().parent().html();
+
+    let tr = $(this).parent().parent();
+    let g_t_id = tr.children().eq(0).text();
+    let t_id = tr.children().eq(2).attr("data-value");
+    view.addGoodsTags(g_t_id,g_model,t_id,"updateTagsYesBtn","updateTagsNoBtn")
+        .then((msg)=>{
+            let str = msg;
+            tr.replaceWith(str);
+        });
+});
+
+//取消修改商品标签
+$(".goodsTagsTable tbody").on("click",".updateTagsNoBtn",function () {
+    let goodsTagsId = $(this).parent().parent().children().eq(0).text();
+    $(this).parent().parent().html(tagsClone[goodsTagsId]);
+});
+
+//修改商品标签
+$(".goodsTagsTable tbody").on("click",".updateTagsYesBtn",function () {
+    let tr = $(this).parent().parent();
+    let g_t_id = tr.children().eq(0).text();
+    let t_id = tr.children().eq(2).children().val();
+    $.ajax({
+        url:"/updateGoodsTags.do",
+        type:"post",
+        data:{"g_t_id":g_t_id,"t_id":t_id},
+        dataType:"json",
+        success:(msg)=>{
+            if(msg.result) {
+                let str = view.goodsTagsInfo(msg.list,g_model);
+                tr.replaceWith(str);
+                toastr.success("更新成功");
+            } else {
+                toastr.error("更新失败");
+            }
+        }
+    });
+});
+
+//删除商品标签
+$(".goodsTagsTable tbody").on("click",".delTagsBtn",function () {
+    let tr = $(this).parent().parent();
+    let g_t_id = tr.children().eq(0).text();
+
+    $.ajax({
+        url:"/delGoodsTags.do",
+        type:"get",
+        data:{"g_t_id":g_t_id},
+        dataType:"json",
+        success:(msg)=>{
+            if(msg.result) {
+                tr.remove();
+                toastr.success("删除成功");
+            } else {
+                toastr.error("删除失败");
+            }
+        }
+    });
+});
+
+
+const view = {
+    tbodyInfo(data){
+        let str = "";
+        let hotStr = "";
+        let stateStr = "";
+
+        for(let i=0;i<data.length;i++) {
+            hotStr = view.hotInfo(data[i].g_hot);
+            stateStr = view.stateInfo(data[i].state);
+
+            str += "<tr>" +
+                        "<td><input type='checkbox'/></td>  " +
+                        "<td>" + data[i].g_id + "</td>  " +
+                        "<td>" + data[i].g_name + "</td>    " +
+                        "<td>" + data[i].g_model + "</td>   " +
+                        "<td>" + hotStr + "</td>    " +
+                        "<td>" + new Date(data[i].createtime).toLocaleDateString() + "</td>    " +
+                        "<td>" + stateStr + "</td>" +
+                        "<td>   " +
+                            "<button class='btn btn-sm btn-default updateGoods' data-toggle='modal' data-target='#updateGoodsModal'>修改</button>   " +
+                            "<button class='btn btn-sm btn-default tagsManage' data-toggle='modal' data-target='#tagsModal'>标签管理</button>  " +
+                            "<button class='btn btn-sm btn-default skuManage' data-toggle='modal' data-target='#skuModal'>SKU管理</button>   " +
+                            // "<button class='btn btn-sm btn-warning'>库存管理</button>   " +
+                        "</td>  " +
+                    "</tr>";
+        }
+
+        return str;
+    },
+
+    hotInfo(data){
+        let str = "";
+        if (data==1) {
+            str = "<span class='magin_left'>是</span>" +
+                "<button class='btn btn-sm btn-danger delHot hot'>取消热门</button>";
+        } else {
+            str = "<span class='magin_left'>否</span>" +
+                "<button class='btn btn-sm btn-success setHot hot'>设为热门</button>";
+        }
+        return str;
+    },
+
+    stateInfo(data){
+        let str = "";
+        if (data==1) {
+            str = "<span class='magin_left'>上架</span>" +
+                "<button class='btn btn-sm btn-danger state delState'>下架</button>";
+        } else {
+            str = "<span class='magin_left'>下架</span>" +
+                "<button class='btn btn-sm btn-success state setState'>上架</button>";
+        }
+
+        return str;
+    },
+
+    skuInfo(data,model){
+        let str = "";
+        for(let i=0; i<data.length; i++) {
+            str += "<tr>" +
+                        "<td>" + data[i].sku_id + "</td>" +
+                        "<td>" + model + "</td>" +
+                        "<td colorId='"+ data[i].g_p_id +"'>" + data[i].g_c_name + "</td>" +
+                        "<td sizeId='"+ data[i].g_p_id_s +"'>" + data[i].g_s_name + "</td>" +
+                        "<td>" + data[i].sku_pur + "</td>" +
+                        "<td>" + data[i].sku_disc + "</td>" +
+                        "<td>" + data[i].sku_sell + "</td>" +
+                        "<td>" + data[i].sku_stock + "</td>" +
+                        "<td state='"+ data[i].state +"'>" + view.skuStateInfo(data[i].state) + "</td>" +
+                        "<td>" +
+                            "<button class='btn btn-default btn-xs updateSkuBtn'>" +
+                                "<i class='fa fa-edit'></i>" +
+                            "</button>" +
+                        "</td>" +
+                   "</tr>"
+        }
+        return str;
+    },
+
+    skuStateInfo(data){
+        let str = "";
+        // if (data==1) {
+        //     str = "<span class='magin_left'>上架</span>" +
+        //         "<button class='btn btn-sm btn-danger skuState delSkuState'>下架</button>";
+        // } else {
+        //     str = "<span class='magin_left'>下架</span>" +
+        //         "<button class='btn btn-sm btn-success skuState setSkuState'>上架</button>";
+        // }
+
+        if (data==1) {
+            str = "上架";
+        } else {
+            str = "下架";
+        }
+
+        return str;
+    },
+
+    skuUpdateInfo(node){
+        let cValue = node.children().eq(2).attr("colorId");
+        let sValue = node.children().eq(3).attr("sizeId");
+        let state = node.children().eq(8).attr("state");
+
+        let stateStr = view.skuStateOptionInfo(state);
+
+        getMsg.getProp(1,cValue)
+            .then((data)=>{
+                node.children()
+                    .eq(2).html(data)
+                return getMsg.getProp(2,sValue);
+            })
+            .then((data)=>{
+                node.children()
+                    .eq(3).html(data)
+                    .next().html("<input style='width: 50px' name='sku_pur' type='text' value='"+node.children().eq(4).html()+"'>")
+                    .next().html("<input style='width: 50px' name='sku_disc' type='text' value='"+node.children().eq(5).html()+"'>")
+                    .next().html("<input style='width: 50px' name='sku_sell' type='text' value='"+node.children().eq(6).html()+"'>")
+                    .next().html("<input style='width: 50px' name='sku_stock' type='text' value='"+node.children().eq(7).html()+"'>")
+                    .next().html(stateStr)
+                    .next().html(
+                        "<button class='btn btn-success btn-xs yesBtn'>" +
+                            "<i class='fa fa-check'></i>" +
+                        "</button>" +
+                        "    <button class='btn btn-danger btn-xs noBtn'>" +
+                            "<i class='fa fa-close'></i>" +
+                        "</button>");
+            })
+
+    },
+
+    skuAddInfo(model){
+        let cSelect,sSelect,state;
+        state = view.skuStateOptionInfo(1);
+
+        return new Promise((resolve,reject)=>{
+            getMsg.getProp(1,0)
+                .then((data)=>{
+                    cSelect = data;
+                    return getMsg.getProp(2,0);
+                })
+                .then((data)=>{
+                    sSelect = data;
+                    let str = "<tr>" +
+                                "<td></td>" +
+                                "<td>" + model + "</td>" +
+                                "<td>" + cSelect + "</td>" +
+                                "<td>" + sSelect + "</td>" +
+                                "<td><input style='width: 50px' name='sku_pur' type='text'/></td>" +
+                                "<td><input style='width: 50px' name='sku_disc' type='text'/></td>" +
+                                "<td><input style='width: 50px' name='sku_sell' type='text'/></td>" +
+                                "<td><input style='width: 50px' name='sku_stock' type='text'/></td>" +
+                                "<td>" + state + "</td>" +
+                                "<td>" +
+                                    "<button class='btn btn-success btn-xs addSkuYesBtn'>" +
+                                    "<i class='fa fa-check'></i>" +
+                                    "</button>" +
+                                    "    <button class='btn btn-danger btn-xs addSkuNoBtn'>" +
+                                    "<i class='fa fa-close'></i>" +
+                                    "</button>"
+                                "</td>"
+                            "</tr>";
+                    resolve(str);
+                })
+        });
+    },
+
+    optionInfo(data,value){
+        let option = "";
+        for(let i=0; i<data.length; i++) {
+            if(data[i].g_p_id == value) {
+                option += "<option selected value="+ data[i].g_p_id +">" +
+                    data[i].g_p_name +
+                    "</option>";
+            } else {
+                option += "<option value="+ data[i].g_p_id +">" +
+                    data[i].g_p_name +
+                    "</option>";
+            }
+        }
+        let str = "<select name='" + name + "'>" + option + "</select>";
+        return str;
+    },
+
+    skuStateOptionInfo(num){
+        let stateStr = "";
+        if(num==1) {
+            stateStr = "<select name='state'><option value='1' selected>上架</option><option value='0'>下架</option></select>"
+        } else {
+            stateStr = "<select name='state'><option value='1'>上架</option><option value='0' selected>下架</option></select>"
+        }
+        return stateStr;
+    },
+
+    goodsTagsInfo(data,model){
+        let str = "";
+        for(let i=0; i<data.length; i++) {
+            str += "<tr>" +
+                        "<td>" + data[i].g_t_id + "</td>" +
+                        "<td>" + model + "</td>" +
+                        "<td data-value='" + data[i].t_id + "'>" + data[i].t_name + "</td>" +
+                        "<td>" +
+                            "<button class='btn btn-default btn-xs updateTagsBtn'>" +
+                                "<i class='fa fa-edit'></i>" +
+                            "</button>  " +
+                            "<button class='btn btn-default btn-xs delTagsBtn'>" +
+                                "<i class='fa fa-trash'></i>" +
+                            "</button>" +
+                        "</td>" +
+                    "</tr>"
+        }
+
+        return str;
+    },
+
+    addGoodsTags(id,model,value,yClass,nClass){
+        return new Promise((resolve,reject)=>{
+            let str = "";
+            let option = "";
+            getMsg.getTags(value)
+                .then((msg)=>{
+                    option = msg;
+                    str += "<tr>" +
+                        "<td>" + id + "</td>" +
+                        "<td>" + model +
+                        "<td>" + option + "</td>" +
+                        "<td>" +
+                        "<button class='btn btn-success btn-xs " + yClass + "'>" +
+                        "<i class='fa fa-check'></i>" +
+                        "</button>  " +
+                        "<button class='btn btn-danger btn-xs "+ nClass +"'>" +
+                        "<i class='fa fa-close'></i>" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>";
+                    resolve(str);
+                });
+        })
+
+    },
+
+    tagsOption(data,value){
+        let option = "";
+        for(let i=0; i<data.length; i++) {
+            if(data[i].t_id == value) {
+                option += "<option selected value='" + data[i].t_id + "'>" +
+                    data[i].t_name;
+                "</option>";
+            } else {
+                option += "<option value='" + data[i].t_id + "'>" +
+                    data[i].t_name;
+                "</option>";
+            }
+        }
+
+        let str = "<select name='tags_id'>" + option + "</select>";
+        return str;
+    }
+
+
+};
+
+const getMsg = {
+    //获取商品属性
+    getProp(num,value){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                url:"getGoodsColor.do",
+                type:"get",
+                data:{"g_p_prop":num},
+                success:(data)=>{
+                    resolve(view.optionInfo(data.list,value));
+                }
+            });
+        });
+    },
+
+    //获取标签属性
+    getTags(value){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                url:"getGoodsTags.do",
+                type:"get",
+                success:(data)=>{
+                    resolve(view.tagsOption(data.list,value));
+                }
+            });
+        });
+    }
+
+};
+

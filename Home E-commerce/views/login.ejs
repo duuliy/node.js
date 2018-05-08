@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="css/login.css"/>
+</head>
+<body>
+   <div class="login">
+        <h1 class="title">duuliy后台管理系统</h1>
+        <form action="/login.do" method="post" class="loginForm">
+            <h2>登 录</h2>
+            <div class="inputBox">
+                <input type="text" placeholder="用户名" name="username" autofocus="autofocus" class="input"/>
+                <span class="userMsg"></span>
+            </div>
+            <div class="inputBox">
+                <input type="password" placeholder="密码" name="password"  class="input"/>
+                <span class="pwdMsg"></span>
+            </div>
+            <div class="checkboxDiv">
+                <input type="checkbox" id="checkbox" name="checkbox"/>
+                <label for="checkbox">记住密码</label>
+            </div>
+            <button type="button" class="loginBtn">登 录</button>
+        </form>
+    </div>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

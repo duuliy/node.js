@@ -1,0 +1,42 @@
+<script src="js/jquery-1.10.2.js"></script>
+<!-- 控制侧导航下拉 -->
+<script src="js/bootstrap.min.js"></script>
+<!-- 控制整个单击效果 -->
+<script src="js/jquery.metisMenu.js"></script>
+
+
+<!--控制表格数据分页与显示-->
+<!--<script src="js/jquery.dataTables.js"></script>-->
+<!--<script src="js/dataTables.bootstrap.js"></script>-->
+<!--<script src="js/chart.min.js"></script>-->
+<!--<script src="js/chartjs.js"></script>-->
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>
+
+<!--自己写的js写里面-->
+<script src="js/custom-scripts.js"></script>
+<!--<script type="text/javascript" src="js/chartjs.js"></script>-->
+
+<!--启用与禁用样式-->
+<script type="text/javascript" src="js/toastr.js"></script>
+<script>
+    var messageOpts = {
+        "closeButton" : true,//是否显示关闭按钮
+        "debug" : false,//是否使用debug模式
+        "positionClass" : "toast-top-center",//弹出窗的位置
+        "onclick" : null,
+        "showDuration" : "500",//显示的动画时间
+        "hideDuration" : "500",//消失的动画时间
+        "timeOut" : "1500",//展现时间
+        "extendedTimeOut" : "1000",//加长展示时间
+        "showEasing" : "swing",//显示时的动画缓冲方式
+        "hideEasing" : "linear",//消失时的动画缓冲方式
+        "showMethod" : "fadeIn",//显示时的动画方式
+        "hideMethod" : "fadeOut" //消失时的动画方式
+    };
+    toastr.options = messageOpts;
+</script>
+

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta content="" name="description"/>
+  <meta content="webthemez" name="author"/>
+  <title>前台用户管理</title>
+    <% include css.ejs %>
+</head>
+<body>
+<% include header.ejs %>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+  <!--标题部分-->
+  <div class="header">
+    <!--标题-->
+    <h1 class="page-header">
+      <!--前台用户管理-->
+    </h1>
+    <!--面包屑导航-->
+    <ol class="breadcrumb">
+      <li><a href="#">首页</a></li>
+      <li class="active">前台用户管理</li>
+    </ol>
+  </div>
+
+  <!--主要内容-->
+  <div id="page-inner" class="user_style">
+    <!--写自己的模块-->
+    <!--查询模块-->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-body">
+              <form class="form-inline">
+                <div class="form-group">
+                  <label for="exampleInputName2" style="font-size: 14px;color: #333;">昵称名:</label>
+                  <input type="text" class="form-control" id="search" placeholder="请输入昵称名">
+                  <button type="button" class="btn btn-success search" style="margin-left: 15px">查询</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+          <!--<div class="panel-heading">-->
+            <!--Advanced Tables-->
+          <!--</div>-->
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                  <th>昵称</th>
+                  <th>手机号码</th>
+                  <th>性别</th>
+                  <th>QQ号码</th>
+                  <th>注册时间</th>
+                  <th>用户状态</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i=0;i<list.length;i++){%>
+                    <%if(list[i].state==1){%>
+                    <%list[i].state="启用"%>
+                    <%}else{%>
+                    <%list[i].state="禁用"%>
+                    <%}%>
+                <tr class="odd gradeX">
+                  <td><%=list[i].u_name%></td>
+                  <td><%=list[i].u_tel%></td>
+                  <td><%=list[i].u_sex%></td>
+                  <td class="center"><%=list[i].u_qq%></td>
+                  <td class="center"><%=list[i].createtime.toLocaleDateString()%></td>
+                  <td class="center"><%=list[i].state%></td>
+                  <td class="center">
+                      <%if(list[i].state=="启用"){%>
+                         <button type="button" class="btn btn-danger right">禁用</button>
+                      <%}else{%>
+                         <button type="button" class="btn btn-success right">启用</button>
+                      <%}%>
+
+                  </td>
+                </tr>
+                <%}%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--End Advanced Tables -->
+      </div>
+    </div>
+  </div>
+    <% include footer.ejs %>
+</div>
+<% include js.ejs %>
+<script>
+      //禁用
+  $(".right").click(function () {
+      if($(this).text()=="禁用"){
+      var name=$(this).parent().parent().children(":eq(0)").text();
+      var state=$(this).parent().parent().children(":eq(5)");
+      $(this).removeClass("btn-danger")
+      $(this).addClass("btn-success")
+      $(this).text("启用")
+      toastr.success("禁用账户成功");
+        $.ajax({
+            type:"get",
+            url:"disable.do",
+            data:{name:name}
+        })
+         state.text("禁用")
+      }else{
+          var name=$(this).parent().parent().children(":eq(0)").text();
+          var state=$(this).parent().parent().children(":eq(5)");
+          $(this).removeClass("btn-success")
+          $(this).addClass("btn-danger")
+          $(this).text("禁用")
+          toastr.success("启用账户成功");
+          $.ajax({
+              type:"get",
+              url:"start_up.do",
+              data:{name:name}
+          })
+          state.text("启用")
+      }
+  })
+      //查询数据
+      $(".search").click(function () {
+          var name = $("#search").val();
+          $.ajax({
+              type: "get",
+              url: "searchuser.do",
+              data: {
+                  name: name
+              },
+              success: function (data) {
+                  $("tbody").html("");
+                  console.log(data)
+                  for (var i = 0; i < data.length; i++) {
+                      if (data[i].state == 1) {
+                          data[i].state = "启用"
+                      } else {
+                          data[i].state = "禁用"
+                      }
+                      var str =  '<tr class="odd gradeX">'+
+                          '<td>'+ data[i].u_name+'</td>'+
+                          '<td>'+ data[i].u_tel+'</td>'+
+                          '<td>'+ data[i].u_sex+'</td>'+
+                          '<td class="center">'+ data[i].u_qq+'</td>'+
+                          '<td class="center">'+ new Date(data[i].createtime).toLocaleDateString()+'</td>'+
+                          '<td class="center">'+ data[i].state+'</td>'+
+                          '<td class="center">'+
+                          '<button type="button" class="btn btn-danger right">禁用</button>'+
+                          '</td>'+
+                          '</tr>'
+                      $("tbody").append(str)
+                      if ($("tbody").html() == "") {
+                          $("tbody").append(str)
+                      }
+                  }
+
+              }
+          })
+      })
+</script>
+</body>
+</html>

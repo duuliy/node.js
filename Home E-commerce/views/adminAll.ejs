@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>后台用户管理</title>
+  <%include css.ejs%>
+  <link rel="stylesheet" href="css/adminAll.css"/>
+</head>
+<body>
+<%include header.ejs%>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+  <!--标题部分-->
+  <div class="header">
+    <!--标题-->
+    <h1 class="page-header">
+      <!--Tables Page <small>Responsive tables</small>-->
+    </h1>
+    <!--面包屑导航-->
+    <ol class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li><a href="#">后台管理</a></li>
+      <li class="active">用户管理</li>
+    </ol>
+  </div>
+  <!--主要内容-->
+  <div id="page-inner">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="card-title">
+              <button class="btn btn-success" data-toggle="modal" data-target="#add_tag">新增用户</button>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form class="form-inline">
+              <div class="form-group magin_left">
+                <label for="a_name">用户名</label>
+                <input type="text" name="username" class="form-control" id="t_name" placeholder="请输入用户名">
+              </div>
+              <div class="form-group magin_left">
+                <label for="a_tel">手机号码</label>
+                <input type="text" name="phone" class="form-control" id="t_name" placeholder="请输入手机号码">
+              </div>
+              <div class="form-group magin_left">
+                <label for="state">用户状态</label>
+                <select id="state" class="form-control" name="state">
+                  <option value="2">请选择状态</option>
+                  <option value="1">启用</option>
+                  <option value="0">禁用</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-success" id="getAdmin">查询</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /. ROW  -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            用户表
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                  <th><input type="checkbox"></th>
+                  <th>ID</th>
+                  <th>用户名</th>
+                  <th>手机号</th>
+                  <th>创建时间</th>
+                  <th>创建人</th>
+                  <th>状态</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%for(var i=0;i<list.length;i++){%>
+                <tr>
+                  <th><input type="checkbox"></th>
+                  <td><%=list[i].a_id%></td>
+                  <td><%=list[i].a_name%></td>
+                  <td><%=list[i].a_tel%></td>
+                  <td><%=list[i].createtime.toLocaleDateString()%></td>
+                  <td><%=list[i].create%></td>
+
+                    <%if(list[i].state==1){%>
+                  <td>启用</td>
+                  <td>
+                    <button class="btn btn-sm btn-success setBtn" data-toggle="modal" data-target="#set_tag">修改</button>
+                    <button class="btn btn-sm btn-danger stateBtn" state="0">禁用</button>
+                    <%}else{%>
+                  <td>禁用</td>
+                  <td>
+                    <button class="btn btn-sm btn-success setBtn" data-toggle="modal" data-target="#set_tag">修改</button>
+                    <button class="btn btn-sm btn-primary stateBtn" state="1">启用</button>
+                    <%}%>
+                  </td>
+                </tr>
+                <%}%>
+                </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%include footer.ejs%>
+</div>
+<!--模态框-->
+<div class="modal fade bs-example-modal-sm" id="add_tag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">新增用户</h4>
+      </div>
+      <div class="modal-body">
+        <!--新增模态框内容-->
+        <form class="form-horizontal addForm">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">用户名</label>
+            <div class="col-sm-8">
+              <input type="text" name="username" class="form-control" placeholder="请输入用户名">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">密码</label>
+            <div class="col-sm-8">
+              <input type="password" name="password" class="form-control" placeholder="请输入密码">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">手机号</label>
+            <div class="col-sm-8">
+              <input type="text" name="phone" class="form-control" placeholder="请输入手机号">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-success prese">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="set_tag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">修改信息</h4>
+      </div>
+      <div class="modal-body">
+        <!--修改模态框内容-->
+        <form class="form-horizontal setForm">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">用户名</label>
+            <div class="col-sm-8">
+              <input type="text" name="username" class="form-control" placeholder="请输入用户名">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">密码</label>
+            <div class="col-sm-8">
+              <input type="password" name="password" class="form-control" placeholder="请输入密码">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">手机号</label>
+            <div class="col-sm-8">
+              <input type="text" name="phone" class="form-control" placeholder="请输入手机号">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-success prese">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<%include js.ejs%>
+<script src="js/adminAll.js"></script>
+</body>
+</html>

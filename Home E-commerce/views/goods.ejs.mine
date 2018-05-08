@@ -1,0 +1,459 @@
+<!--创建人：余静婷
+创建时间：2017-11-14-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="" name="description" />
+  <meta content="webthemez" name="author" />
+  <title>商品管理</title>
+  <%include css.ejs%>
+  <style>
+    .magin_left {
+      margin-right: 15px;
+    }
+
+    /*.skuTable input[type=text] {*/
+    /*width: 50%;*/
+    /*}*/
+
+    .modal .skuTable tr td {
+      vertical-align: middle;
+    }
+
+    .tags {
+      height: 30px;
+      display: inline-block;
+      margin-right: 5px;
+      padding: 0 10px;
+      line-height: 30px;
+      font-size: 14px;
+      /*color: #fff;*/
+      background-color: #fff;
+      border: 1px solid darkgray;
+      border-radius: 2px;
+      margin-bottom: 20px;
+      border-radius: 3px;
+    }
+
+    .addTags {
+      padding: 0 20px;
+      cursor: pointer;
+    }
+
+    .tagsSpan {
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  </style>
+  <script src="kindeditor/kindeditor-all-min.js"></script>
+  <script src="kindeditor/lang/zh-CN.js"></script>
+  <script>
+      var options = {
+          uploadJson:"/kindEditorUpload"
+      }
+      KindEditor.ready(function(K) {
+          addEditor = K.create('#addGoodsEditor',options);
+      });
+      KindEditor.ready(function(K) {
+          updateEditor = K.create('#updateEditor',options);
+      });
+  </script>
+</head>
+<body>
+<%include header.ejs%>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+  <div class="header">
+    <h1 class="page-header">
+      <!--商品管理 <small>商品信息</small>-->
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li><a href="#">商品管理</a></li>
+      <li class="active">基础管理</li>
+    </ol>
+
+  </div>
+
+  <div id="page-inner">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="card-title">
+              <button class="btn btn-success" data-toggle="modal" data-target="#addGoodsModal">新增商品</button>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form class="form-inline" id="searchForm">
+              <div class="form-group magin_left">
+                <label for="g_name">商品名称</label>
+                <input type="text" class="form-control" name="g_name" placeholder="请输入商品名称">
+              </div>
+              <div class="form-group magin_left">
+                <label for="g_hot">热门商品</label>
+                <select id="g_hot" name="g_hot" class="form-control">
+                  <option value="2">全部</option>
+                  <option value="1">是</option>
+                  <option value="0">否</option>
+                </select>
+              </div>
+              <div class="form-group magin_left">
+                <label for="state">商品状态</label>
+                <select id="state" name="state" class="form-control">
+                  <option value="2">全部</option>
+                  <option value="1">上架</option>
+                  <option value="0">下架</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-success" id="search">查询</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            商品信息
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+
+              <table class="table table-striped table-bordered table-hover goodsTable" id="dataTables-example">
+                <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" id="selectAll"/>
+                  </th>
+                  <th>商品ID</th>
+                  <th>商品名称</th>
+                  <th>商品型号</th>
+                  <th>热门商品</th>
+                  <th>创建时间</th>
+                  <th>商品状态</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <%for(let i=0;i<list.length;i++) {%>
+                    <tr>
+                      <td><input type="checkbox"/></td>
+                      <td><%=list[i].g_id%></td>
+                      <td><%=list[i].g_name%></td>
+                      <td><%=list[i].g_model%></td>
+                      <td>
+                        <%if(list[i].g_hot==1) {%>
+                          <span class="magin_left">是</span><button class="btn btn-sm btn-danger delHot hot">取消热门</button>
+                        <%} else {%>
+                          <span class="magin_left">否</span><button class="btn btn-sm btn-success setHot hot">设为热门</button>
+                        <%}%>
+                      </td>
+                      <td><%=list[i].createtime.toLocaleDateString()%></td>
+                      <td>
+                          <%if(list[i].state==1) {%>
+                            <span class="magin_left">上架</span><button class="btn btn-sm btn-danger state delState">下架</button>
+                          <%} else {%>
+                            <span class="magin_left">下架</span><button class="btn btn-sm btn-success state setState">上架</button>
+                          <%}%>
+                      </td>
+                      <td>
+                        <button class="btn btn-sm btn-default updateGoods" data-toggle="modal" data-target="#updateGoodsModal">修改</button>
+                        <button class="btn btn-sm btn-default tagsManage" data-toggle="modal" data-target="#tagsModal">标签管理</button>
+                        <button class="btn btn-sm btn-default skuManage" data-toggle="modal" data-target="#skuModal">SKU管理</button>
+                        <!--<button class="btn btn-sm btn-warning">库存管理</button>-->
+                      </td>
+                    </tr>
+                  <%}%>
+                </tbody>
+              </table>
+            </div>
+            <!--分页-->
+              <div class="col-sm-12 text-center">
+                <ul class="pagination ulBox">
+                  <li class="paginate_button previous">
+                    <a href="javascript:">上一页</a>
+                  </li>
+                  <li class="paginate_button">
+                    <a href="javascript">1</a>
+                  </li>
+                  <li class="paginate_button">
+                    <a href="javascript">2</a>
+                  </li>
+                  <li class="paginate_button next">
+                    <a href="javascript">下一页</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+        </div>
+        <!--End Advanced Tables -->
+      </div>
+    </div>
+
+    <!--=========SKU管理模态框==========-->
+    <div class="modal fade bs-example-modal-lg" role="dialog" id="skuModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">SKU商品管理</h4>
+          </div>
+          <div class="modal-body">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <button class="btn btn-success btn-sm" id="addSkuTr">新增SKU</button>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table skuTable">
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>商品型号</th>
+                      <th>颜色</th>
+                      <th>尺寸</th>
+                      <th>进价</th>
+                      <th>折扣</th>
+                      <th>售价</th>
+                      <th>库存</th>
+                      <th>状态</th>
+                      <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default " data-dismiss="modal">关闭</button>
+            <!--<button type="button" class="btn btn-primary">保存修改</button>-->
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--=========标签管理模态框==========-->
+    <div class="modal fade bs-example-modal-xs" id="tagsModal">
+      <div class="modal-dialog modal-xs">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">商品标签管理</h4>
+        </div>
+        <div class="modal-body">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <button class="btn btn-success btn-sm" id="addTagsTr">新增商品标签</button>
+            </div>
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="table goodsTagsTable">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>商品型号</th>
+                    <th>标签名</th>
+                    <th>操作</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">关闭</button>
+          <!--<button type="button" class="btn btn-primary">保存修改</button>-->
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--=========新增商品模态框==========-->
+    <div class="modal fade bs-example-modal-lg" role="dialog" id="addGoodsModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">新增商品</h4>
+          </div>
+          <div class="modal-body">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form class="form-horizontal" id="addGoodsForm">
+                  <div class="form-group">
+                    <label for="g_name" class="col-sm-2 control-label">商品名称</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="g_name" name="g_name" placeholder="请输入商品名称">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="g_model" class="col-sm-2 control-label">商品型号</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="g_model" name="g_model" placeholder="请输入商品型号">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">设为热门</label>
+                    <div class="col-sm-5">
+                      <label class="radio-inline">
+                        <input type="radio" name="g_hot" value="1" checked/>  是
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="g_hot" value="0"/>  否
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="g_model" class="col-sm-2 control-label">默认颜色</label>
+                    <div class="col-sm-3">
+                      <select name="g_p_id" class="form-control">
+                        <%for(let i=0; i<color.length; i++) {%>
+                          <option value="<%=color[i].g_p_id%>"><%=color[i].g_p_name%></option>
+                        <%}%>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="g_model" class="col-sm-2 control-label">默认尺寸</label>
+                    <div class="col-sm-3">
+                      <select name="g_p_id_s" class="form-control">
+                          <%for(let i=0; i<size.length; i++) {%>
+                            <option value="<%=size[i].g_p_id%>"><%=size[i].g_p_name%></option>
+                          <%}%>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="sku_pur" class="col-sm-2 control-label">商品进价</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="sku_pur" name="sku_pur" placeholder="请输入商品进价">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="sku_sell" class="col-sm-2 control-label">商品售价</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="sku_sell" name="sku_sell" placeholder="请输入商品售价">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="sku_disc" class="col-sm-2 control-label">商品折扣</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="sku_disc" name="sku_disc" placeholder="请输入商品折扣">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="sku_stock" class="col-sm-2 control-label">商品库存</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="sku_stock" name="sku_stock" placeholder="请输入商品库存">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">商品图片</label>
+                    <div class="col-sm-5">
+                      <input type="file" id="g_imgs" name="g_img" multiple="multiple">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">商品详情</label>
+                    <div class="col-sm-10">
+                      <textarea id="addGoodsEditor" name="g_detail" style="width:700px;height:300px;">
+
+                      </textarea>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default " data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" id="addGoods">保存</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!--=========修改商品模态框==========-->
+    <div class="modal fade bs-example-modal-lg" role="dialog" id="updateGoodsModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">修改商品</h4>
+          </div>
+          <div class="modal-body">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form class="form-horizontal" id="updateGoodsForm">
+                  <div class="form-group">
+                    <label for="g_name" class="col-sm-2 control-label">商品名称</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="g_name" name="g_name" placeholder="请输入商品名称">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="g_model" class="col-sm-2 control-label">商品型号</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="g_model" name="g_model" placeholder="请输入商品型号">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">商品图片</label>
+                    <div class="col-sm-5">
+                      <input type="file" id="g_imgs" name="g_img" multiple="multiple">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">商品详情</label>
+                    <div class="col-sm-10">
+                      <textarea id="updateEditor" name="g_detail" style="width:700px;height:300px;">
+
+                      </textarea>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default " data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" id="updateGoods">保存</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+  </div>
+  <%include footer.ejs%>
+</div>
+<%include js.ejs%>
+<script src="js/goods.js"></script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="" name="description" />
+  <meta content="webthemez" name="author" />
+  <title>样板间管理</title>
+    <%include css.ejs%>
+  <style>
+    .magin_left {
+      margin-right: 15px;
+    }
+  </style>
+</head>
+<body>
+<%include header.ejs%>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+  <!--标题部分-->
+  <div class="header">
+    <!--标题-->
+    <h1 class="page-header">
+      <!--Tables Page <small>Responsive tables</small>-->
+    </h1>
+    <!--面包屑导航-->
+    <ol class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li><a href="#">样板间管理</a></li>
+      <li class="active">基础管理</li>
+    </ol>
+  </div>
+  <!--主要内容-->
+  <div id="page-inner">
+    <!--写自己的模块-->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="card-title">
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">新增样板间</button>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form class="form-inline">
+              <div class="form-group magin_left">
+                <label for="exampleInputName2">样板间名字</label>
+                <input type="text" class="form-control" id="exampleInputName2" placeholder="样板间名字">
+              </div>
+              <div class="form-group magin_left">
+                <label for="exampleInputEmail2">设计师</label>
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="设计师">
+              </div>
+              <button id="search" type="button" class="btn btn-success">查询</button>
+              <!--<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">新增</button>-->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                  <th>全选</th>
+                  <th>序号</th>
+                  <th>样板间名称</th>
+                  <th>案例图片文件夹</th>
+                  <th>设计师</th>
+                  <th>样板间介绍</th>
+                  <th>创建时间</th>
+                  <th>创建人</th>
+                  <th>案例状态</th>
+                  <th>操作</th>
+                  <th>类别</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%for(var i=0;i<data.length;i++){ %>
+                <tr>
+                  <td><input type="checkbox" class="items"/></td>
+                  <td><%=data[i].t_id%></td>
+                  <td><%=data[i].t_name%></td>
+                  <td><%=data[i].t_img%></td>
+                  <td><%=data[i].t_id%></td>
+                  <td><%=data[i].t_detail%></td>
+                  <td><%=data[i].createtime.toLocaleDateString()%></td>
+                  <td><%=data[i].a_id%></td>
+                  <td id="state<%=data[i].t_id%>"><%=data[i].state%></td>
+                  <td>
+                    <div delid='<%=data[i].t_id%>'>
+                      <button class="btn btn-success Ope" data-toggle="modal" data-target="#myModal2">修改</button>
+                        <%if(data[i].state==1){%>
+                      <button class="btn btn-danger Del">禁用</button>
+                        <%}else{%>
+                      <button class="btn btn-primary Del">开启</button>
+                        <%}%>
+                    </div>
+                  </td>
+                  <td>
+                    <div delid='<%=data[i].t_id%>'>
+                      <button class="btn  bop" data-toggle="modal" data-target="#myModal3">标签表</button>
+                      <button class="btn  kop" data-toggle="modal" data-target="#myModal4">商品表</button>
+                    </div>
+                  </td>
+                </tr>
+                <%}%>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--新增模态框-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">新增设计师</h4>
+        </div>
+        <div class="modal-body ">
+          <form id="myfrom2" class="form-block">
+            <div class="form-group">
+              <label for="addInputnum3">序号</label>
+              <input type="checkbox" id="addInputnum3" value="8"  checked="checked" name="addInputnum33">
+            </div>
+            <div class="form-group magin_left">
+              <label for="addInputName3">样板间名称</label>
+              <input type="text" class="form-control" id="addInputName3" placeholder="样板间名称" name="addInputName33">
+            </div>
+            <div class="form-group">
+              <label for="addInputFile3">案例图片文件夹</label>
+              <input type="text"  class="form-control" id="addInputFile3" placeholder="案例图片文件夹" name="addInputFile33">
+            </div>
+            <div class="form-group">
+              <label for="addInputtime3">设计师</label>
+              <input type="text" id="addInputtime3" class="form-control" placeholder="预约时间" name="addInputtime33">
+            </div>
+            <div class="form-group magin_left">
+              <label for="addInputProduct">样板间介绍</label>
+              <textarea class="form-control" id="addInputProduct3" rows="3" placeholder="设计师的相关作品情况" name="addInputProduct33"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" onclick="submitAjax()" class="btn btn-success add">保存</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+  <!--修改模态框-->
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">修改样板间</h4>
+        </div>
+        <div class="modal-body ">
+          <form id="myform" class="form-block">
+            <div class="form-group">
+              <label for="addInputnum">序号</label>
+              <input type="checkbox" id="addInputnum" value="8"  checked="checked" name="addInputnum2">
+            </div>
+            <div class="form-group magin_left">
+              <label for="addInputName">样板间名称</label>
+              <input type="text" class="form-control" id="addInputName" placeholder="设计师名称" name="addInputName2">
+            </div>
+            <div class="form-group">
+              <label for="addInputFile">案例图片文件夹</label>
+              <input type="text" id="addInputFile" class="form-control" placeholder="预约地址" name="addInputFile2">
+            </div>
+            <div class="form-group">
+              <label for="addInputtime">设计师</label>
+              <input type="text" id="addInputtime" class="form-control" placeholder="预约时间" name="addInputtime2">
+            </div>
+            <!--样板间介绍-->
+            <div class="form-group magin_left">
+              <label for="addroomProduct">样板间介绍</label>
+              <textarea class="form-control" id="addroomProduct" rows="3" placeholder="样板间介绍" name="addroomProduct2"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" onclick="submitAjax()" class="btn btn-success sav">保存</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+  <!--标签表模态框-->
+  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">样板间分类</h4>
+        </div>
+        <div class="modal-body ">
+          <form id="myform3" class="form-block">
+            <div class="form-group">
+              <label for="addInputFile55">样板间序号</label>
+              <input type="checkbox" id="addInputnum55" value="8"  checked="checked" name="addInputnum5">
+              <label for="addInputFile555">样板间标签序号</label>
+              <input type="checkbox" id="addInputnum555" value="8"  checked="checked" name="addInputnum55">
+            </div>
+            <div class="form-group">
+              <label for="addInputstyle">风格</label>
+              <select class="form-control" name="addInputstyle" id="addInputstyle" >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="addInputspace">空间</label>
+              <select class="form-control" name="addInputspace" id="addInputspace">
+                <option>2</option>
+                <option>1</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="addInputpeo">户型</label>
+              <select class="form-control" name="addInputpeo" id="addInputpeo">
+                <option>3</option>
+                <option>2</option>
+                <option>1</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="addInputroom">面积</label>
+              <select class="form-control" name="addInputroom" id="addInputroom">
+                <option>5</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>1</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-success savtag">保存</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+  <!--商品表模态框-->
+  <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">样板间商品表</h4>
+        </div>
+        <div class="modal-body ">
+          <form id="myform2" class="form-block">
+            <div class="form-group">
+              <label for="addInputFile6">样板间序号</label>
+              <input type="checkbox" id="addInputnum6" value="8"  checked="checked" name="addInputnum6">
+              <label for="addInputFile255">样板间商品表序号</label>
+              <input type="checkbox" id="addInputnum255" value="8"  checked="checked" name="addInputnum26">
+            </div>
+            <!--<div class="form-group magin_left">-->
+              <!--<label for="addName">样板间商品id</label>-->
+              <!--<input type="text" class="form-control" id="addName" placeholder="样板间商品" name="addName6">-->
+            <!--</div>-->
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+              <thead>
+              <tr>
+                <th>全选</th> &nbsp;
+                <th>序号</th>  &nbsp;
+                <th>商品id</th> &nbsp;
+              </tr>
+              </thead>
+              <tbody id="ttbody">
+              <tr>
+                <th> </th>
+                <th>5</th>
+                <th>5</th>
+              </tr>
+              </tbody>
+            </table>
+            <!--<div class="modal-footer">-->
+              <!--<button type="button" class="btn btn-success addd">增加商品按钮</button>-->
+            <!--</div>-->
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+    <%include footer.ejs%>
+</div>
+<%include js2.ejs%>
+
+<script src="js/ajax.js"></script>
+<script>
+
+    //点击删除
+    $(document).on("click", ".Del", function () {
+        if ($(this).html()=="禁用") {
+
+                $(this).html("开启").removeClass("btn btn-danger Del")
+                $(this).addClass("btn btn-primary Del")
+
+            var t_id = $(this).parent().parent().parent().children(":eq(1)").text();
+            var state=$(this).parent().parent().parent().children(":eq(8)");
+            state.text(0)
+            console.log(t_id)
+            var request = new XMLHttpRequest();
+            request.open("get", "threeDone.do?id=" + t_id, true);
+            request.send(null);
+        }else{
+            $(this).html("禁用").removeClass("btn btn-primary Del")
+            $(this).addClass("btn btn-danger Del")
+            var t_id = $(this).parent().parent().parent().children(":eq(1)").text();
+            var state=$(this).parent().parent().parent().children(":eq(8)");
+            state.text(1)
+            var request = new XMLHttpRequest();
+            request.open("get", "threeDtwo.do?id=" + t_id, true);
+            request.send(null);
+        }
+    });
+    //点击模态框
+
+    function Data(){
+        var data = JSON.parse(xhr.responseText);
+        $("tbody").html("");
+        for (var i = 0; i < data.length; i++) {
+            let str2;
+            if(data[i].state==1){
+                str2= '<button class="btn btn-danger Del">禁用</button>'
+            }else{
+                str2= '<button class="btn btn-primary Del">开启</button>'
+            }
+            var str='<tr>'+
+                '<td><input type="checkbox" class="items"/></td>'+
+                '<td class="ct">'+data[i].t_id+'</td>' +
+                '<td class="ct">'+data[i].t_name+'</td>' +
+                '<td class="ct">'+data[i].t_img+'</td>' +
+                '<td class="ct">'+data[i].t_id+'</td>' +
+                '<td class="ct">'+data[i].t_detail+'</td>' +
+                '<td class="ct">'+new Date(data[i].createtime).toLocaleDateString() +'</td>' +
+                '<td class="ct">'+data[i].a_id+'</td>' +
+                '<td id="state'+data[i].t_id+'">'+data[i].state+'</td>' +
+                '<td>'+
+                "<div delid="+data[i].t_id+">"+
+                '<button class="btn btn-success Ope" data-toggle="modal" data-target="#myModal2">修改</button>'
+                 +" "+str2+
+                "</div>"+
+                '</td>'+
+                '<td>'+
+                "<div delid="+data[i].t_id+">"+
+                '<button class="btn bop" data-toggle="modal" data-target="#myModal3">标签表</button>'+
+                '<button class="btn kop" data-toggle="modal" data-target="#myModal4">商品表</button>'
+                "</div>"+
+                '</td>'
+                '</tr>'
+            $("tbody").append(str);
+        }
+    }
+
+    //查询
+    $("#search").click(function () {
+        var t_name = $("#exampleInputName2").val();     //获取查询信息框输入的值
+        var d_id = $("#exampleInputEmail2").val();
+        myAjax("post","/searchthreeD.do","t_name="+t_name+"&d_id="+d_id,Data,true);
+    });
+
+    //修改
+    $(document).on("click", ".Ope", function () {
+        var t_id = $(this).parent().parent().parent().children(":eq(1)").text();
+        var t_name = $(this).parent().parent().parent().children(":eq(2)").text();
+        var t_img = $(this).parent().parent().parent().children(":eq(3)").text();
+        var d_id = $(this).parent().parent().parent().children(":eq(4)").text();
+        var t_detail = $(this).parent().parent().parent().children(":eq(5)").text();
+        document.getElementById("addInputnum").value=t_id;
+        document.getElementById("addInputName").value=t_name;
+        document.getElementById("addInputFile").value=t_img;
+        document.getElementById("addInputtime").value=d_id;
+        document.getElementById("addroomProduct").value=t_detail;
+    })
+    $(document).on("click", ".sav", function () {
+        $.ajax({
+            type: "POST",  //提交类型
+            url: "revisethreeD.do", //提交地址
+            data: $("#myform").serialize(),  //输出序列化表单值的结果
+            success: function (data) {//当 AJAX 请求成功完成时，触发提示框
+                console.log(data);
+            }
+        })
+        $('#myModal2').modal('hide');
+        myAjax("post","/searchthreeD.do","",Data,true);
+    })
+
+    //新增
+    $(document).on("click", ".add", function () {
+        $.ajax({
+            type: "POST",  //提交类型
+            url: "addthreeD.do", //提交地址
+            data: $("#myfrom2").serialize(),  //输出序列化表单值的结果
+            success: function (data) {//当 AJAX 请求成功完成时，触发提示框
+                console.log(data);
+            }
+        })
+        $('#myModal').modal('hide');
+        myAjax("post","/searchthreeD.do","",Data,true);
+    })
+
+  //样板间标签的修改
+    $(document).on("click", ".bop", function () {
+        var t_id = $(this).parent().parent().parent().children(":eq(1)").text();
+        document.getElementById("addInputnum55").value=t_id;
+        let g_t_id=t_id;
+        myAjax("post","/styleoption.do","g_t_id="+t_id,optionView,false);
+        myAjax("post","/spaceoption.do","g_t_id="+g_t_id,optionView2,false);
+        myAjax("post","/roomoption.do","g_t_id="+g_t_id,optionView3,false);
+        myAjax("post","/mapoption.do","g_t_id="+g_t_id,optionView4,false);
+    })
+    $(document).on("click", ".savtag", function () {
+        $.ajax({
+            type: "POST",  //提交类型
+            url: "revisetags.do", //提交地址
+            data: $("#myform3").serialize(),  //输出序列化表单值的结果
+            success: function (data) {//当 AJAX 请求成功完成时，触发提示框
+                console.log(data);
+            }
+        })
+        $('#myModal3').modal('hide');
+//        myAjax("post","/searchthreeD.do","",Data,true);
+    })
+
+    function optionView() {
+        var data = JSON.parse(xhr.responseText);
+        $("#addInputstyle").html("");
+        let str = "";
+        for(let i=0;i<data.length;i++) {
+            str+="<option value='" + data[i].t_id + "'>"+ data[i].t_id+"</option>"
+        }
+        $("#addInputstyle").append(str);
+    }
+    function optionView2() {
+        var data = JSON.parse(xhr.responseText);
+        $("#addInputspace").html("");
+        let str = "";
+        for(let i=0;i<data.length;i++) {
+            str+="<option value='" + data[i].t_space_id + "'>"+ data[i].t_space_id+"</option>"
+        }
+        $("#addInputspace").append(str);
+    }
+    function optionView3() {
+        var data = JSON.parse(xhr.responseText);
+        $("#addInputpeo").html("");
+        let str = "";
+        for(let i=0;i<data.length;i++) {
+            str+="<option value='" + data[i].t_room_id + "'>"+ data[i].t_room_id+"</option>"
+        }
+        $("#addInputpeo").append(str);
+    }
+    function optionView4() {
+        var data = JSON.parse(xhr.responseText);
+        $("#addInputroom").html("");
+        let str = "";
+        for(let i=0;i<data.length;i++) {
+            str+="<option value='" + data[i].t_map_id + "'>"+ data[i].t_map_id+"</option>"
+        }
+        $("#addInputroom").append(str);
+    }
+
+
+  //样板间商品显示
+    function goodss() {
+        var data = JSON.parse(xhr.responseText);
+        $("#ttbody").html("");
+        for (var i = 0; i < data.length; i++) {
+            var str = '<tr>' +
+                '<td><input type="checkbox" class="items"/></td>' +
+                '<td class="ct">' + data[i].c_g_id + '</td>' +
+                '<td class="ct">' + data[i].sku_id + '</td>' +
+                '</td>' +
+                '</tr>'
+            $("#ttbody").append(str);
+        }
+    }
+    $(document).on("click", ".kop", function () {
+        var t_id = $(this).parent().parent().parent().children(":eq(1)").text();
+        document.getElementById("addInputnum255").value=t_id;
+        myAjax("post","/showgoods.do","t_id="+t_id,goodss,true);
+    })
+
+//    $(document).on("click", ".savtag", function () {
+//        $.ajax({
+//            type: "POST",  //提交类型
+//            url: "revisetags.do", //提交地址
+//            data: $("#myform3").serialize(),  //输出序列化表单值的结果
+//            success: function (data) {//当 AJAX 请求成功完成时，触发提示框
+//                console.log(data);
+//            }
+//        })
+//        $('#myModal3').modal('hide');
+////        myAjax("post","/searchthreeD.do","",Data,true);
+//    })
+</script>
+</body>
+</html>

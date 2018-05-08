@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="" name="description" />
+  <meta content="webthemez" name="author" />
+  <title>个人信息管理</title>
+  <%include css.ejs%>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+<%include header.ejs%>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+  <!--标题部分-->
+  <div class="header">
+    <!--标题-->
+    <h1 class="page-header">
+      <!--Tables Page <small>Responsive tables</small>-->
+    </h1>
+    <!--面包屑导航-->
+    <ol class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li><a href="#">后台管理</a></li>
+      <li class="active">个人信息</li>
+    </ol>
+  </div>
+
+  <!--主要内容-->
+  <div id="page-inner">
+
+    <!--写自己的模块-->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="card-title">
+              <div class="title">个人信息</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal viewInfo">
+              <div class="form-group">
+                <label class="col-sm-2 control-label col-sm-offset-1">头像</label>
+                <div class="col-sm-8">
+                  <div class="userImg">
+                    <img src="<%=list[0].a_headimg%>" alt=""/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label col-sm-offset-1">用户名</label>
+                <div class="col-sm-8">
+                  <div class="username myInput"><%=list[0].a_name%></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label col-sm-offset-1">手机号</label>
+                <div class="col-sm-8">
+                  <div class="phone myInput"><%=list[0].a_tel%></div>
+                </div>
+              </div>
+              <div class="modal-footer text-center">
+                <button type="button" class="btn btn-success setInfoBtn">修改</button>
+              </div>
+            </form>
+            <form class="form-horizontal setInfo hideInfo">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">用户名</label>
+                <div class="col-sm-8">
+                  <div class="username myInput"><%=list[0].a_name%></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">密码</label>
+                <div class="col-sm-8">
+                  <input type="password" name="pwd" class="form-control pwdInput" placeholder="请输入密码">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">新密码</label>
+                <div class="col-sm-8">
+                  <input type="password" name="newPwd" class="form-control" placeholder="请输入新的密码">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">手机号</label>
+                <div class="col-sm-8">
+                  <input type="text" name="phone" class="form-control" placeholder="请输入手机号">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">上传头像</label>
+                <div class="col-sm-8">
+                  <input type="file" class="adminFile" name="file" multiple="multiple">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-1">预览头像</label>
+                <div class="col-sm-8">
+                  <div class="userImg">
+                    <img src="<%=list[0].a_headimg%>" alt=""/>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer text-center">
+                <button type="button" class="btn btn-default iBtn">取消</button>
+                <button type="button" class="btn btn-success iBtn PresBtn" disabled="disabled">保存</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%include footer.ejs%>
+</div>
+<%include js.ejs%>
+<script src="js/admin.js"></script>
+</body>
+</html>

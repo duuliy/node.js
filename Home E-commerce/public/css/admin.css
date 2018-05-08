@@ -1,0 +1,23 @@
+.myInput{
+    width: 100%;
+    height: 34px;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+}
+.userImg{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 100px;
+    position: relative;
+}
+.userImg img{
+    width: 200px;
+    position: absolute;
+    left: -35px;
+}
+.hideInfo{
+    display: none;
+}

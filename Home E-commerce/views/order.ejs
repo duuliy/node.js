@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="" name="description" />
+  <meta content="webthemez" name="author" />
+  <title>订单管理</title>
+    <%include css.ejs%>
+</head>
+<body>
+<%include header.ejs%>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+  <!--标题部分-->
+  <div class="header">
+    <!--标题-->
+    <h1 class="page-header">
+      <!--订单管理-->
+    </h1>
+    <!--面包屑导航-->
+    <ol class="breadcrumb">
+      <li><a href="index">首页</a></li>
+      <li class="active">订单管理</li>
+    </ol>
+  </div>
+
+  <!--主要内容-->
+  <div id="page-inner">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="card-title">
+              <div class="btn btn-success" style="margin-right: 15px">订单列表</div>
+              <label for="" style="font-size: 14px;color: #333">用户id</label>
+              <input type="text"  id="query_order_seluid"  style=" width:100px;margin-top: 5px;margin-right: 15px">
+              <!--订单状态 <input type="text"  id="query_order_seastatus" style=" width:100px;margin-top: 5px">-->
+              <label for="" style="font-size: 14px;color: #333">订单状态</label>
+               <select name="" id="query_order_selstatus" class="form-control" style="display: inline-block; width:100px;margin-top: 5px;margin-right: 15px">
+                <option value="1">未付款</option>
+                <option value="2">已付款</option>
+                <option value="3">配送中</option>
+                <option value="4">已签收</option>
+                <option value="5">未评价</option>
+                <option value="6">已完成</option>
+                <option value="0">已取消</option>
+              </select>
+              <div class="btn btn-success" onclick="selOrder()">查询</div>
+            </div>
+          </div>
+          <!--订单列表内容-->
+          <div class="panel-body" id="list">
+           <%for(var i=0;i<list.length;i++){%>
+            <form class="form-inline">
+              <div class="form-group magin_left" style="margin: 20px 20px 0 20px">
+                <label for="query_order_name">订单表id</label>
+                <input type="text" class="form-control" id="query_order_name" readonly  unselectable="on" value=<%=list[i].o_id%>>
+              </div>
+              <div class="form-group magin_left" style="margin: 20px 20px 0 20px">
+                <label for="query_order_ceg">用户表id</label>
+                <input type="text" class="form-control" id="query_order_ceg" readonly  unselectable="on" value=<%=list[i].u_id%>>
+              </div>
+              <div class="form-group magin_left" style="margin: 20px 20px 0 20px">
+                <label for="query_order_state">订单状态</label>
+                <select id="query_order_state" class="form-control">
+                    <% if(list[i].o_status==1){%>
+                  <option value="1">未付款</option>
+                  <!--<option value="1">未付款</option>-->
+                  <option value="2">已付款</option>
+                  <option value="3">配送中</option>
+                  <option value="4">已签收</option>
+                  <option value="5">未评价</option>
+                  <option value="6">已完成</option>
+                  <option value="0">已取消</option>
+                    <%}%>
+                    <% if(list[i].o_status==2){%>
+                  <option value="2">已付款</option>
+                  <option value="1">未付款</option>
+                  <!--<option value="2">已付款</option>-->
+                  <option value="3">配送中</option>
+                  <option value="4">已签收</option>
+                  <option value="5">未评价</option>
+                  <option value="6">已完成</option>
+                  <option value="0">已取消</option>
+                    <%}%>
+                    <% if(list[i].o_status==3){%>
+                  <option value="3">配送中</option>
+                  <option value="1">未付款</option>
+                  <option value="2">已付款</option>
+                  <!--<option value="3">配送中</option>-->
+                  <option value="4">已签收</option>
+                  <option value="5">未评价</option>
+                  <option value="6">已完成</option>
+                  <option value="0">已取消</option>
+                    <%}%>
+                    <% if(list[i].o_status==4){%>
+                  <option value="4">已签收</option>
+                  <option value="1">未付款</option>
+                  <option value="2">已付款</option>
+                  <option value="3">配送中</option>
+                  <!--<option value="4">已签收</option>-->
+                  <option value="5">未评价</option>
+                  <option value="6">已完成</option>
+                  <option value="0">已取消</option>
+                    <%}%>
+                    <% if(list[i].o_status==5){%>
+                  <option value="5">未评价</option>
+                  <option value="1">未付款</option>
+                  <option value="2">已付款</option>
+                  <option value="3">配送中</option>
+                  <option value="4">已签收</option>
+                  <!--<option value="5">未评价</option>-->
+                  <option value="6">已完成</option>
+                  <option value="0">已取消</option>
+                    <%}%>
+                    <% if(list[i].o_status==6){%>
+                  <option value="6">已完成</option>
+                  <option value="1">未付款</option>
+                  <option value="2">已付款</option>
+                  <option value="3">配送中</option>
+                  <option value="4">已签收</option>
+                  <option value="5">未评价</option>
+                  <!--<option value="6">已完成</option>-->
+                  <option value="0">已取消</option>
+                    <%}%>
+                    <% if(list[i].o_status==0){%>
+                  <option value="0">已取消</option>
+                  <option value="1">未付款</option>
+                  <option value="2">已付款</option>
+                  <option value="3">配送中</option>
+                  <option value="4">已签收</option>
+                  <option value="5">未评价</option>
+                  <option value="6">已完成</option>
+                  <!--<option value="0">已取消</option>-->
+                    <%}%>
+                </select>
+              </div>
+              <div class="form-group magin_left" style="margin: 20px 20px 0 20px">
+                <label for="query_order_money">订单金额</label>
+                <input type="text" class="form-control" id="query_order_money" readonly  unselectable="on" value=<%=list[i].o_price%>>
+              </div>
+              <div class="form-group magin_left"  style="margin: 20px 20px 0 20px">
+                <label for="query_order_remark">订单备注</label>
+                <input type="text" class="form-control" id="query_order_remark" readonly  unselectable="on" value=<%=list[i].o_remark%>>
+              </div>
+              <div class="form-group magin_left"  style="margin: 20px 20px 0 20px">
+                <label for="query_order_addr">订单地址</label>
+                <input type="text" class="form-control" id="query_order_addr" readonly  unselectable="on" value=<%=list[i].addr_id%>>
+              </div>
+              <div class="form-group magin_left"  style="margin: 20px 20px 0 20px">
+                <label for="query_order_createtime">创建时间</label>
+                <input type="text" class="form-control" id="query_order_createtime" readonly  unselectable="on" value=<%=list[i].createtime%>>
+              </div>
+              <div class="form-group magin_left"  style="margin: 20px 20px 0 20px">
+                <label for="query_order_paytime">付款时间</label>
+                <input type="text" class="form-control" id="query_order_paytime" readonly  unselectable="on" value=<%=list[i].paytime%>>
+              </div>
+              <div class="form-group magin_left"  style="margin: 20px 20px 0 20px">
+                <label for="query_order_logis">物流单号</label>
+                <input type="text" class="form-control" id="query_order_logis" readonly  unselectable="on" value=<%=list[i].o_logis%>>
+              </div>
+              <div class="form-group magin_left" style="margin: 20px 20px 0 20px">
+                <label for="query_state">订单是否启用</label>
+                <select id="query_state" class="form-control">
+                  <option value="1">启用</option>
+                  <option value="0">禁止</option>
+                </select>
+              </div>
+              <div class="form-group magin_left" style="margin: 20px 20px 0 20px">
+                <label for="query_state"> <a href="orderGoods">订单商品详情</a></label>
+                <div class="btn btn-success" style="margin-left: 30px" onclick="updateOrder()">保存</div>
+              </div>
+            </form>
+            <%}%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <%include footer.ejs%>
+</div>
+<%include js.ejs%>
+<script src="./js/myajax.js"></script>
+<script src="./js/order.js"></script>-->
+</body>
+</html>

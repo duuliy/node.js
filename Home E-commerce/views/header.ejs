@@ -1,0 +1,97 @@
+<!--头部导航-->
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> BRILLIANT</strong></a>
+            <!--收缩侧边栏按钮-->
+            <div id="sideNav" href="">
+                <i class="fa fa-bars icon"></i>
+            </div>
+        </div>
+        <!--头部导航右边用户头像-->
+        <div class="right-admin">
+            <div>
+                <img src="<%=locals.userimg%>" class="admin-img">
+                <span><%=locals.username%></span>
+            </div>
+        </div>
+    </nav>
+    <!--侧边导航-->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <!--首页-->
+                <li>
+                    <a class="active-menu" href="/index"><i class="fa fa-institution"></i> 首页</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-sitemap"></i> 后台管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="adminAll">用户管理</a>
+                        </li>
+                        <li>
+                            <a href="roleList">角色管理</a>
+                        </li>
+                        <li>
+                            <a href="admin">个人信息管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--前台用户管理-->
+                <li>
+                    <a href="user"><i class="fa fa-user-o"></i>前台用户管理</a>
+                </li>
+                <!--商品管理-->
+                <li>
+                    <a href="#"><i class="fa fa-shopping-cart"></i> 商品管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="goods">基础管理</a>
+                        </li>
+                        <li>
+                            <a href="prop">属性管理</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--设计师管理-->
+                <li>
+                    <a href="#"><i class="fa fa-address-card-o"></i> 设计师管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="getAllDesigner">设计师</a>
+                        </li>
+                        <li>
+                            <a href="d_case">设计师案例</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--标签管理-->
+                <li>
+                    <a href="/tags"><i class="fa fa-tag"></i>标签管理</a>
+                </li>
+                <!--订单管理-->
+                <li>
+                    <a href="order"><i class="fa fa-truck"></i>订单管理</a>
+                </li>
+
+                <!--订单管理-->
+                <li>
+                    <a href="appointment"><i class="fa fa-calendar"></i> 预约管理</a>
+                </li>
+
+                <!--样板间管理-->
+                <li>
+                    <a href="/threeD"><i class="fa fa-credit-card"></i> 样板间管理</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

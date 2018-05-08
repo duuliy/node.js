@@ -1,0 +1,9 @@
+.magin_left{
+    margin-right:15px;
+}
+.modal{
+    margin-top:10%;
+}
+tr td:last-child,tr th:last-child{
+    text-align: center;
+}

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta content="" name="description"/>
+    <meta content="webthemez" name="author"/>
+    <title>设计师案例</title>
+    <% include css.ejs %>
+    <style>
+        input[type='file']{
+            color: transparent;
+        }
+
+        .magin_left {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+<% include header.ejs %>
+<!--自己负责的代码块格式-->
+<div id="page-wrapper">
+    <!--标题部分-->
+    <div class="header">
+        <!--标题-->
+        <h1 class="page-header">
+            <!--设计师案列-->
+        </h1>
+        <!--面包屑导航-->
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">设计师管理</a></li>
+            <li class="active">设计师案列</li>
+        </ol>
+    </div>
+
+    <!--主要内容-->
+    <div id="page-inner" class="user_style">
+        <!--写自己的模块-->
+        <!--新增-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="card-title">
+                            <button class="btn btn-success add" data-toggle="modal" data-target="#exampleModal"
+                                    data-whatever="添加">新增案例
+                            </button>
+                            <div class="panel-body">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="exampleInputName2">案例名:</label>
+                                        <input type="text" class="form-control" id="search" placeholder="请输入案例名">
+                                        <button type="button" class="btn btn-success search">查询</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--模态框-->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <!--模态头部-->
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="exampleModalLabel">案例</h4>
+                                        </div>
+                                        <!--模态内容-->
+                                        <div class="modal-body">
+                                            <form enctype="multipart/form-data" method="post" id="form">
+                                                <div class="form-group">
+                                                    <label for="recipient-name"  class="control-label">案例名称:</label>
+                                                    <input type="text" name="name" class="form-control an-name" id="recipient-name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">案例图片:</label>
+                                                    <input type="file" class="an-img" name="myfile"  id="myfile">
+                                                    <img alt="" src="" width="70px" height="70px" id="img">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">设计师:</label>
+                                                    <select class="form-control an-sj" name="">
+                                                        <option>--请选择设计师--</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">案例标签:</label>
+                                                    <select class="form-control an-bq">
+                                                        <option>--请选择标签--</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">案例介绍:</label>
+                                                    <textarea class="form-control an-js" id="message-text"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--模态尾部-->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default closes" data-dismiss="modal">关闭
+                                            </button>
+                                            <button type="button" class="btn btn-primary save">保存</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--表格-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Advanced Tables -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>案例名称</th>
+                                    <th>案例样品</th>
+                                    <th>设计师</th>
+                                    <th>案例介绍</th>
+                                    <th>案例标签</th>
+                                    <th>创建时间</th>
+                                    <th>案例状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div class="col-sm-12 text-center">
+                                <ul class="pagination ulBox"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Advanced Tables -->
+            </div>
+        </div>
+    </div>
+    <% include footer.ejs %>
+</div>
+<% include js.ejs %>
+<script>
+    //设计师和标签
+    $.ajax({
+        sync:true,
+        type:"get",
+        url:"Designer.do",
+        success:function (data) {
+            for(var i=0;i<data.length;i++){
+                var add="<option>"+data[i].d_name+"</option>"
+                $(".an-sj").append(add)
+            }
+        }
+    });
+    $.ajax({
+        sync:false,
+        type:"get",
+        url:"label.do",
+        success:function (data){
+            for(var i=0;i<data.length;i++){
+                var add="<option>"+data[i].t_name+"</option>"
+                $(".an-bq").append(add)
+            }
+        }
+    });
+    //禁用
+    $(document).on("click",".a",function () {
+        if ($(this).text() == "禁用") {
+            var name = $(this).parent().parent().children(":eq(0)").text();
+            var state = $(this).parent().parent().children(":eq(6)");
+            $(this).removeClass("btn-danger")
+            $(this).addClass("btn-success")
+            $(this).text("启用")
+            toastr.success("禁用账户成功");
+            $.ajax({
+                type: "get",
+                url: "disablecase.do",
+                data: {name: name}
+            })
+            state.text("禁用")
+        } else {
+            var name = $(this).parent().parent().children(":eq(0)").text();
+            var state = $(this).parent().parent().children(":eq(6)");
+            $(this).removeClass("btn-success")
+            $(this).addClass("btn-danger")
+            $(this).text("禁用")
+            toastr.success("启用账户成功");
+            $.ajax({
+                type: "get",
+                url: "start_upcase.do",
+                data: {name: name}
+            })
+            state.text("启用")
+        }
+    });
+    //模态框标题设置
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        button = $(event.relatedTarget) // Button that triggered the modal
+        recipient = button.data('whatever') // Extract info from data-* attributes
+        modal = $(this)
+        modal.find('.modal-title').text('案例' + recipient)
+    });
+    //创建图片文件夹
+    $(".an-img").bind("change",function (e) {
+        var c_name = $(".an-name").val();
+        $.ajax({
+            sync:false,
+            type:"get",
+            url:"createfile.do",
+            data:{
+                file:c_name,
+            }
+        });
+        var imgSRC = document.querySelector("#img");
+        var file = document.querySelector("input[type='file']").files[0];
+        var reader = new FileReader();
+        reader.addEventListener("load",function () {
+            imgSRC.src = reader.result;
+        });
+        reader.readAsDataURL(file);
+    });
+    //删除服务器数据更新
+    $("#myfile").click(function () {
+        var c_img = $("#img")[0].src;
+        if (modal.find('.modal-title').text() == "案例修改"){
+            $.ajax({
+                type:"get",
+                url:"updateimg.do",
+                data:{
+                    img:c_img
+                }
+            })
+        }
+    })
+    //保存和修改数据
+    $(".save").click(function () {
+        var a = $(".an-img").val().split("\\");
+        var c_name = $(".an-name").val(),
+            c_img = a[a.length - 1],
+            file = $(".an-img").prop('files'),
+            d_name = $(".an-sj").val(),
+            t_name = $(".an-bq").val(),
+            d_detail = $(".an-js").val()
+        var formdata = new FormData();
+        formdata.append('myfile',file[0])
+        if (modal.find('.modal-title').text() == "案例添加") {
+            $.ajax({
+                type: "post",
+                url: "add.do",
+                data: {
+                    c_name: c_name,
+                    c_img: c_img,
+                    d_name: d_name,
+                    t_name: t_name,
+                    d_detail: d_detail
+                },
+                success:function () {
+                    window.location.reload()
+                }
+            })
+            $.ajax({
+                type: "post",
+                url: "abc.do",
+                data:formdata,
+                cache:false,
+                processData:false,
+                contentType:false,
+            })
+            toastr.success("添加成功")
+        }else{
+            $.ajax({
+                type: "post",
+                url: "modify.do",
+                data: {
+                    c_name: c_name,
+                    c_img: c_img,
+                    d_name: d_name,
+                    t_name: t_name,
+                    d_detail: d_detail
+                },
+                success:function () {
+                    window.location.reload()
+                }
+            })
+            $.ajax({
+                type: "post",
+                url: "abc.do",
+                data:formdata,
+                cache:false,
+                processData:false,
+                contentType:false,
+            })
+            toastr.success("修改成功")
+        }
+        $(this).attr("data-dismiss", "modal")
+    });
+    //重置模态框数据
+    $(".closes").click(function () {
+        $("#form")[0].reset();
+        $("#img").attr("src","")
+    })
+    //添加事件传递设计师数据
+    //修改数据传递
+    $(document).on("click",".right",function () {
+        var name=$(this).parent().parent().children(":eq(0)").text(),
+            img=$(this).parent().parent().children(":eq(1)").children(":eq(0)").attr("src"),
+            sjs=$(this).parent().parent().children(":eq(2)").text(),
+            anjs=$(this).parent().parent().children(":eq(3)").text(),
+            biaoq=$(this).parent().parent().children(":eq(4)").text();
+        $(".an-name").val(name);
+        $("#img").attr("src",img);
+        $(".an-sj").val(sjs);
+        $(".an-bq").val(biaoq);
+        $(".an-js").val(anjs);
+        console.log(img)
+    })
+    //分页
+    function dataPage(c1){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type:"get",
+                url:"/casePage.do",
+                data:{
+                currentData:c1
+            },
+            success: function (data) {
+                num = data;
+                var str = '<li class="paginate_button previous">'+
+                    '<a href="javascript:">上一页</a>'+
+                    '</li>';
+                for(var i=1;i<=data;i++){
+                    str += '<li class="paginate_button">'+
+                        '<a href="javascript:" class="page" index="'+i+'">'+i+'</a>'+
+                        '</li>';
+                }
+                str += '<li class="paginate_button next">'+
+                    '<a href="javascript:">下一页</a>'+
+                    '</li>';
+                $('.ulBox').html(str);
+                resolve()
+            }
+        })
+        })
+
+    }
+    function getData(c1,c2){
+        $.ajax({
+            type:"get",
+            dataType:"json",
+            url:"/caseData.do",
+            data:{
+            "currentData":c1,
+            "currentPage":c2
+        },
+        success:(data)=>{
+            if(data.flag==1){
+                var str = '';
+                for(var i=0;i<data.message.length;i++){
+                    var btn="";
+                    if (data.message[i].状态 == 1) {
+                        data.message[i].状态 = "启用"
+                        btn+='<button type="button" class="btn btn-danger right a">禁用</button>'
+                    } else {
+                        data.message[i].状态 = "禁用";
+                        btn+='<button type="button" class="btn btn-success right a">启用</button>'
+                    };
+                  str+='<tr class="odd gradeX">'+
+                        '<td>'+data.message[i].案例名称+'</td>'+
+                        '<td><img src='+data.message[i].案例样品+' class="caseimg"></td>'+
+                        '<td>'+data.message[i].设计师+'</td>'+
+                        '<td class="center">'+data.message[i].案例介绍+'</td>'+
+                        '<td class="center">'+data.message[i].案例标签+'</td>'+
+                        '<td class="center">'+new Date(data.message[i].时间).toLocaleDateString()+'</td>'+
+                        '<td class="center">'+data.message[i].状态+'</td>'+
+                        '<td class="center">'+
+                        '<button type="button" class="btn btn-success right" data-toggle="modal"'+
+                        'data-target="#exampleModal" data-whatever="修改">修改'+
+                        '</button>'+
+                         btn+
+                        '</td>'+
+                        '</tr>'
+                }
+                $('tbody').html(str);
+            }
+        }
+    })
+    }
+    var currentPage = 1;  //当前页数
+    var currentData = 3; //当前展示3条数据
+    var num;//总页数
+    console.log(currentData)
+    dataPage(currentData).then(function () {
+        getData(currentData,currentPage);
+    });
+    $(document).on('click','.next',function () {
+        if(currentPage<num){
+            currentPage++;
+            dataPage(currentData).then(function () {
+                getData(currentData,currentPage);
+            });
+        }else{
+            currentPage = num;
+            $(".next").addClass("disabled")
+        }
+    });
+    $(document).on('click','.previous',function () {
+        if(currentPage>1){
+            currentPage--;
+            dataPage(currentData).then(function () {
+                getData(currentData,currentPage);
+            });
+        }else{
+            currentPage = 1;
+            $(".previous").addClass("disabled")
+        }
+    });
+    $(document).on('click','.page', function () {
+        currentPage = parseInt($(this).attr('index'));
+        dataPage(currentData).then(function () {
+            getData(currentData,currentPage);
+        });
+    });
+    //查询数据
+    $(".search").click(function () {
+        var name=$("#search").val();
+        $.ajax({
+            type:"get",
+            url:"searchcase.do",
+            data:{
+                name:name
+            },
+            success:function (data) {
+                $("tbody").html("");
+                for(var i=0;i<data.length;i++){
+                    if (data[i].状态 == 1) {
+                        data[i].状态 = "启用"
+                    } else {
+                        data[i].状态 = "禁用"
+                    }
+                    var str='<tr class="odd gradeX">'+
+                        '<td>'+data[i].案例名称+'</td>'+
+                        '<td><img src='+data[i].案例样品+' class="caseimg"></td>'+
+                        '<td>'+data[i].设计师+'</td>'+
+                        '<td class="center">'+data[i].案例介绍+'</td>'+
+                        '<td class="center">'+data[i].案例标签+'</td>'+
+                        '<td class="center">'+new Date(data[i].时间).toLocaleDateString()+'</td>'+
+                        '<td class="center">'+data[i].状态+'</td>'+
+                        '<td class="center">'+
+                        '<button type="button" class="btn btn-success right" data-toggle="modal"'+
+                        'data-target="#exampleModal" data-whatever="修改">修改'+
+                        '</button>'+
+                        '<button type="button" class="btn btn-danger right a">禁用</button>'+
+                        '</td>'+
+                        '</tr>'
+                    $("tbody").append(str)
+                    if($("tbody").html()==""){
+                        $("tbody").append(str)
+                    }
+                }
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
