@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面404</title>
+</head>
+
+<body>
+    <h1>页面不存在</h1>
+    <a href="index.html">点击返回首页</a>
+
+    <form action="/uploadFile.do" method="post" enctype="multipart/form-data">
+        <!--后台获取文件，都是通过name属性去找文件-->
+        <input type="file" name="myfile" multiple>
+        <button>上传文件</button>
+    </form>
+    <h4>123</h4>
+    <img id='myimg' src="" alt="">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script>
+        // setTimeout(function () {
+        //     location.href="index.html"
+        // },3000)
+        $.ajax({
+            url: "/getImage.do",
+            success: function (data) {
+                console.log(data)
+                $("#myimg")[0].src = data[0].img;
+            }
+        })
+    </script>
+</body>
+
+</html>
