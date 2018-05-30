@@ -2,8 +2,8 @@ const AV = require('leancloud-storage');
 const nodemailer = require('nodemailer');
 
 
-const APP_ID = 'Oj37xYEJ1v9wnWPRY5TsrRiw-gzGzoHsz';
-const APP_KEY = 'yfs07sveE9zG5RKXrWraguke';
+const APP_ID = 'Oj3';
+const APP_KEY = 'yfsaguke';
 //模块进行初始化
 AV.init({
   appId: APP_ID,
@@ -43,14 +43,14 @@ const smsController ={
       port: 587,
       secure: false, // true for 465, false for other ports //465-SSL
       auth: {   //账号信息
-        user: "1626454937@qq.com", // generated ethereal user
-        pass: "tdvrouwiqvridbaf"  // generated ethereal password
+        user: "715181149@qq.com", // generated ethereal user
+        pass: "vridbaf"  // generated ethereal password
       }
     });
 
     // setup email data with unicode symbols 发送邮件的内容配置
     let mailOptions = {
-      from: '"duuliy" <1626454937@qq.com>', // sender address //发送人
+      from: '"duuliy" <715181149@qq.com>', // sender address //发送人
       to: req.body.receiver, // list of receivers //收件人
       subject: 'Hello World', // Subject line //邮件标题
       html: "<div>" +
