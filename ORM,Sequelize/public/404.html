@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面404</title>
+</head>
+
+<body>
+    <!-- <h1>页面不存在</h1>
+    <a href="index.html">点击返回首页</a>
+
+    <form action="/uploadFile.do" method="post" enctype="multipart/form-data">
+        <!后台获取文件，都是通过name属性去找文件-->
+    <!-- <input type="file" name="myfile" multiple>
+        <button>上传文件</button>
+    </form>
+    <h4>123</h4>
+    <img id='myimg' src="" alt="">  -->
+
+
+    <!-- 发短信 -->
+    <!-- 手机号:
+    <input type="text" id="phone">
+    <button onclick="sendCode();">发送验证码</button>
+    <span id="sendMsg"></span>
+    <br> 输入验证码:
+    <input type="text" id="code">
+    <button onclick="verifyCode();">验证</button>
+    <span id="verifyMsg"></span>
+
+    <h1>发送邮件</h1>
+    <form action="sendMail.do" method="post">
+        收件人: <input type="text" name="receiver">
+        邮件内容: <textarea name="mailContent" id="" cols="30" rows="10"></textarea>
+        <button>发送邮件</button>
+    </form> -->
+
+    <!-- sequelize -->
+    <button onclick="getany()">获取数据</button>
+    <button onclick="addsome()">增加</button>
+    <button onclick="deltesome()">删除</button>
+    <button onclick="querysome()">查询</button>
+    <button onclick="upsome()">改变</button>
+
+    <span id="seqMsg"></span>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script>
+        // setTimeout(function () {
+        //     location.href="index.html"
+        // },3000)
+        // $.ajax({
+        //     url: "/getImage.do",
+        //     success: function (data) {
+        //         console.log(data)
+        //         $("#myimg")[0].src = data[0].img;
+        //     }
+        // })
+
+        // function sendCode() {
+        //     $.ajax({
+        //         url: "/sendCode.do",
+        //         type: "POST",
+        //         data: {
+        //             phone: $("#phone").val()
+        //         },
+        //         success: function (data) {
+        //             console.log(data)
+        //             $("#sendMsg").html(data)
+        //         }
+        //     })
+        // }
+
+        // function verifyCode(){
+        //   $.ajax({
+        //     url:"/verifyCode.do",
+        //     type:"POST",
+        //     data:{
+        //       phone:$("#phone").val(),
+        //       code:$("#code").val()
+        //     },
+        //     success:function(data){
+        //       $("#verifyMsg").html(data);
+        //     }
+        //   })
+        // }
+
+        function getany() {
+            $.ajax({
+                url: "/sequelize.do",
+                type: "POST",
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+
+        function addsome() {
+            $.ajax({
+                url: "/addsequelize.do",
+                type: "POST",
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+
+        function deltesome() {
+            $.ajax({
+                url: "/delesequelize.do",
+                type: "DELETE",
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+        function querysome() {
+            $.ajax({
+                url: "/quersequelize.do",
+                type: "PATCH",
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+        function upsome() {
+            $.ajax({
+                url: "/updsequelize.do",
+                type: "PUT",
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
