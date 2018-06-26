@@ -34,7 +34,6 @@ app.use(session({
 
 
 //视图解析的引擎
-
 app.all('*', (req, res, next)=> {
     res.header("Access-Control-Allow-Methods","POST,GET,PUT,DELETE,PATCH");
     next()
@@ -53,9 +52,9 @@ app.use(route);  //使用模块
 app.use(express.static(__dirname+"/public"));//静态资源在哪里
 
 // 找不到跳转404
-app.use("*",function (req,res) {
-    res.sendfile(path.join(__dirname,"public","404.html"))
-});
+// app.use("*",function (req,res) {
+//     res.sendfile(path.join(__dirname,"public","404.html"))
+// });
 
 
 
