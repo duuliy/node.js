@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>websocket_test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    123
+    <script>
+        //readyState的状态如下,用法ws.readyState,
+        //CONNECTING：值为0，表示正在连接。 用法ws.CONNECTING
+        // OPEN：值为1，表示连接成功，可以通信了。用法ws.CONNECTING
+        // CLOSING：值为2，表示连接正在关闭。用法ws.CLOSING
+        // CLOSED：值为3，表示连接已经关闭，或者打开连接失败。用法ws.CLOSED
+        //binaryType,判断数据类型的。用法:ws.binaryType
+        //bufferedAmount表示还有多少字节的二进制数据没有发送出去。它可以用来判断发送是否结束。
+        //eg:
+        // var data = new ArrayBuffer(10000000);
+        // socket.send(data);
+
+        // if (socket.bufferedAmount === 0) {
+        //     // 发送完毕
+        // } else {
+        //     // 发送还没结束
+        // }
+        
+        //onerror于指定报错时的回调函数。
+        //
+        // socket.onerror = function (event) {
+        //     // handle error event
+        // };
+        var ws = new WebSocket("wss://echo.websocket.org");
+
+        ws.onopen = function (evt) {  //打开接口
+            console.log("Connection open ...");
+            ws.send("Hello WebSockets!");
+        };
+
+        ws.onmessage = function (evt) {    //接收数据
+            console.log("Received Message: " + evt.data);
+            ws.close();
+        };
+
+        ws.onclose = function (evt) {    //关闭接口
+            console.log("Connection closed.");
+        };
+    </script>
+</body>
+
+</html>
