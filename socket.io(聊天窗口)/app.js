@@ -57,23 +57,11 @@ app.use(route);  //使用模块
 
 app.use(express.static(__dirname+"/public"));//静态资源在哪里
 
-// 找不到跳转404
-// app.use("*",function (req,res) {
-//     res.sendfile(path.join(__dirname,"public","404.html"))
-// });
+
 
 // io部分
 
-// app.get('/', function (req, res) {
-//     res.sendfile(__dirname + '/index.html');
-//   });
-  
-//   io.on('connection', function (socket) {
-//     socket.emit('news', { hello: 'world' });
-//     socket.on('my other event', function (data) {
-//       console.log(data);
-//     });
-//   });
+
 
 
 io.on('connection', function(socket){  //监听 connection(正在连接)，监听事件接收消息
