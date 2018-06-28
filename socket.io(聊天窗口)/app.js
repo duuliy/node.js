@@ -76,8 +76,8 @@ app.use(express.static(__dirname+"/public"));//静态资源在哪里
 //   });
 
 
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
+io.on('connection', function(socket){  //监听 connection(正在连接)，监听事件接收消息
+    socket.on('chat message', function(msg){   
       console.log('message: ' + msg);
     });
 });
@@ -87,7 +87,7 @@ io.on('connection', function(socket){
 //     socket.broadcast.emit('hi');
 // });
 
-io.on('connection', function(socket){
+io.on('connection', function(socket){   //监听 connection(正在连接)，监听事件发送消息
     socket.on('chat message', function(msg){
       io.emit('chat message', msg);
     });
