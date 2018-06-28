@@ -56,6 +56,13 @@
 </head>
 
 <body>
+
+    <div v-for="item in arr" :class=item.a===id>
+        <div text></div>
+        <div text></div>
+        <div text></div>
+    </div>
+
     <ul id="messages"></ul>
     <form action="">
         <input id="m" autocomplete="off" />
@@ -73,17 +80,33 @@
         // });
 
         $(function () {
-            var socket = io();
+            var socket = io();    //实例化对象
             $('form').submit(function(){
-              socket.emit('chat message', $('#m').val());
+              socket.emit('chat message', $('#m').val());     //监听事件，发送 信息
               $('#m').val('');
               return false;
             });
-            socket.on('chat message', function(msg){
-              $('#messages').append($('<li>').text(msg));
+            socket.on('chat message', function(msg){   //监听事件，接收 信息
+             
+                
             //   window.scrollTo(0, document.body.scrollHeight);
             });
           });
+        id:"a",
+        arr=[
+            {
+                id:"a",
+                content:"你好",
+                type:"text",
+            },
+            {
+                id:"b",
+                content:"asdasd.jpg",
+                type:"text",
+            },
+        ]
+          
+
     </script>
 </body>
 
