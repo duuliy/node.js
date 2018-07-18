@@ -2,7 +2,7 @@
 const express = require("express");
 const logger = require("morgan"); //日志
 const favicon = require("serve-favicon");//小图标
-const bodyParser = require("body-parser");  //处理POST数据
+const bodyParser = require("body-parser");  //处理POST 数据
 const path = require("path"); //处理路径
 
 const session = require("express-session");
