@@ -60,5 +60,5 @@ app.use(express.static(__dirname+"/public"));//静态资源在哪里
 
 
 
-//监听端口
+//监听端 口
 app.listen(8889,()=>{console.log("服务器8889启动")});
