@@ -39,3 +39,77 @@ var select = function (callback) {
         });
     }
 };
+
+
+
+//3.多异步之间的合作
+
+var count = 0;
+var results = {};
+var done = function (key, value) {
+    results[key] = value;
+    count++;
+    if (count === 3) { // 渲染面     render(results);   }
+    };
+
+    fs.readFile(template_path, "utf8", function (err, template) {
+        done("template", template);
+    });
+    db.query(sql, function (err, data) {
+        done("data", data);
+    });
+    l10n.get(function (err, resources) {
+        done("resources", resources);
+    });
+}
+
+//哨兵
+var after = function (times, callback) {
+    var count = 0,
+        results = {};
+    return function (key, value) {
+        results[key] = value;
+        count++;
+        if (count === times) {
+            callback(results);
+        }
+    };
+};
+
+var done = after(times, render);
+
+
+//发布订阅
+var emitter = new events.Emitter();
+var done = after(times, render);
+
+emitter.on("done", done);
+emitter.on("done", other);
+
+fs.readFile(template_path, "utf8", function (err, template) {
+    emitter.emit("done", "template", template);
+});
+db.query(sql, function (err, data) {
+    emitter.emit("done", "data", data);
+});
+l10n.get(function (err, resources) {
+    emitter.emit("done", "resources", resources);
+});
+
+
+
+//组合
+var proxy = new EventProxy();
+
+proxy.all("template", "data", "resources", function (template, data, resources) { // TODO }); 
+
+    fs.readFile(template_path, "utf8", function (err, template) {
+        proxy.emit("template", template);
+    });
+    db.query(sql, function (err, data) {
+        proxy.emit("data", data);
+    });
+    l10n.get(function (err, resources) {
+        proxy.emit("resources", resources);
+    });
+})
