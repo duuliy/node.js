@@ -70,3 +70,24 @@ bufStr.toString('utf8')
 //Node以8 KB为区分Buffer是大对象还是小对象 
 Buffer.poolSize = 8 * 1024
 
+//方法总结
+buf.equals(otherBuffer)   // 比较
+
+Buffer.from(array)   //  用于申请内存，并将内容写入刚刚申请的内存中
+
+buf.copy(target[ targetStart[ sourceStart[ sourceEnd]]])    // 拷贝
+
+buf.indexOf(value[ byteOffset][ encoding])    // 查找
+
+buf.write(string[ offset[ length]][ encoding])   // 写
+
+buf.fill(value[ offset[ end]][encoding])   // 填充
+
+buf.toString([encoding[ start[ end]]])   //转成字符串
+
+buf.toJSON()   //转成JSon
+
+//buf.values()、buf.keys()、buf.entries()   //遍历值 键  键值
+
+
+buf.slice([start[ end]])   //截取
