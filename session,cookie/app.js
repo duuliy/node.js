@@ -44,8 +44,7 @@ app.use("/", (req, resp, next) => {
     // 1.session.username 有名字
     //  2.当前是在login.html
     //3.如果资源请求是来源于login.html，也进next
-    console.log("通用拦截",  req)
-    console.log("通用拦截",  req.signedCookies.islogin)
+    // console.log("通用拦截",  req.signedCookies.islogin)
     // console.log("req.path当前请求路径",req.path)
     // console.log("req.header---",req.headers.referer)
 
@@ -82,7 +81,6 @@ router.post("/newLogin.do", (req, resp) => {
             httpOnly: true
         });
         resp.send(data)
-        console.log(resp)
     } else {
         resp.send("登录失败")
     }
