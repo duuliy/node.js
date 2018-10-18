@@ -50,7 +50,7 @@ app.use("/", (req, resp, next) => {
 
     req.headers.referer = req.headers.referer || "" //访问的网址  首次的时候没有referer 这个referer的支持是不统一的，referer这个参数是浏览器自动添加给header中的
     if ( req.signedCookies.islogin || req.path == "/login.html" || req.headers.referer.match(/login.html$/)) {
-        app.locals.username = req.signedCookies.islogin; //把用户名写到locals.username获取 任何的ejs渲染页面都有这个
+        // app.locals.username = req.signedCookies.islogin; //把用户名写到locals.username获取 任何的ejs渲染页面都有这个
         // console.log("username",app.locals.username)
         next()
     } else {
