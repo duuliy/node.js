@@ -113,3 +113,5 @@ proxy.all("template", "data", "resources", function (template, data, resources) 
         proxy.emit("resources", resources);
     });
 })
+
+//等用架构时来测试
