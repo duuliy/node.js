@@ -20,4 +20,4 @@ process.on('uncaughtException', function () { // 停止接收新的连接
     worker.close(function () { // 所有已有连接断开后，退出进程    
         process.exit(1);
     });
-});
+})
