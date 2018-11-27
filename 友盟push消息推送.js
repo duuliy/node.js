@@ -4,7 +4,7 @@
  * @param {String} type 推送方式
  * @param {String} deviceTokens  设备号
  * @param {String} messageTitle   消息标题
- * @param {String} messageContent  消息内容
+ * @param {String} messageContent  消息内 容
  *
  */
 function sendUmengPushMessage({
