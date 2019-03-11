@@ -88,7 +88,7 @@ const fs = require('fs');
 //递归删除非空文件夹 因为没有直接删除的方法 所以要递归删除文件后再删除文件夹
 //fs.exists(path, callback)  参数只有布尔值 没有err  所以弃用  但是同步的existsSync没有问题 不会弃用
 
-// stats.isDirectory() 如果 fs.Stats 对象表示一个文件系统目录，则返回 true    
+// stats.isDirectory() 如果 fs.Stats 对象表示一个文件系统目录，则返回 true （有文件就返回）   
 function deleteFolderRecursive(path) {
     console.log('调用了')
     if(fs.existsSync(path)) {

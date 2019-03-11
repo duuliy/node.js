@@ -6,7 +6,7 @@
 
 
 //系统内存
-、、const os = require('os'); //操作系统的方法
+const os = require('os'); //操作系统的方法
 // console.log(os.totalmem())  总内存
 
 // console.log(os.freemem())  未使用内存
