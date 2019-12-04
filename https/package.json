@@ -1,0 +1,18 @@
+{
+  "name": "fanxiangdaili",
+  "version": "1.0.0",
+  "description": "fanxiangdaili",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
+  },
+  "author": "yhn",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.16.3",
+    "http-proxy": "^1.16.2",
+    "http-proxy-middleware": "^0.17.4",
+    "multer": "^1.3.0"
+  }
+}
