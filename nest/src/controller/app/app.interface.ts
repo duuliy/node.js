@@ -4,7 +4,10 @@ export interface ListAllEntities{
 }
 
 export interface CreateCatDto{
-  limit:string
+  limit?:string;
+  name: string;
+  age: number;
+  breed: string;
 }
 
 

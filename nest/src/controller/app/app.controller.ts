@@ -18,14 +18,16 @@ import {
   CreateCatDto,
   UpdateCatDto
 } from './app.interface'
-import { AppService } from '../../service/app.service';
+import { AppService , CatsService } from '../../service/app.service';
 import { Request,Response  } from 'express';
+import { Cat } from '../../interfaces/cat.interface'
+// CatsService
 
 //Async / await 支持
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService<any>) {}
 
   @Get()
   getHello(): string {
@@ -79,6 +81,7 @@ export class CatsController {
 @Controller('fourTest')
 export class testController {
 
+
   @Post()
   create(@Body() createCatDto: CreateCatDto) {
     return 'This action adds a new cat';
@@ -105,6 +108,21 @@ export class testController {
   }
 
   
+}
+
+@Controller('car')
+export class CarController {
+  constructor(private readonly catsService: CatsService) {}
+
+  @Post()
+  async create(@Body() createCatDto: CreateCatDto) {
+    this.catsService.create(createCatDto);
+  }
+
+  @Get()
+  async findAll(): Promise<Cat[]> {
+    return this.catsService.findAll();
+  }
 }
 
 
