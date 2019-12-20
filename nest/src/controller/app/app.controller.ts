@@ -11,16 +11,23 @@ import {
   Query,
   Body,
   Put,
-  Delete
+  Delete,
+  HttpException,
+    HttpStatus,
+    UsePipes
 } from '@nestjs/common';
 import {
   ListAllEntities,
   CreateCatDto,
-  UpdateCatDto
+  UpdateCatDto,
+  CreateCatDto2
 } from './app.interface'
 import { AppService , CatsService } from '../../service/app.service';
 import { Request,Response  } from 'express';
 import { Cat } from '../../interfaces/cat.interface'
+import { User } from '../../decorator/user.decorator'
+import { ValidationPipe } from '../../pipe/validation.pipe'
+
 // CatsService
 
 //Async / await 支持
@@ -30,8 +37,16 @@ export class AppController {
   constructor(private readonly appService: AppService<any>) {}
 
   @Get()
+  // @UsePipes(new JoiValidationPipe(createCatSchema))
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Post()
+  @UsePipes(new ValidationPipe())   //ts被转化了不加管道不能服务器控制台报错
+  async create(@Body() CreateCatDto2: CreateCatDto2) {
+    console.log(CreateCatDto2)
+    return `This action returns all cats #${CreateCatDto2.name}`
   }
 
   //不推荐不好用
@@ -51,8 +66,19 @@ export class AppController {
 export class CatsController {
   @Get()
   findAll(@Req() request: Request): string {
-    return 'This action returns all cats2';
+    // return 'This action returns all cats2';
+    throw new HttpException({
+      status: HttpStatus.FORBIDDEN,
+      error: 'This is a custom message',
+    }, 403);
   }
+
+  @Get('decorator')
+  async findOne(@User('firstName') firstName: string) {
+    // 访问以下特定属性
+  console.log(`Hello ${firstName}`);
+ }
+ 
 
   //不推荐不好用
   @Get(':id')
@@ -111,11 +137,12 @@ export class testController {
 }
 
 @Controller('car')
-export class CarController {
+export class CarController  {
   constructor(private readonly catsService: CatsService) {}
 
   @Post()
   async create(@Body() createCatDto: CreateCatDto) {
+    console.log(createCatDto)
     this.catsService.create(createCatDto);
   }
 
