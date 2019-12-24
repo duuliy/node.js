@@ -11,11 +11,14 @@ import {
   CarController,
 } from '../controller/app/app.controller';
 import { ErrorController } from '../controller/error/error.controller';
+// import { mysqlController } from '../controller/mysql/mysql.controller';
 import { AppService, CatsService } from '../service/app.service';
 import { APP_FILTER, APP_PIPE,APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpExceptionFilter } from '../filtter/httpException.filter';
 import { LoggerMiddleware } from '../middlewares/logger.middleware';
 import { TimeoutInterceptor } from '../interceptor/timeout.interceptor';
+import { UserModule } from './users.module';
+import { UserService } from '../service/users.service';
 
 //牛逼的是有错误不得导致程序崩溃
 
@@ -27,7 +30,7 @@ import { TimeoutInterceptor } from '../interceptor/timeout.interceptor';
 // APP_INTERCEPTOR  拦截器
 // @Global()  //全局共享server
 @Module({
-  imports: [], //导入模块的列表
+  imports: [UserModule], //导入模块的列表
   controllers: [AppController, CatsController, CarController, ErrorController],
   providers: [
     AppService,
