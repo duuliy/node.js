@@ -16,6 +16,7 @@ import {
   HttpStatus,
   UsePipes,
   UseGuards,
+  UseInterceptors
 } from '@nestjs/common';
 import {
   ListAllEntities,
@@ -30,6 +31,7 @@ import { User } from '../../decorator/user.decorator';
 import { ValidationPipe } from '../../pipe/validation.pipe';
 import { RolesGuard } from '../../middlewares/roles.guard';
 import { Roles } from '../../decorator/roles.decorator';
+import {LoggingInterceptor} from '../../interceptor/logging.interceptor'
 
 // CatsService
 
@@ -41,6 +43,7 @@ export class AppController {
 
   @Get()
   // @UsePipes(new JoiValidationPipe(createCatSchema))
+  @UseInterceptors(LoggingInterceptor)
   getHello(): string {
     return this.appService.getHello();
   }

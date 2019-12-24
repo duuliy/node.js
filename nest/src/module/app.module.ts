@@ -12,9 +12,10 @@ import {
 } from '../controller/app/app.controller';
 import { ErrorController } from '../controller/error/error.controller';
 import { AppService, CatsService } from '../service/app.service';
-import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_PIPE,APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpExceptionFilter } from '../filtter/httpException.filter';
 import { LoggerMiddleware } from '../middlewares/logger.middleware';
+import { TimeoutInterceptor } from '../interceptor/timeout.interceptor';
 
 //牛逼的是有错误不得导致程序崩溃
 
@@ -23,6 +24,7 @@ import { LoggerMiddleware } from '../middlewares/logger.middleware';
 // APP_PIPE  管道用
 // APP_FILTER 过滤器异常捕获
 // APP_GUARD  守卫
+// APP_INTERCEPTOR  拦截器
 // @Global()  //全局共享server
 @Module({
   imports: [], //导入模块的列表
@@ -34,6 +36,10 @@ import { LoggerMiddleware } from '../middlewares/logger.middleware';
       provide: APP_FILTER,
       useClass: HttpExceptionFilter, //全局
     },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass:TimeoutInterceptor
+    }
   ],
   exports: [], // 由本模块提供并应在其他模块中可用的提供者的子集。
 })
