@@ -1,24 +1,30 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class User {
+  @ApiProperty()
   @PrimaryGeneratedColumn()
-  id: number;
+  readonly id?: number;
 
+  @ApiProperty()
   @Column({ 
     type: 'char',
     length: 100
   })
-  userName: string;
+  readonly userName: string;
 
+  @ApiProperty()
   @Column('int')
-  sex: number;
+  readonly sex: number;
 
+  @ApiProperty()
   @Column('int')
-  height: number;
+  readonly height: number;
 
+  @ApiProperty()
   @Column('int')
-  weight: number;
+  readonly weight: number;
 
 //   @Column()
 //   isPublished: boolean;

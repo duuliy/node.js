@@ -4,6 +4,8 @@ import { AppModule } from './module/app.module';
 import { AllExceptionsFilter } from './filtter/httpException.filter';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from './pipe/validation.pipe';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -24,9 +26,22 @@ async function bootstrap() {
   app.setGlobalPrefix('v1'); //url前缀
   app.useGlobalPipes(new ValidationPipe()); //全局类型错误监测
   // app.useGlobalGuards(new RolesGuard());  //全局守卫
+
+  //swgger
+  const options = new DocumentBuilder()
+    .setTitle('Cats example')
+    .setDescription('The cats API description')
+    .setVersion('1.0')
+    .addTag('cats')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
   await app.init();
 }
 bootstrap();
 http.createServer(server).listen(3000);
 https.createServer(httpsOptions, server).listen(443);
+
+
 
