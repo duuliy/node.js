@@ -19,9 +19,10 @@ import { LoggerMiddleware } from '../middlewares/logger.middleware';
 import { TimeoutInterceptor } from '../interceptor/timeout.interceptor';
 import { UserModule } from './users.module';
 import { UserService } from '../service/users.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
 
 //牛逼的是有错误不得导致程序崩溃
-
 // forRoot() 可以同步或异步（Promise）返回动态模块
 // MiddlewareConsumer它提供了几种内置方法来管理中间件。他们都可以被简单地链接起来
 // APP_PIPE  管道用
@@ -30,7 +31,9 @@ import { UserService } from '../service/users.service';
 // APP_INTERCEPTOR  拦截器
 // @Global()  //全局共享server
 @Module({
-  imports: [UserModule], //导入模块的列表
+  imports: [
+    UserModule
+  ], //导入模块的列表
   controllers: [AppController, CatsController, CarController, ErrorController],
   providers: [
     AppService,
@@ -57,3 +60,21 @@ export class AppModule implements NestModule {
     // consumer.apply(cors(), helmet(), logger).forRoutes(CatsController); // 多个中间件
   }
 }
+
+
+// import { Module } from '@nestjs/common';
+// import { AppController } from './app.controller';
+// import { AppService } from './app.service';
+// import { ServeStaticModule } from '@nestjs/serve-static';
+// import { join } from 'path';
+
+// @Module({
+//   imports: [
+//     ServeStaticModule.forRoot({
+//       rootPath: join(__dirname, '..', 'client'),
+//     }),
+//   ],
+//   controllers: [AppController],
+//   providers: [AppService],
+// })
+// export class AppModule {}

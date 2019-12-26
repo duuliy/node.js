@@ -2,9 +2,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './module/app.module';
 import { AllExceptionsFilter } from './filtter/httpException.filter';
-import { ExpressAdapter } from '@nestjs/platform-express';
+import { ExpressAdapter,NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from './pipe/validation.pipe';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { join } from 'path';
 
 const fs = require('fs');
 const path = require('path');
@@ -19,9 +20,12 @@ const httpsOptions = {
 
 const server = express();
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, new ExpressAdapter(server));
   //混合应用以下全局设置无效 需要在module中设置
   // app.use(logger);  //全局中间件使用方式
+  app.useStaticAssets(join(__dirname, '..', 'public'),{
+    prefix: '/static/', //设置虚拟路径
+  }) // http://localhost:3000/static/xxx.html
   app.useGlobalFilters(new AllExceptionsFilter()); //全局
   app.setGlobalPrefix('v1'); //url前缀
   app.useGlobalPipes(new ValidationPipe()); //全局类型错误监测
