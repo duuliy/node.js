@@ -2,7 +2,9 @@ import {
     Controller,
     Get,
     Param,
-    Query
+    Query,
+    Post,
+    Body
   } from '@nestjs/common';
 import { UserService } from '../../service/users.service';
 import { User } from '../../bean/users.entity';
@@ -29,5 +31,12 @@ export class mysqlController {
     const id_new=query.id.toString()
     return await this.users.findOnyById(id_new);
   }
+
+  @Post('/add')
+  async addUser(@Body() body: User): Promise<User> {
+    return await this.users.addUser(body);
+  }
+
+  // addUser
 
 }
