@@ -15,8 +15,8 @@ export class UserService {
   }
 
   async findOnyById(id: string): Promise<User> {
-      const id_new=Number(id)
-      const cc=await this.usersRepository.findOne(id_new);
+    const id_new=Number(id)
+    const cc=await this.usersRepository.findOne(id_new);
     return await this.usersRepository.findOne(id_new);
   }
 
@@ -25,16 +25,7 @@ export class UserService {
     console.log(user)
     if (user) {
       throw new BadRequestException('用户已存在!');
-      // return await {
-      //   code:'200',
-      //   result:'用户已存在'
-      // }
     }
-    // let user = new User();
-    // user.userName = data.userName;
-    // user.sex = data.sex;
-    // user.height = data.height;
-    // user.weight = data.weight;
     return await this.usersRepository.save(data);
   }
 }
