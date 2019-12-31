@@ -25,8 +25,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 //           iat: 1577781329,
 //           exp: 1577784929,
 //           iss: 'http://localhost/' }
-        const user = await this.authService.validateUser(payload.name,payload.password);
+        const user = await this.authService.validateUser(payload.userName,payload.password);
         if (!user) throw new UnauthorizedException();
+        Logger.log('用户信息', user)
         return user;
     }
 }

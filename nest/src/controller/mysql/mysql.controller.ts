@@ -5,7 +5,9 @@ import {
     Query,
     Post,
     Body,
-    UseGuards
+    UseGuards,
+    UseInterceptors,
+    ClassSerializerInterceptor
   } from '@nestjs/common';
 import { UserService } from '../../service/users.service';
 import { AuthService } from '../../service/auth.service';
@@ -25,6 +27,7 @@ export class mysqlController {
     ) {}
 
   @Get()
+  @UseInterceptors(ClassSerializerInterceptor)  //调用排除返回的User
   @UseGuards(AuthGuard())
   getHello(): Promise<User[]> {
     //   return '666'

@@ -1,16 +1,23 @@
 import { Injectable, HttpException,HttpStatus } from '@nestjs/common';
 import { UserService } from './users.service';
 import { JwtService } from '@nestjs/jwt';
+// import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class AuthService {
+  private isAuthEnabled: boolean;
   constructor(
     private readonly usersService: UserService,
-    private readonly jwtService: JwtService
-  ) {}
+    private readonly jwtService: JwtService,
+    // config: ConfigService
+  ) {
+    // console.log(config)
+    // this.isAuthEnabled = config.get('IS_AUTH_ENABLED') === 'true';
+  }
 
   async validateUser(userName: string, password: string): Promise<any> {
     const user = await this.usersService.findOneName(userName);
+    console.log(userName)
     if (user && user.password === password) {
       const { password, ...result } = user;
       return result;

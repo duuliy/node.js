@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
@@ -15,6 +16,7 @@ export class User {
   readonly userName: string;
 
   @ApiProperty()
+  @Exclude()  //返回值排除此选项
   @Column({ 
     type: 'char',
     length: 100
@@ -35,6 +37,10 @@ export class User {
 
 //   @Column()
 //   isPublished: boolean;
+
+constructor(partial: Partial<User>) {
+  Object.assign(this, partial);
+}
 }
 // class Users extends User{
 

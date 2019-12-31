@@ -4,6 +4,8 @@ import {
   NestModule,
   MiddlewareConsumer,
   RequestMethod,
+  CacheModule,
+  CacheInterceptor
 } from '@nestjs/common';
 import {
   AppController,
@@ -13,11 +15,12 @@ import {
 import { ErrorController } from '../controller/error/error.controller';
 // import { mysqlController } from '../controller/mysql/mysql.controller';
 import { AppService, CatsService } from '../service/app.service';
-import { APP_FILTER, APP_PIPE,APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_PIPE,APP_INTERCEPTOR  } from '@nestjs/core';
 import { HttpExceptionFilter } from '../filtter/httpException.filter';
 import { LoggerMiddleware } from '../middlewares/logger.middleware';
 import { TimeoutInterceptor } from '../interceptor/timeout.interceptor';
 import { UserModule } from './users.module';
+import { ConfigModule } from './config.module';
 import { UserService } from '../service/users.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
@@ -32,7 +35,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 // @Global()  //全局共享server
 @Module({
   imports: [
-    UserModule
+    UserModule,
+    CacheModule.register()  //只有使用 @Get() 方式声明的节点会被缓存。
+    // ConfigModule
   ], //导入模块的列表
   controllers: [AppController, CatsController, CarController, ErrorController],
   providers: [
@@ -45,6 +50,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     {
       provide: APP_INTERCEPTOR,
       useClass:TimeoutInterceptor
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,  //全局缓存
     }
   ],
   exports: [], // 由本模块提供并应在其他模块中可用的提供者的子集。
