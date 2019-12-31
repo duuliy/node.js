@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException,HttpStatus } from '@nestjs/common';
 import { UserService } from './users.service';
 import { JwtService } from '@nestjs/jwt';
 
@@ -9,19 +9,27 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-//   async validateUser(username: string, pass: string): Promise<any> {
-//     const user = await this.usersService.findOne(username);
-//     if (user && user.password === pass) {
-//       const { password, ...result } = user;
-//       return result;
-//     }
-//     return null;
-//   }
+  async validateUser(userName: string, password: string): Promise<any> {
+    const user = await this.usersService.findOneName(userName);
+    if (user && user.password === password) {
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
+  }
 
-  async login(user: any) {
-    const payload = { username: user.username, sub: user.userId };
+  async createToken(userName: string,password: string) {
+    const payload = { userName,password }
+    const user = await this.validateUser(userName,password); 
+    if (!user) throw new HttpException({
+      status: HttpStatus.FORBIDDEN,
+      error: '找不到',
+    }, 403);
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload,{
+        expiresIn:60*60 // 过期时间
+        // algorithm:'RS256', // default是HMAC SHA256，也可以指定別的
+      }),
     };
   }
 }

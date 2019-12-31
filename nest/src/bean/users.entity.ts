@@ -15,6 +15,13 @@ export class User {
   readonly userName: string;
 
   @ApiProperty()
+  @Column({ 
+    type: 'char',
+    length: 100
+  })
+  readonly password: string;
+
+  @ApiProperty()
   @Column('int')
   readonly sex: number;
 

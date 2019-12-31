@@ -1,7 +1,7 @@
 // 应用程序入口文件。
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './module/app.module';
-import { AllExceptionsFilter } from './filtter/httpException.filter';
+import { AllExceptionsFilter,HttpExceptionFilter } from './filtter/httpException.filter';
 import { ExpressAdapter,NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from './pipe/validation.pipe';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -26,7 +26,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'),{
     prefix: '/static/', //设置虚拟路径
   }) // http://localhost:3000/static/xxx.html
-  app.useGlobalFilters(new AllExceptionsFilter()); //全局
+  app.useGlobalFilters(new HttpExceptionFilter()); //全局
   app.setGlobalPrefix('v1'); //url前缀
   app.useGlobalPipes(new ValidationPipe()); //全局类型错误监测
   // app.useGlobalGuards(new RolesGuard());  //全局守卫
