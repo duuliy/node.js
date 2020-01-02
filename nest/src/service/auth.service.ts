@@ -11,13 +11,11 @@ export class AuthService {
     private readonly jwtService: JwtService,
     // config: ConfigService
   ) {
-    // console.log(config)
     // this.isAuthEnabled = config.get('IS_AUTH_ENABLED') === 'true';
   }
 
   async validateUser(userName: string, password: string): Promise<any> {
     const user = await this.usersService.findOneName(userName);
-    console.log(userName)
     if (user && user.password === password) {
       const { password, ...result } = user;
       return result;

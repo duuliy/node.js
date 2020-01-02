@@ -11,11 +11,14 @@ import * as helmet from 'helmet';
 import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
 
+
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const https = require('https');
 const http = require('http');
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 const httpsOptions = {
   key: fs.readFileSync(path.join(__dirname, '/secrets/privkey.key')),
@@ -39,13 +42,23 @@ async function bootstrap() {
   app.use(compression())  //压缩代码
   app.use(helmet())  //过适当地设置 HTTP 头，保护您的应用免受一些众所周知的 Web 漏洞的影响  安全
   // app.enableCors()  //允许跨域
-  app.use(csurf())  //防止跨站点请求伪造
+  // app.use(bodyParser.urlencoded({ extended: false }))
+  // app.use(cookieParser())
+  // app.use(csurf({ cookie: true }))  //防止跨站点请求伪造cookie那套
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
       max: 100, // 每个窗口最多限制100个请求
     }),
   );  //限速防止暴力攻击
+
+  app.use(function (err, req, res, next) {
+    if (err.code !== 'EBADCSRFTOKEN') return next(err)
+  
+    // handle CSRF token errors here
+    res.status(403)
+    res.send('form tampered with')
+  })
 
   //swgger
   const options = new DocumentBuilder()

@@ -7,13 +7,18 @@ import {
     Body,
     UseGuards,
     UseInterceptors,
-    ClassSerializerInterceptor
+    ClassSerializerInterceptor,
+    UploadedFile,
+    UploadedFiles,
+    DynamicModule
   } from '@nestjs/common';
 import { UserService } from '../../service/users.service';
 import { AuthService } from '../../service/auth.service';
 import { User } from '../../bean/users.entity';
-import { ApiHeader,ApiResponse,ApiSecurity } from '@nestjs/swagger';
+import { ApiHeader,ApiResponse,ApiSecurity, ApiConsumes,ApiBody } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor,FilesInterceptor,FileFieldsInterceptor } from '@nestjs/platform-express';
+import multer = require('multer');
 
 @ApiHeader({
   name: 'Authorization',
@@ -62,6 +67,39 @@ export class mysqlController {
     return await this.authService.createToken(userName, password);
   }
 
-  // addUser
+  //上传文件
+  //UploadedFile 单个
+  //UploadedFiles 多个 数组
+  @Post('upload')
+  @UseInterceptors(FilesInterceptor('files',5,
+  {
+    storage: multer.diskStorage({
+      destination: (req, file, cb) => {
+          cb(null, './public/uploads');
+          
+      },
+      filename: (req, file, cb) => {
+        //可以做验证
+          cb(null, file.originalname);
+      },
+  }),
+  }
+  ))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        files: {
+          type: 'string',
+          format: 'binary',
+        }
+      },
+    },
+  })
+  uploadFile(@UploadedFiles() files) {
+    // console.dir(MulterModule.register)
+    console.log(files);
+  }
 
 }

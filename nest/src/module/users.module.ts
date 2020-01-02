@@ -10,7 +10,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../middlewares/jwtStrategy';
 import { PassportModule } from '@nestjs/passport';
 
-// console.log(UserService)
 @Module({
   imports: [
       DatabaseModule,

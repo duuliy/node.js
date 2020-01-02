@@ -51,7 +51,6 @@ export class AppController {
   @Post()
   @UsePipes(new ValidationPipe()) //ts被转化了不加管道不能服务器控制台报错
   async create(@Body() CreateCatDto2: CreateCatDto2) {
-    console.log(CreateCatDto2);
     return `This action returns all cats #${CreateCatDto2.name}`;
   }
 
@@ -90,7 +89,6 @@ export class CatsController {
   //不推荐不好用
   @Get(':id')
   findAll3(@Param() Param): string {
-    console.log(Param);
     return `This action returns all cats #${Param.id}`;
   }
 
@@ -144,7 +142,6 @@ export class CarController {
 
   @Post()
   async create(@Body() createCatDto: CreateCatDto) {
-    console.log(createCatDto);
     this.catsService.create(createCatDto);
   }
 
