@@ -1,6 +1,7 @@
 import { Injectable,Optional,
   Inject } from '@nestjs/common';
 import { Cat } from '../interfaces/cat.interface'
+import { WsGateway } from './ws.getaway';
 
 //生命周期
 // OnModuleInit	初始化主模块后调用
@@ -15,7 +16,8 @@ import { Cat } from '../interfaces/cat.interface'
 export class AppService<T> {
   constructor(
     //可选的  //自定义标记
-    @Optional() @Inject('HTTP_OPTIONS') private readonly httpClient: T
+    @Optional() @Inject('HTTP_OPTIONS') private readonly httpClient: T,
+    private readonly wsGateway:WsGateway
   ) {}
 
   onModuleInit() {
@@ -23,6 +25,7 @@ export class AppService<T> {
   }
 
   getHello(): string {
+    this.wsGateway.wss.emit('idea' ,666)
     return 'Hello World!';
   }
 

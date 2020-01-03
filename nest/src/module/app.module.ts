@@ -19,6 +19,7 @@ import { APP_FILTER, APP_PIPE,APP_INTERCEPTOR  } from '@nestjs/core';
 import { HttpExceptionFilter } from '../filtter/httpException.filter';
 import { LoggerMiddleware } from '../middlewares/logger.middleware';
 import { TimeoutInterceptor } from '../interceptor/timeout.interceptor';
+import { WsGateway } from '../service/ws.getaway';
 import { UserModule } from './users.module';
 import { ConfigModule } from './config.module';
 import { UserService } from '../service/users.service';
@@ -41,6 +42,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
   ], //导入模块的列表
   controllers: [AppController, CatsController, CarController, ErrorController],
   providers: [
+    WsGateway,
     AppService,
     CatsService,
     {

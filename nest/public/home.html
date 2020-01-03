@@ -8,5 +8,21 @@
 </head>
 <body>
     这是主页
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+
+            const socket = io("http://localhost:4001");    //实例化对象
+
+            //进入页面推送
+            socket.on('chat message', function(msg){   //监听事件，接收 信息
+                console.log(msg)
+            //   window.scrollTo(0, document.body.scrollHeight);
+            });
+            //每次调用getHello推送
+            socket.on('idea', function(msg){
+             console.log(msg)
+           });
+
+    </script>
 </body>
 </html>
