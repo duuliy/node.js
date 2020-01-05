@@ -19,6 +19,24 @@ const https = require('https');
 const http = require('http');
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+// const redis = require("redis");   //https和缓存都运维来
+// const client = redis.createClient();
+
+// client.on("error", function (err) {
+//     console.log("Error " + err);
+// });
+
+// client.set("string key", "string val", redis.print);
+// client.hset("hash key", "hashtest 1", "some value", redis.print);
+// client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
+// client.hkeys("hash key", function (err, replies) {
+//     console.log(replies.length + " replies:");
+//     replies.forEach(function (reply, i) {
+//         console.log("    " + i + ": " + reply);
+//     });
+//     client.quit();
+// });
+
 
 const httpsOptions = {
   key: fs.readFileSync(path.join(__dirname, '/secrets/privkey.key')),
@@ -27,7 +45,8 @@ const httpsOptions = {
 
 const server = express();
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, new ExpressAdapter(server),{
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, 
+  new ExpressAdapter(server),{
     // logger: ['error', 'warn']  //日志类型
   });
   //混合应用以下全局设置无效 需要在module中设置
