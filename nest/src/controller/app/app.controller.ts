@@ -39,7 +39,9 @@ import {LoggingInterceptor} from '../../interceptor/logging.interceptor'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService<any>) {}
+  constructor(
+    private readonly appService: AppService<any>
+    ) {}
 
   @Get()
   // @UsePipes(new JoiValidationPipe(createCatSchema))

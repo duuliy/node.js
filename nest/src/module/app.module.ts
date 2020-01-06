@@ -21,9 +21,13 @@ import { LoggerMiddleware } from '../middlewares/logger.middleware';
 import { TimeoutInterceptor } from '../interceptor/timeout.interceptor';
 import { WsGateway } from '../service/ws.getaway';
 import { UserModule } from './users.module';
+import { GraphqlModule } from './graphql.module';
 import { ConfigModule } from './config.module';
 import { UserService } from '../service/users.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+
 
 
 //牛逼的是有错误不得导致程序崩溃
@@ -36,7 +40,17 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 // @Global()  //全局共享server
 @Module({
   imports: [
+    GraphQLModule.forRoot({
+      path: '/graphql',
+      typePaths: ['./**/*.graphql'],
+      definitions: {
+        path: join(process.cwd(), 'src/classGraphql/graphql.ts'),  //自动生成class
+        outputAs: 'class'
+      },
+      installSubscriptionHandlers: true
+    }),
     UserModule,
+    GraphqlModule,
     CacheModule.register()  //只有使用 @Get() 方式声明的节点会被缓存。
     // ConfigModule
   ], //导入模块的列表
