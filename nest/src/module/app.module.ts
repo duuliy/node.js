@@ -41,7 +41,7 @@ import { join } from 'path';
 @Module({
   imports: [
     userGraphqlModule,
-    GraphQLModule.forRoot({
+    GraphQLModule.forRoot({   //http://localhost:3000/graphql
       path: '/graphql',
       typePaths: ['./**/*.graphql'],
       definitions: {

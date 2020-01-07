@@ -8,10 +8,6 @@ const TARGET_SERVER='http://localhost:3000/v1/' //放在公共区域或proxy
 export class GraphqlService {
   private readonly users: User[] = [{ id: 1, userName: 'duuliy1',sex:1,height:1,weight:1 }];
 
-  // constructor(
-  //   private readonly userService: UserService
-  // ) {}
-
   create(user: User): User {
     this.users.push(user);
     return user;
