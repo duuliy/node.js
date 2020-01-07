@@ -33,7 +33,7 @@ export class mysqlController {
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)  //调用排除返回的User
-  @UseGuards(AuthGuard())
+  // @UseGuards(AuthGuard())
   getHello(): Promise<User[]> {
     //   return '666'
     return this.users.findAll();
@@ -49,6 +49,7 @@ export class mysqlController {
 
   @Get('/userName')
   @ApiSecurity('basic')
+  @UseGuards(AuthGuard())
   @ApiResponse({ status: 200, description: 'sucess.'})
   async findOneName(@Query() query: User): Promise<User> {
     return await this.users.findOneName(query.userName);

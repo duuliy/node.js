@@ -21,7 +21,7 @@ import { LoggerMiddleware } from '../middlewares/logger.middleware';
 import { TimeoutInterceptor } from '../interceptor/timeout.interceptor';
 import { WsGateway } from '../service/ws.getaway';
 import { UserModule } from './users.module';
-import { GraphqlModule } from './graphql.module';
+import { userGraphqlModule } from './userGraphql.module';
 import { ConfigModule } from './config.module';
 import { UserService } from '../service/users.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -40,17 +40,17 @@ import { join } from 'path';
 // @Global()  //全局共享server
 @Module({
   imports: [
+    userGraphqlModule,
     GraphQLModule.forRoot({
       path: '/graphql',
       typePaths: ['./**/*.graphql'],
       definitions: {
-        path: join(process.cwd(), 'src/classGraphql/graphql.ts'),  //自动生成class
+        path: join(process.cwd(), 'src/classGraphql/graphql.schema.ts'),  //自动生成class
         outputAs: 'class'
       },
       installSubscriptionHandlers: true
     }),
     UserModule,
-    GraphqlModule,
     CacheModule.register()  //只有使用 @Get() 方式声明的节点会被缓存。
     // ConfigModule
   ], //导入模块的列表
@@ -67,13 +67,14 @@ import { join } from 'path';
       provide: APP_INTERCEPTOR,
       useClass:TimeoutInterceptor
     },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,  //全局缓存
-    }
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: CacheInterceptor,  //全局缓存
+    // }
   ],
   exports: [], // 由本模块提供并应在其他模块中可用的提供者的子集。
 })
+// export class AppModule {}
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     //设置中间件
