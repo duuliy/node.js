@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>大文件上传和断点续传</h1>
+
+  <form action="/uploadFile.do" method="post" enctype="multipart/form-data">
+    <!--后台获取文件，都是通过name属性去找文件-->
+    <input type="file" name="myfile" id="file" multiple />
+    <button>上传文件</button>
+  </form>
+  <script src="js/jquery-1.7.2.min.js"></script>
+  <script>
+    const LENGTH = 10; // 切片数量
+    let fileChunkList = [];
+
+    document.querySelector("#file").addEventListener("change", function () {
+      //获取到选中的文件
+      var file = document.querySelector("#file").files[0];
+      const chunkSize = Math.ceil(file.size / LENGTH);
+      let cur = 0;
+      while (cur < file.size) {
+        console.log(chunkSize)
+        fileChunkList.push({
+          file: file.slice(cur, cur + chunkSize)
+        });
+        cur += chunkSize;
+      }
+
+      //创建formdata对象
+      // var formdata = new FormData();
+      // formdata.append("file", file);
+      console.log(fileChunkList)
+      // console.log(formdata)
+      //循环上传 利用promise.all并发
+    });
+
+    // $.ajax({
+    //   url: "/getImage.do",
+    //   success: function (data) {
+    //     console.log(data)
+    //     $("#myimg")[0].src = data[0].img
+    //   }
+    // })
+
+    // 断点续传 后台记录进度条位置。续传暂停时以最小单位为节点时显示最小单位大小进度条。
+  </script>
+</body>
+
+</html>
