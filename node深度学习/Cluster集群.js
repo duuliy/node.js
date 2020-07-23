@@ -34,6 +34,7 @@ if (cluster.isMaster) { // 当该进程是主进程时，返回 true
     });
 } else { // Workers can share any TCP connection 
     // In this case its a HTTP server  
+    //多进程可以同端口
     http.createServer(function (req, res) {
         res.writeHead(200);
         res.end("hello world\n");
