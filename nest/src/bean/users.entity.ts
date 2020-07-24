@@ -2,10 +2,10 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-@Entity()
+@Entity() //代表是bean的实体
 export class User {
   @ApiProperty()
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn() //代表主键
   readonly id?: number;
 
   @ApiProperty()

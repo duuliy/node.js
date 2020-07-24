@@ -2,7 +2,7 @@ import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nes
 import { Observable } from 'rxjs';  //此流包含从路由处理程序返回的值
 import { tap,map } from 'rxjs/operators';
 
-//拦截器 intercept 
+//拦截器 intercept 这里处理json
 // ExecutionContext传递给原始处理程序的参数的一个包装
 // CallHandler 包装执行流的对象
 @Injectable()

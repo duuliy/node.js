@@ -49,7 +49,7 @@ export class mysqlController {
 
   @Get('/userName')
   @ApiSecurity('basic')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard()) //也可以全局用
   @ApiResponse({ status: 200, description: 'sucess.'})
   async findOneName(@Query() query: User): Promise<User> {
     return await this.users.findOneName(query.userName);
@@ -72,7 +72,7 @@ export class mysqlController {
   //UploadedFile 单个
   //UploadedFiles 多个 数组
   @Post('upload')
-  @UseInterceptors(FilesInterceptor('files',5,
+  @UseInterceptors(FilesInterceptor('files',5,  //名字 最大个数 回调函数
   {
     storage: multer.diskStorage({
       destination: (req, file, cb) => {
@@ -101,6 +101,9 @@ export class mysqlController {
   uploadFile(@UploadedFiles() files) {
     // console.dir(MulterModule.register)
     console.log(files);
+    return {
+      body:'上传成功!'
+    }
   }
 
 }

@@ -68,7 +68,8 @@ async function bootstrap() {
   app.use(compression()); //压缩代码
   app.use(helmet()); //过适当地设置 HTTP 头，保护您的应用免受一些众所周知的 Web 漏洞的影响  安全
   // app.enableCors()  //允许跨域
-  // app.use(bodyParser.urlencoded({ extended: false }))
+  //cookies和session同express
+  // app.use(bodyParser.urlencoded({ extended: false })) 
   // app.use(cookieParser())
   // app.use(csurf({ cookie: true }))  //防止跨站点请求伪造cookie那套
   app.use(
