@@ -12,6 +12,7 @@ import {
   Body,
   Put,
   Delete,
+  Res,
   HttpException,
   HttpStatus,
   UsePipes,
@@ -49,7 +50,7 @@ export class AppController {
   }
 
   @Post()
-  @UsePipes(new ValidationPipe()) //ts被转化了不加管道不能服务器控制台报错
+  @UsePipes(new ValidationPipe()) //ts被转化了不加管道不能服务器控制台报错,要bean完全正确才能调用成功
   async create(@Body() CreateCatDto2: CreateCatDto2) {
     return `This action returns all cats #${CreateCatDto2.name}`;
   }
@@ -64,6 +65,13 @@ export class AppController {
   findAll2(@Query() query: ListAllEntities) {
     return `This action returns all cats (limit: ${query.limit} items)`;
   }
+
+  @Get('findAll3')
+  findAll3(@Res() res: Response) {
+    //HttpStatus的创建命令201，但是官方建议最好不要用。
+    res.status(HttpStatus.CREATED).send();
+  }
+
 }
 
 @Controller('cats2')
@@ -84,6 +92,7 @@ export class CatsController {
   async findOne(@User('firstName') firstName: string) {
     // 访问以下特定属性
     console.log(`Hello ${firstName}`);
+    return `Hello ${firstName}`
   }
 
   //不推荐不好用

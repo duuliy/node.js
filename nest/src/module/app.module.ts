@@ -39,7 +39,7 @@ import { join } from 'path';
 // APP_INTERCEPTOR  拦截器
 // @Global()  //全局共享server
 @Module({
-  imports: [
+  imports: [ //导入模块的列表
     userGraphqlModule,
     GraphQLModule.forRoot({   //http://localhost:3000/graphql
       path: '/graphql',
@@ -53,7 +53,7 @@ import { join } from 'path';
     UserModule,
     CacheModule.register()  //只有使用 @Get() 方式声明的节点会被缓存。
     // ConfigModule
-  ], //导入模块的列表
+  ],
   controllers: [AppController, CatsController, CarController, ErrorController],
   providers: [
     WsGateway,
@@ -66,10 +66,10 @@ import { join } from 'path';
     {
       provide: APP_INTERCEPTOR,
       useClass:TimeoutInterceptor
-    },
+    }
     // {
     //   provide: APP_INTERCEPTOR,
-    //   useClass: CacheInterceptor,  //全局缓存
+    //   useClass: CacheInterceptor,  //全局缓存 不能和GraphQL  一起用
     // }
   ],
   exports: [], // 由本模块提供并应在其他模块中可用的提供者的子集。

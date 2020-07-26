@@ -20,6 +20,8 @@ export abstract class IQuery {
     abstract getUsers(): User[] | Promise<User[]>;
 
     abstract user(id: string): User | Promise<User>;
+
+    abstract getUsers5(): User[] | Promise<User[]>;
 }
 
 export abstract class ISubscription {

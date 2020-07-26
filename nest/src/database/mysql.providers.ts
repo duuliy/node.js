@@ -13,7 +13,7 @@ export const databaseProviders = [
         password: 'root',
         database: 'springboottest',
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: true,
+        synchronize: true, //同步
       }),
   },
 ];

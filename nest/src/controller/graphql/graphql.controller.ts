@@ -11,13 +11,13 @@ export class UsersResolvers {
   constructor(private readonly graphqlService: GraphqlService) { }
 
   @Query('users')  //users命名必须和users.graphql里面的Query一样,并且必须用post才行
-  async getUsers(): Promise<User[]> {
+  async getUsers(): Promise<User[]> { //函数命名不能变 否则查不出来
       console.log(666)
     return await this.graphqlService.findAll();
   }
 
   @Query('user')
-  async getUserById(@Args('id', ParseIntPipe) id: number): Promise<User> {
+  async user(@Args('id') id: number): Promise<User> {  //函数命名不能变 否则查不出来
     console.log(id)
     return await this.graphqlService.findOneById(id);
   }

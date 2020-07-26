@@ -23,8 +23,15 @@ export class GraphqlService {
     return body
   }
 
-  findOneById(id: number): User {
-    return this.users.find(usr => usr.id === id);
+  async findOneById(id: number): Promise<User> {
+    // return this.users.find(usr => usr.id === id);
+    const body=await axios.get(`${TARGET_SERVER}mysql/id?id=${id}`).then(resp => {
+      // console.log('statusCode:', resp.status); // 返回请求的状态码
+      // console.log('body:', resp.data); // 返回回来的数据
+      //这里可以调用多个接口聚合数据
+      return resp.data
+  })
+  return body
   }
 
 }

@@ -11,7 +11,7 @@ import {
   import {Logger} from '@nestjs/common';
 
 
-
+//websoket的使用
 
 // @WebSocketGateway({ namespace:'ddd', port :4001})
 @WebSocketGateway(4001)
