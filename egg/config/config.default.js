@@ -22,6 +22,20 @@ module.exports = appInfo => {
   const userConfig = {
     // myAppName: 'egg',
   };
+  config.news = {
+    pageSize: 5,
+    serverUrl: 'https://hacker-news.firebaseio.com/v0',
+  };
+
+  config.middleware = [
+    'robot',
+  ];
+  config.robot = {
+    ua: [
+      /Baiduspider/i,
+    ],
+  };
+
 
   return {
     ...config,
