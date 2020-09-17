@@ -2,6 +2,7 @@
 
 'use strict';
 
+// prod 环境会加载 config.prod.js 和 config.default.js 文件，config.prod.js 会覆盖 config.default.js 的同名配置。
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
