@@ -5,6 +5,12 @@
  */
 module.exports = app => {
   const { router, controller } = app;
+
+  // 在中间件最前面统计请求时间
+  app.config.coreMiddleware.unshift('report');
+
+
+  // 路由第二个位置的参数可以让路由单独使用中间件
   router.get('/', controller.home.index);
   router.get('/test', controller.new.list);
 

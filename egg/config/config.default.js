@@ -36,6 +36,14 @@ module.exports = appInfo => {
     ],
   };
 
+  config.middleware = [ 'gzip' ];
+
+  // 配置 gzip 中间件的配置
+  config.gzip = {
+    threshold: 1024, // 小于 1k 的响应体不压缩
+  };
+
+
   config.env = 'prod';
 
 
