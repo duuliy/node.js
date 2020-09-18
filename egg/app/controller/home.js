@@ -19,6 +19,7 @@ class HomeController extends Controller {
     // console.log(ctx.query.name);
     // console.log(ctx);
     ctx.validate({ name: 'string' }, ctx.query); // 422代表验证不通过
+    // console.log(ctx.app); //定时器在包启动时调用了, 这里通过ctx可以取值
     // const author = ctx.session.userId;  获取session
     ctx.body = `hi, ${ctx.query.name}`;
   }
