@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "egg": "^2.15.1",
-    "egg-scripts": "^2.11.0"
+    "egg-scripts": "^2.11.0",
+    "egg-validate": "^2.0.2",
+    "egg-watcher-chokidar": "^2.0.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -25,7 +27,7 @@
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-egg",
     "stop": "egg-scripts stop --title=egg-server-egg",
-    "dev": "egg-bin dev",
+    "dev": "egg-bin dev --port=7010",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",

@@ -46,6 +46,16 @@ module.exports = appInfo => {
 
   config.env = 'prod';
 
+  config.validate = {
+    // convert: false, // 对参数可以使用convertType规则进行类型转换
+    // validateRoot: false, // 限制被验证值必须是一个对象。
+  };
+
+  config.watcherChokidar = {
+    usePolling: true,
+    alwaysStat: true,
+  };
+
 
   return {
     ...config,

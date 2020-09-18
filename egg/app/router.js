@@ -10,7 +10,8 @@ module.exports = app => {
   app.config.coreMiddleware.unshift('report');
 
 
-  // 路由第二个位置的参数可以让路由单独使用中间件
+  // 路由第二个位置的参数可以让路由单独使用中间件.
+  // controller 支持多级目录
   router.get('/ctest', controller.home.index);
   router.get('/test', controller.new.list);
   require('./router/new')(app);
