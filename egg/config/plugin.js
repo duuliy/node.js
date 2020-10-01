@@ -17,7 +17,11 @@ module.exports = {
     enable: true,
     package: 'egg-watcher-chokidar',
   },
-};
+  mysql: {
+    enable: true,
+    package: 'egg-mysql',
+  }
+}
 
 
 // exports.watcherChokidar = {
