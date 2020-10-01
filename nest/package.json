@@ -31,7 +31,7 @@
     "@nestjs/swagger": "^4.0.9",
     "@nestjs/typeorm": "^6.2.0",
     "@nestjs/websockets": "^6.10.13",
-    "apollo-server-express": "^2.9.15",
+    "apollo-server-express": "^2.14.2",
     "cache-manager": "^2.10.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
