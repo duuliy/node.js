@@ -5,8 +5,16 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  router.get('/', controller.home.index);
+
+  // 在中间件最前面统计请求时间
+  app.config.coreMiddleware.unshift('report');
+
+
+  // 路由第二个位置的参数可以让路由单独使用中间件.
+  // controller 支持多级目录
+  router.get('/ctest', controller.home.index);
   router.get('/test', controller.new.list);
+  require('./router/new')(app);
 
 
   // app.on('server', server => {  会将 HTTP server 通过这个事件暴露出来给开发者

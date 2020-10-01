@@ -8,4 +8,19 @@ module.exports = {
   // static: {
   //   enable: true,
   // }
+
+  validate: {
+    enable: true,
+    package: 'egg-validate',
+  },
+  watcherChokidar: {
+    enable: true,
+    package: 'egg-watcher-chokidar',
+  },
 };
+
+
+// exports.watcherChokidar = {
+//   enable: true,
+//   package: 'egg-watcher-chokidar',
+// };
