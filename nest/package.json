@@ -52,7 +52,7 @@
     "rxjs": "^6.5.3",
     "socket.io-redis": "^5.2.0",
     "swagger-ui-express": "^4.1.2",
-    "typeorm": "^0.2.22"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.1",
